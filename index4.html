@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+	<title>piotrjanus.com &#124; Python, Tableau, SQL and VBA by Piotr Janus</title>
+
+	<meta charset="utf-8" />
+	<meta name="robots" content="index, follow" />
+	<meta name="description" content="Plenty of useful VBA codes that will help you to automate your daily Excel routine &#124; Basic SQL queries to extract data from a database">
+	<meta name="keywords" content="AutomateIt, VBA, Visual Basic for Applications, macro, SQL, Structured Query Language, Tableau, business intelligence, automation, process enhancement, coding">
+	<meta name="author" content="Piotr Janus">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="format-detection" content="telephone=no"/>
+	
+	<link rel="Shortcut icon" href="img/logo/favicon.png" />
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700&subset=latin-ext' rel='stylesheet' type='text/css'>
+	<link href="//fonts.googleapis.com/css?family=Cousine" rel="stylesheet" type="text/css"/>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="java/java.js"></script>
+
+</head>
+
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="grad1">
+  <div class="container-fluid">
+	<div class="navbar-header">
+	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>                   
+	  </button>
+	  <a class="navbar-brand" href="index4.html"><img src="img/logo/logo_pj_white_medium.png" onmouseover="this.src='img/logo/logo_pj_pink_medium.png'" onmouseout="this.src='img/logo/logo_pj_white_medium.png'" alt="www.piotrjanus.tableau.com"/></a>
+	</div>
+	<div class="collapse navbar-collapse" id="myNavbar">
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="index1.html">Python</a></li>
+			<li><a href="index2.html">VBA</a></li>
+			<li><a href="index3.html">SQL</a></li>
+			<li class="active"><a href="#top">About</a></li>
+			<li class="hidden-xs"><a href="mailto:piotrjanus@outlook.com"><img src="img/logo/outlook_white_vsmall.png" onmouseover="this.src='img/logo/outlook_white_vsmall.png'" onmouseout="this.src='img/logo/outlook_white_vsmall.png'" alt="www.linkedin.com/in/januspiotr/"/></a></li>
+			<li class="hidden-xs"><a href="https://www.linkedin.com/in/januspiotr/"><img src="img/logo/linkedin_white_vsmall.png" alt="www.linkedin.com/in/januspiotr/"/></a></li>
+			<li class="hidden-xs"><a href="https://public.tableau.com/profile/piotr.janus2542#!/"><img src="img/logo/tableau_white_vsmall.png" alt="www.piotrjanus.tableau.com"/></a></li>
+		</ul>
+	</div>
+  </div>
+</nav>
+
+
+<div class="main"><div id="header" style="height: 90px"></div>
+	<div class="container">
+		<div class="row">
+
+			<div id="top" class="col-sm-3">
+				<h1><br>About</h1>
+				<img src="img/photo/Photo.png" class="img-responsive" alt="Photo of Piotr Janus">
+			</div>			
+						
+			<div class="col-sm-9">
+				<h4>
+					<br class="hidden-xs"/>
+					<br class="hidden-xs"/>
+					<br class="hidden-xs"/>
+					<p>Welcome!</p>
+					<p>My name is Piotr.</p>
+					<p>I have a master degree in Geography and Economics. Most of my professional career I was involved in reporting in a banking and HR area. Currently I work as a business intelligence (Tableau) developer in a major real estate company.</p>
+					<p>My interests go beyond data visualization. That is why I created the website where I can publish and share my projects coded in Python, VBA or SQL. Most of them were inspired by real-life, professional challenges and some done just for fun.</p>	
+					<p>The Python part of the website displays my recent projects that involve mostly web-scraping excercises, data manipulation in Python and visualization in Tableau. The VBA part is a code collection that I created and used when working as a VBA developer. The SQL part is a course for beginner and intermediate SQL users. It helped me systemize my SQL knowledge.</p>
+					<br>
+					<a href="https://pl.linkedin.com/in/januspiotr"><img src="img/logo/outlook_pink.png" align="right" style="margin-right: 0px; margin-left: 35px; padding-top: px;"></a>
+					<a href="https://pl.linkedin.com/in/januspiotr"><img src="img/logo/linkedin_pink.png" align="right" style="margin-right: 0px; margin-left: 35px; padding-top: px;"></a>
+					<a href="https://pl.linkedin.com/in/januspiotr"><img src="img/logo/tableau_pink.png" align="right" style="margin-right: 0px; margin-left: 35px; padding-top: px;"></a>
+					<br>
+					<br>
+				</h4>
+			</div>
+			
+		</div> <!--row-->
+	</div> <!--container-->
+</div> <!--class main-->
+
+
+<!--scripts-->
+<script>
+/* shrink navbar on scroll */
+$(window).scroll(function() {
+  if ($(document).scrollTop() > 100) {
+    $('nav').addClass('shrink');
+    $('.add').hide();
+  } else {
+    $('nav').removeClass('shrink');
+    $('.add').show();
+  }
+});
+
+
+/* scroll to top */
+$(window).bind("load", function() {
+
+$(document).ready(function(){
+	$('a[href^="#"]').on('click',function (e) {
+	    e.preventDefault();
+
+	    var target = this.hash;
+	    var $target = $(target);
+
+	    $('html, body').stop().animate({
+	        'scrollTop': $target.offset().top - 110 /* distance from top */
+	    }, 650, 'swing');
+	});
+});
+/*https://stackoverflow.com/questions/11365091/jquery-scroll-to-anchor-minus-set-amount-of-pixels*/
+
+/*Fix to problem in IE and Mozilla
+https://stackoverflow.com/questions/18107597/jquery-scrolltop-offset-issue*/
+});
+
+/*if this is turn on dropdown menu links don't work*/
+/*$(window).bind("load", function() {
+
+$(document).ready(function () {
+        $('ul.nav > li').click(function (e) {
+            e.preventDefault();
+            $('ul.nav > li').removeClass('active');
+            $(this).addClass('active');                
+        });            
+    });
+
+});*/
+
+/* ????????????????????? */
+
+$(window).bind("load", function() {
+
+$(document).on('click','.navbar-collapse.in',function(e) {
+    if( $(e.target).is('a') ) {
+        $(this).collapse('hide');
+    }
+});
+
+});
+</script>
+
+</body>
+
+<footer>
+	<div id="grad2" class="container-fluid">
+		<div class="container">
+			<div class="row" style="height: 55px">
+				<div class="col-xs-12" style="color: #FFFFFF";>
+					<h4><p align="right">Copyright &copy; 2020 Piotr Janus</p></h4>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+</html>

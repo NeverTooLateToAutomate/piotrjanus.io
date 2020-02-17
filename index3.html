@@ -1,0 +1,5492 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+	<title>piotrjanus.com &#124; Python, Tableau, SQL and VBA by Piotr Janus</title>
+
+	<meta charset="utf-8" />
+	<meta name="robots" content="index, follow" />
+	<meta name="description" content="Plenty of useful VBA codes that will help you to automate your daily Excel routine &#124; Basic SQL queries to extract data from a database">
+	<meta name="keywords" content="AutomateIt, VBA, Visual Basic for Applications, macro, SQL, Structured Query Language, Tableau, business intelligence, automation, process enhancement, coding">
+	<meta name="author" content="Piotr Janus">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="format-detection" content="telephone=no"/>
+	
+	<link rel="Shortcut icon" href="img/logo/favicon.png" />
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700&subset=latin-ext' rel='stylesheet' type='text/css'>
+	<link href="//fonts.googleapis.com/css?family=Cousine" rel="stylesheet" type="text/css"/>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="java/java.js"></script>
+
+</head>
+
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="grad1">
+  <div class="container-fluid">
+	<div class="navbar-header">
+	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>                   
+	  </button>
+	  <a class="navbar-brand" href="index3.html"><img src="img/logo/logo_pj_white_medium.png" onmouseover="this.src='img/logo/logo_pj_pink_medium.png'" onmouseout="this.src='img/logo/logo_pj_white_medium.png'" alt="www.piotrjanus.tableau.com"/></a>
+	</div>
+	<div class="collapse navbar-collapse" id="myNavbar">
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="index1.html">Python</a></li>
+			<li><a href="index2.html">VBA</a></li>
+			<li class="active"><a href="#top">SQL</a></li>
+			<li><a href="index4.html">About</a></li>
+			<li class="hidden-xs"><a href="mailto:piotrjanus@outlook.com"><img src="img/logo/outlook_white_vsmall.png" onmouseover="this.src='img/logo/outlook_white_vsmall.png'" onmouseout="this.src='img/logo/outlook_white_vsmall.png'" alt="www.linkedin.com/in/januspiotr/"/></a></li>
+			<li class="hidden-xs"><a href="https://www.linkedin.com/in/januspiotr/"><img src="img/logo/linkedin_white_vsmall.png" alt="www.linkedin.com/in/januspiotr/"/></a></li>
+			<li class="hidden-xs"><a href="https://public.tableau.com/profile/piotr.janus2542#!/"><img src="img/logo/tableau_white_vsmall.png" alt="www.piotrjanus.tableau.com"/></a></li>
+		</ul>
+	</div>
+  </div>
+</nav>
+
+
+<div class="main"><div id="header" style="height: 70px"></div>
+	<div class="container">
+		<div class="row">
+			
+			<!--Intro-->
+			<div class="col-xs-12 col-md-9">
+				<div id="top" class="">
+					<div id="setup" class="">	
+						<h1><br>Start - how to set up SQL database?</h1>
+						<h2><p>Before you start learning SQL queries on your computer you need to download and install database management tools and connect to a database. You will need:</p>
+						<p>Download <a href="Northwind.bak" download style="color:#0e5051"><b>Northwind Database</b></a> - a sample database provided by Microsoft in early 2000.</p>
+						<img src="img/sql/Northwind.png" class="img-responsive" alt="">
+						<h2><p>Next, download and install data management system - <b>Microsoft® SQL Server® Express</b>.</p>
+						<p><a href="#https://www.microsoft.com/en-us/download/details.aspx?id=55994">https://www.microsoft.com/en-us/download/details.aspx?id=55994</a></p></h2>
+						<img src="img/sql/express.png" class="img-responsive" alt="">
+						<h2><p>Download and install a tool for managing your SQL infrastructure - <b>SQL Server Management Studio (SSMS)</b>.</p>
+						<p><a href="#https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms">https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms</a></p></h2>
+						<img src="img/sql/ssms.png" class="img-responsive" alt="">
+						<h2>In the web you will find multiple tutorials if you face any difficulties during the installation process so I won't go deeper into that. Once the tools are installed start SSMS and type server name to connect. In my case it is: <b>localhost\SQLEXPRESS</b>.</h2>
+						<img src="img/sql/sqlserver.png" class="img-responsive" alt="">
+						<h2>To connect to Northwind database press right mouse button on Databases and choose <b>Restore Database</b>.</h2>
+						<img src="img/sql/sqlserver2.png" class="img-responsive" alt="">
+						<h2>Next, Choose <b>Device</b> as a Source. Press Add and find your database. Next, click Ok. Once done Northwind database should be visible under Databases folder. Click <b>New Query</b> to start typing your queries.</h2>
+						<img src="img/sql/sqlserver3.png" class="img-responsive" alt="">
+						<h2>Due to the limited space just 10 first rows of a table will be shown! Total number of rows will be mentioned under a table.</h2>
+					</div>
+				</div>	
+				<br>
+				
+				<div id="SELECT" class="macrooutersql">
+					<h1>SELECT</h1>
+					<h2>Selects everything (all rows and columns) from Employees table.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT *</h4>
+						<h4>FROM Employees</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">EmployeeID</th>
+							<th class="tg-yw4l">LastName</th>
+							<th class="tg-yw4l">FirstName</th>
+							<th class="tg-yw4l">Title</th>
+							<th class="tg-yw4l">TitleOfCourtesy</th>
+							<th class="tg-yw4l">BirthDate</th>
+							<th class="tg-yw4l">HireDate</th>
+							<th class="tg-yw4l">Address</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Davolio</td>
+							<td class="tg-yw4l">Nancy</td>
+							<td class="tg-yw4l">Sales Representative</td>
+							<td class="tg-yw4l">Ms.</td>
+							<td class="tg-yw4l">1948-12-08 00:00:00.000</td>
+							<td class="tg-yw4l">1992-05-01 00:00:00.000</td>
+							<td class="tg-yw4l">507 - 20th Ave. E.  Apt. 2A</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Fuller</td>
+							<td class="tg-yw4l">Andrew</td>
+							<td class="tg-yw4l">Vice President, Sales</td>
+							<td class="tg-yw4l">Dr.</td>
+							<td class="tg-yw4l">1952-02-19 00:00:00.000</td>
+							<td class="tg-yw4l">1992-08-14 00:00:00.000</td>
+							<td class="tg-yw4l">908 W. Capital Way</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">3</td>
+							<td class="tg-yw4l">Leverling</td>
+							<td class="tg-yw4l">Janet</td>
+							<td class="tg-yw4l">Sales Representative</td>
+							<td class="tg-yw4l">Ms.</td>
+							<td class="tg-yw4l">1963-08-30 00:00:00.000</td>
+							<td class="tg-yw4l">1992-04-01 00:00:00.000</td>
+							<td class="tg-yw4l">722 Moss Bay Blvd.</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">4</td>
+							<td class="tg-yw4l">Peacock</td>
+							<td class="tg-yw4l">Margaret</td>
+							<td class="tg-yw4l">Sales Representative</td>
+							<td class="tg-yw4l">Mrs.</td>
+							<td class="tg-yw4l">1937-09-19 00:00:00.000</td>
+							<td class="tg-yw4l">1993-05-03 00:00:00.000</td>
+							<td class="tg-yw4l">4110 Old Redmond Rd.</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">5</td>
+							<td class="tg-yw4l">Buchanan</td>
+							<td class="tg-yw4l">Steven</td>
+							<td class="tg-yw4l">Sales Manager</td>
+							<td class="tg-yw4l">Mr.</td>
+							<td class="tg-yw4l">1955-03-04 00:00:00.000</td>
+							<td class="tg-yw4l">1993-10-17 00:00:00.000</td>
+							<td class="tg-yw4l">14 Garrett Hill</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">6</td>
+							<td class="tg-yw4l">Suyama</td>
+							<td class="tg-yw4l">Michael</td>
+							<td class="tg-yw4l">Sales Representative</td>
+							<td class="tg-yw4l">Mr.</td>
+							<td class="tg-yw4l">1963-07-02 00:00:00.000</td>
+							<td class="tg-yw4l">1993-10-17 00:00:00.000</td>
+							<td class="tg-yw4l">Coventry House  Miner Rd.</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">7</td>
+							<td class="tg-yw4l">King</td>
+							<td class="tg-yw4l">Robert</td>
+							<td class="tg-yw4l">Sales Representative</td>
+							<td class="tg-yw4l">Mr.</td>
+							<td class="tg-yw4l">1960-05-29 00:00:00.000</td>
+							<td class="tg-yw4l">1994-01-02 00:00:00.000</td>
+							<td class="tg-yw4l">Edgeham Hollow  Winchester Way</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">8</td>
+							<td class="tg-yw4l">Callahan</td>
+							<td class="tg-yw4l">Laura</td>
+							<td class="tg-yw4l">Inside Sales Coordinator</td>
+							<td class="tg-yw4l">Ms.</td>
+							<td class="tg-yw4l">1958-01-09 00:00:00.000</td>
+							<td class="tg-yw4l">1994-03-05 00:00:00.000</td>
+							<td class="tg-yw4l">4726 - 11th Ave. N.E.</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">9</td>
+							<td class="tg-yw4l">Dodsworth</td>
+							<td class="tg-yw4l">Anne</td>
+							<td class="tg-yw4l">Sales Representative</td>
+							<td class="tg-yw4l">Ms.</td>
+							<td class="tg-yw4l">1966-01-27 00:00:00.000</td>
+							<td class="tg-yw4l">1994-11-15 00:00:00.000</td>
+							<td class="tg-yw4l">7 Houndstooth Rd.</td>
+						  </tr>
+						</table>
+						<h6>More columns below</h6>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">City</th>
+							<th class="tg-yw4l">Region</th>
+							<th class="tg-yw4l">PostalCode</th>
+							<th class="tg-yw4l">Country</th>
+							<th class="tg-yw4l">HomePhone</th>
+							<th class="tg-yw4l">Extension</th>
+							<th class="tg-yw4l">Photo</th>
+							<th class="tg-yw4l">Notes</th>
+							<th class="tg-yw4l">ReportsTo</th>
+							<th class="tg-yw4l">PhotoPath</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Seattle</td>
+							<td class="tg-yw4l">WA</td>
+							<td class="tg-yw4l">98122</td>
+							<td class="tg-yw4l">USA</td>
+							<td class="tg-yw4l">(206) 555-9857</td>
+							<td class="tg-yw4l">5467</td>
+							<td class="tg-yw4l">0x151…</td>
+							<td class="tg-yw4l">Education …</td>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">http://accweb/employ …</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Tacoma</td>
+							<td class="tg-yw4l">WA</td>
+							<td class="tg-yw4l">98401</td>
+							<td class="tg-yw4l">USA</td>
+							<td class="tg-yw4l">(206) 555-9482</td>
+							<td class="tg-yw4l">3457</td>
+							<td class="tg-yw4l">0x151…</td>
+							<td class="tg-yw4l">Andrew …</td>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">http://accweb/employ …</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Kirkland</td>
+							<td class="tg-yw4l">WA</td>
+							<td class="tg-yw4l">98033</td>
+							<td class="tg-yw4l">USA</td>
+							<td class="tg-yw4l">(206) 555-3412</td>
+							<td class="tg-yw4l">3355</td>
+							<td class="tg-yw4l">0x151…</td>
+							<td class="tg-yw4l">Janet has …</td>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">http://accweb/employ …</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Redmond</td>
+							<td class="tg-yw4l">WA</td>
+							<td class="tg-yw4l">98052</td>
+							<td class="tg-yw4l">USA</td>
+							<td class="tg-yw4l">(206) 555-8122</td>
+							<td class="tg-yw4l">5176</td>
+							<td class="tg-yw4l">0x151…</td>
+							<td class="tg-yw4l">Margaret …</td>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">http://accweb/employ …</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">London</td>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">SW1 8JR</td>
+							<td class="tg-yw4l">UK</td>
+							<td class="tg-yw4l">(71) 555-4848</td>
+							<td class="tg-yw4l">3453</td>
+							<td class="tg-yw4l">0x151…</td>
+							<td class="tg-yw4l">Steven …</td>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">http://accweb/employ …</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">London</td>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">EC2 7JR</td>
+							<td class="tg-yw4l">UK</td>
+							<td class="tg-yw4l">(71) 555-7773</td>
+							<td class="tg-yw4l">428</td>
+							<td class="tg-yw4l">0x151…</td>
+							<td class="tg-yw4l">Michael …</td>
+							<td class="tg-yw4l">5</td>
+							<td class="tg-yw4l">http://accweb/employ …</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">London</td>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">RG1 9SP</td>
+							<td class="tg-yw4l">UK</td>
+							<td class="tg-yw4l">(71) 555-5598</td>
+							<td class="tg-yw4l">465</td>
+							<td class="tg-yw4l">0x151…</td>
+							<td class="tg-yw4l">Robert …</td>
+							<td class="tg-yw4l">5</td>
+							<td class="tg-yw4l">http://accweb/employ …</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Seattle</td>
+							<td class="tg-yw4l">WA</td>
+							<td class="tg-yw4l">98105</td>
+							<td class="tg-yw4l">USA</td>
+							<td class="tg-yw4l">(206) 555-1189</td>
+							<td class="tg-yw4l">2344</td>
+							<td class="tg-yw4l">0x151…</td>
+							<td class="tg-yw4l">Laura …</td>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">http://accweb/employ …</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">London</td>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">WG2 7LT</td>
+							<td class="tg-yw4l">UK</td>
+							<td class="tg-yw4l">(71) 555-4444</td>
+							<td class="tg-yw4l">452</td>
+							<td class="tg-yw4l">0x151…</td>
+							<td class="tg-yw4l">Anne has …</td>
+							<td class="tg-yw4l">5</td>
+							<td class="tg-yw4l">http://accweb/employ …</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Limits selection to particular columns from a table.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT EmployeeID, LastName, FirstName</h4>
+						<h4>FROM Employees</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">EmployeeID</th>
+							<th class="tg-yw4l">LastName</th>
+							<th class="tg-yw4l">FirstName</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Davolio</td>
+							<td class="tg-yw4l">Nancy</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Fuller</td>
+							<td class="tg-yw4l">Andrew</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">3</td>
+							<td class="tg-yw4l">Leverling</td>
+							<td class="tg-yw4l">Janet</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">4</td>
+							<td class="tg-yw4l">Peacock</td>
+							<td class="tg-yw4l">Margaret</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">5</td>
+							<td class="tg-yw4l">Buchanan</td>
+							<td class="tg-yw4l">Steven</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">6</td>
+							<td class="tg-yw4l">Suyama</td>
+							<td class="tg-yw4l">Michael</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">7</td>
+							<td class="tg-yw4l">King</td>
+							<td class="tg-yw4l">Robert</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">8</td>
+							<td class="tg-yw4l">Callahan</td>
+							<td class="tg-yw4l">Laura</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">9</td>
+							<td class="tg-yw4l">Dodsworth</td>
+							<td class="tg-yw4l">Anne</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>No such column like '1'. The number appears as a result of the query. There are nine rows which corresponds to number of rows in Employees table.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT 1</h4>
+						<h4>FROM Employees</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Column or table names containing spaces should be in brackets.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT UnitPrice</h4>
+						<h4>FROM [Order Details]</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">UnitPrice</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">14.00</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">9.80</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">34.80</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">18.60</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">42.40</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">7.70</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">42.40</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">16.80</td>
+						  </tr>
+							<tr>
+							<td class="tg-yw4l">16.80</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">15.60</td>
+						  </tr>
+						</table>
+						<h6>2155 rows in total</h6>
+					</div>
+				</div>
+				<br>
+				
+				<div id="Aliases" class="macrooutersql">
+					<h1>Aliases</h1>
+					<h2>Gives alias to a column.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT LastName, FirstName, FirstName + ' ' + LastName As FullName</h4>
+						<h4>FROM Employees</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">LastName</th>
+							<th class="tg-yw4l">FirstName</th>
+							<th class="tg-yw4l">FullName</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Davolio</td>
+							<td class="tg-yw4l">Nancy</td>
+							<td class="tg-yw4l">Nancy Davolio</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Fuller</td>
+							<td class="tg-yw4l">Andrew</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Leverling</td>
+							<td class="tg-yw4l">Janet</td>
+							<td class="tg-yw4l">Janet Leverling</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Peacock</td>
+							<td class="tg-yw4l">Margaret</td>
+							<td class="tg-yw4l">Margaret Peacock</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Buchanan</td>
+							<td class="tg-yw4l">Steven</td>
+							<td class="tg-yw4l">Steven Buchanan</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Suyama</td>
+							<td class="tg-yw4l">Michael</td>
+							<td class="tg-yw4l">Michael Suyama</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">King</td>
+							<td class="tg-yw4l">Robert</td>
+							<td class="tg-yw4l">Robert King</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Callahan</td>
+							<td class="tg-yw4l">Laura</td>
+							<td class="tg-yw4l">Laura Callahan</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Dodsworth</td>
+							<td class="tg-yw4l">Anne</td>
+							<td class="tg-yw4l">Anne Dodsworth</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Gives alias to a table.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT UnitPrice</h4>
+						<h4>FROM [Order Details] As OrderDetails</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">UnitPrice</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">14.00</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">9.80</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">34.80</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">18.60</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">42.40</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">7.70</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">42.40</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">16.80</td>
+						  </tr>
+							<tr>
+							<td class="tg-yw4l">16.80</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">15.60</td>
+						  </tr>
+						</table>
+						<h6>2155 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="LEFT_RIGHT_SUBSTRING" class="macrooutersql">
+					<h1>LEFT</h1>
+					<h2>Returns 25 characters counting from the left.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT LEFT(PhotoPath, 25)</h4>
+						<h4>FROM Employees</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">http//accweb/emmployees/</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">http//accweb/emmployees/</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">http//accweb/emmployees/</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">http//accweb/emmployees/</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">http//accweb/emmployees/</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">http//accweb/emmployees/</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">http//accweb/emmployees/</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">http//accweb/emmployees/</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">http//accweb/emmployees/</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Adding DISTINCT to above example will reduce number of results to distinct (different) records.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT DISTINCT(LEFT(PhotoPath, 25))</h4>
+						<h4>FROM Employees</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">http//accweb/emmployees/</td>
+						  </tr>
+						</table>
+						<h6>1 row in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="" class="macrooutersql">
+					<h1>RIGHT</h1>
+					<h2>Returns 25 characters counting from the right.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT RIGHT(HomePhone, 8)</h4>
+						<h4>FROM Employees</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-9857</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-9482</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-3412</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-8122</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-4848</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-7773</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-5598</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-1189</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-4444</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="" class="macrooutersql">
+					<h1>SUBSTRING</h1>
+					<h2>Extracts a substring from a string (start at position 6, extract 9 characters).</h2>
+					<div class="macroinnersql">
+						<h4>SELECT SUBSTRING(HomePhone, 6, 9)</h4>
+						<h4>FROM Employees</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">&nbsp;555-9857</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">&nbsp;555-9482</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">&nbsp;555-3412</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">&nbsp;555-8122</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-4848</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-7773</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-5598</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">&nbsp;555-1189</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-4444</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="LTRIM" class="macrooutersql">
+					<h2>LTRIM removes unwanted space(s) from the left, which appeared in the above example.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT LTRIM(SUBSTRING(HomePhone, 6, 9))</h4>
+						<h4>FROM Employees</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-9857</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-9482</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-3412</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-8122</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-4848</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-7773</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-5598</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-1189</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">555-4444</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="" class="macrooutersql">
+					<h1>LTRIM</h1>
+					<h2>Removes space(s) from the left.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT LTRIM('  SQL')</h4>
+						<h4>FROM Employees</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">SQL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">SQL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">SQL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">SQL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">SQL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">SQL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">SQL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">SQL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">SQL</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="RTRIM" class="macrooutersql">
+					<h1>RTRIM</h1>
+					<h2>Removes space(s) from the right.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT RTRIM('SQL  ')</h4>
+						<h4>FROM Employees</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">SQL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">SQL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">SQL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">SQL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">SQL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">SQL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">SQL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">SQL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">SQL</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="CONCAT" class="macrooutersql">
+					<h1>CONCAT</h1>
+					<h2>Joins character strings.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT LastName, FirstName, CONCAT(FirstName,' ',LastName)</h4>
+						<h4>FROM Employees</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">LastName</th>
+							<th class="tg-yw4l">FirstName</th>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Davolio</td>
+							<td class="tg-yw4l">Nancy</td>
+							<td class="tg-yw4l">Nancy Davolio</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Fuller</td>
+							<td class="tg-yw4l">Andrew</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Leverling</td>
+							<td class="tg-yw4l">Janet</td>
+							<td class="tg-yw4l">Janet Leverling</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Peacock</td>
+							<td class="tg-yw4l">Margaret</td>
+							<td class="tg-yw4l">Margaret Peacock</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Buchanan</td>
+							<td class="tg-yw4l">Steven</td>
+							<td class="tg-yw4l">Steven Buchanan</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Suyama</td>
+							<td class="tg-yw4l">Michael</td>
+							<td class="tg-yw4l">Michael Suyama</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">King</td>
+							<td class="tg-yw4l">Robert</td>
+							<td class="tg-yw4l">Robert King</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Callahan</td>
+							<td class="tg-yw4l">Laura</td>
+							<td class="tg-yw4l">Laura Callahan</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Dodsworth</td>
+							<td class="tg-yw4l">Anne</td>
+							<td class="tg-yw4l">Anne Dodsworth</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Another way of joining character strings.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT LastName, FirstName, FirstName + ' ' + LastName</h4>
+						<h4>FROM Employees</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">LastName</th>
+							<th class="tg-yw4l">FirstName</th>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Davolio</td>
+							<td class="tg-yw4l">Nancy</td>
+							<td class="tg-yw4l">Nancy Davolio</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Fuller</td>
+							<td class="tg-yw4l">Andrew</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Leverling</td>
+							<td class="tg-yw4l">Janet</td>
+							<td class="tg-yw4l">Janet Leverling</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Peacock</td>
+							<td class="tg-yw4l">Margaret</td>
+							<td class="tg-yw4l">Margaret Peacock</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Buchanan</td>
+							<td class="tg-yw4l">Steven</td>
+							<td class="tg-yw4l">Steven Buchanan</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Suyama</td>
+							<td class="tg-yw4l">Michael</td>
+							<td class="tg-yw4l">Michael Suyama</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">King</td>
+							<td class="tg-yw4l">Robert</td>
+							<td class="tg-yw4l">Robert King</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Callahan</td>
+							<td class="tg-yw4l">Laura</td>
+							<td class="tg-yw4l">Laura Callahan</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Dodsworth</td>
+							<td class="tg-yw4l">Anne</td>
+							<td class="tg-yw4l">Anne Dodsworth</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="PLUS_MINUS" class="macrooutersql">
+					<h1>Operators +, -, *, /</h1>
+					<h2>Calculations using arithemetic operators.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT ProductID, UnitPrice, Quantity, Discount, (UnitPrice * (1 - Discount)) * Quantity AS 'Total Sale'</h4>
+						<h4>FROM [Order Details]</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">ProductID</th>
+							<th class="tg-yw4l">UnitPrice</th>
+							<th class="tg-yw4l">Quantity</th>
+							<th class="tg-yw4l">Discount</th>
+							<th class="tg-yw4l">Total Sale</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">11</td>
+							<td class="tg-yw4l">14.00</td>
+							<td class="tg-yw4l">12</td>
+							<td class="tg-yw4l">0</td>
+							<td class="tg-yw4l">168</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">42</td>
+							<td class="tg-yw4l">9.80</td>
+							<td class="tg-yw4l">10</td>
+							<td class="tg-yw4l">0</td>
+							<td class="tg-yw4l">98</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">72</td>
+							<td class="tg-yw4l">34.80</td>
+							<td class="tg-yw4l">5</td>
+							<td class="tg-yw4l">0</td>
+							<td class="tg-yw4l">174</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">14</td>
+							<td class="tg-yw4l">18.60</td>
+							<td class="tg-yw4l">9</td>
+							<td class="tg-yw4l">0</td>
+							<td class="tg-yw4l">167.4</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">51</td>
+							<td class="tg-yw4l">42.40</td>
+							<td class="tg-yw4l">40</td>
+							<td class="tg-yw4l">0</td>
+							<td class="tg-yw4l">1696</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">41</td>
+							<td class="tg-yw4l">7.70</td>
+							<td class="tg-yw4l">10</td>
+							<td class="tg-yw4l">0</td>
+							<td class="tg-yw4l">77</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">51</td>
+							<td class="tg-yw4l">42.40</td>
+							<td class="tg-yw4l">35</td>
+							<td class="tg-yw4l">0.15</td>
+							<td class="tg-yw4l">1261.4</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">65</td>
+							<td class="tg-yw4l">16.80</td>
+							<td class="tg-yw4l">15</td>
+							<td class="tg-yw4l">0.15</td>
+							<td class="tg-yw4l">214.2</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">22</td>
+							<td class="tg-yw4l">16.80</td>
+							<td class="tg-yw4l">6</td>
+							<td class="tg-yw4l">0.05</td>
+							<td class="tg-yw4l">95.75999</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">57</td>
+							<td class="tg-yw4l">15.60</td>
+							<td class="tg-yw4l">15</td>
+							<td class="tg-yw4l">0.05</td>
+							<td class="tg-yw4l">222.3</td>
+						  </tr>
+						</table>
+						<h6>2155 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="UPPER" class="macrooutersql">
+					<h1>UPPER</h1>
+					<h2>Returns a character expression with lowercase character data converted to uppercase.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT UPPER(LastName)</h4>
+						<h4>FROM Employees</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">BUCHANAN</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">CALLAHAN</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">DAVOLIO</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">DODSWORTH</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">FULLER</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">KING</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">LEVERLING</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">PEACOCK</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">SUYAMA</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="LOWER" class="macrooutersql">
+					<h1>LOWER</h1>
+					<h2>Returns a character expression with uppercase character data converted to lowercase.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT LOWER(LastName)</h4>
+						<h4>FROM Employees</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">buchanan</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">callahan</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">davolio</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">dodsworth</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">fuller</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">king</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">leverling</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">peacock</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">suyama</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="GETDATE" class="macrooutersql">
+					<h1>GETDATE</h1>
+					<h2>Returns current date and time.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT GETDATE()</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2018-01-17 21:51:48.227</td>
+						  </tr>
+						</table>
+						<h6>1 row in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="CURRENT_TIMESTAMP" class="macrooutersql">
+					<h1>CURRENT_TIMESTAMP</h1>
+					<h2>Returns current date and time.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT CURRENT_TIMESTAMP</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2018-01-17 21:51:48.227</td>
+						  </tr>
+						</table>
+						<h6>1 row in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="DATEPART" class="macrooutersql">
+					<h1>DATEPART</h1>
+					<h2>Returns year, month, week, day, etc. from the date. In the example refers to a month.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT DATEPART(Month, OrderDate)</h4>
+						<h4>FROM Orders</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">7</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">7</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">7</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">7</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">7</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">7</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">7</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">7</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">7</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">7</td>
+						  </tr>
+						</table>
+						<h6>830 rows in total</h6>
+					</div>
+				</div>
+
+
+				<div id="" class="macrooutersql">
+					<h2>Returns year from a date.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT FirstName, LastName, DATEPART(year, BirthDate) As [Year of birth]</h4>
+						<h4>FROM Employees</h4>
+						<h4>ORDER BY [Year of birth] ASC</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">FirstName</th>
+							<th class="tg-yw4l">LastName</th>
+							<th class="tg-yw4l">Year of birth</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Margaret</td>
+							<td class="tg-yw4l">Peacock</td>
+							<td class="tg-yw4l">1937</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Nancy</td>
+							<td class="tg-yw4l">Davolio</td>
+							<td class="tg-yw4l">1948</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Andrew</td>
+							<td class="tg-yw4l">Fuller</td>
+							<td class="tg-yw4l">1952</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Steven</td>
+							<td class="tg-yw4l">Buchanan</td>
+							<td class="tg-yw4l">1955</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Laura</td>
+							<td class="tg-yw4l">Callahan</td>
+							<td class="tg-yw4l">1958</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Robert</td>
+							<td class="tg-yw4l">King</td>
+							<td class="tg-yw4l">1960</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Michael</td>
+							<td class="tg-yw4l">Suyama</td>
+							<td class="tg-yw4l">1963</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Janet</td>
+							<td class="tg-yw4l">Leverling</td>
+							<td class="tg-yw4l">1963</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Anne</td>
+							<td class="tg-yw4l">Dodsworth</td>
+							<td class="tg-yw4l">1966</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="UnwrapText" class="macrooutersql">
+					<h2>In the example query returns age of an employee using GETDATE and DATEPART.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT FirstName, LastName, DATEPART(year, GETDATE()) - DATEPART(year, BirthDate) As Age</h4>
+						<h4>FROM Employees</h4>
+						<h4>ORDER BY Age DESC</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">FirstName</th>
+							<th class="tg-yw4l">LastName</th>
+							<th class="tg-yw4l">Age</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Margaret</td>
+							<td class="tg-yw4l">Peacock</td>
+							<td class="tg-yw4l">81</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Nancy</td>
+							<td class="tg-yw4l">Davolio</td>
+							<td class="tg-yw4l">70</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Andrew</td>
+							<td class="tg-yw4l">Fuller</td>
+							<td class="tg-yw4l">66</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Steven</td>
+							<td class="tg-yw4l">Buchanan</td>
+							<td class="tg-yw4l">63</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Laura</td>
+							<td class="tg-yw4l">Callahan</td>
+							<td class="tg-yw4l">60</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Robert</td>
+							<td class="tg-yw4l">King</td>
+							<td class="tg-yw4l">58</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Michael</td>
+							<td class="tg-yw4l">Suyama</td>
+							<td class="tg-yw4l">55</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Janet</td>
+							<td class="tg-yw4l">Leverling</td>
+							<td class="tg-yw4l">55</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Anne</td>
+							<td class="tg-yw4l">Dodsworth</td>
+							<td class="tg-yw4l">52</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="DATEDIFF" class="macrooutersql">
+					<h1>DATEDIFF</h1>
+					<h2>Find the difference in years, months, weeks, days, etc. between two dates.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT DATEDIFF(YEAR, HireDate, GETDATE())</h4>
+						<h4>FROM Employees</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">26</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">26</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">26</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">25</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">25</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">25</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">24</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">24</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">24</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+
+
+				<div id="" class="macrooutersql">
+					<h2>In the example query returns tenure of an employee using GETDATE and DATEDIFF for employee with tenure over 24 years.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT FirstName, LastName, DATEDIFF(YEAR, HireDate, GETDATE()) As Tenure</h4>
+						<h4>FROM Employees</h4>
+						<h4>WHERE DATEDIFF(YEAR, HireDate, GETDATE()) > 24</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">FirstName</th>
+							<th class="tg-yw4l">LastName</th>
+							<th class="tg-yw4l">Tenure</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Nancy</td>
+							<td class="tg-yw4l">Davolio</td>
+							<td class="tg-yw4l">26</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Andrew</td>
+							<td class="tg-yw4l">Fuller</td>
+							<td class="tg-yw4l">26</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Janet</td>
+							<td class="tg-yw4l">Leverling</td>
+							<td class="tg-yw4l">26</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Margaret</td>
+							<td class="tg-yw4l">Peacock</td>
+							<td class="tg-yw4l">25</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Steven</td>
+							<td class="tg-yw4l">Buchanan</td>
+							<td class="tg-yw4l">25</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Michael</td>
+							<td class="tg-yw4l">Suyama</td>
+							<td class="tg-yw4l">25</td>
+						  </tr>
+						</table>
+						<h6>6 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="CASE_WHEN_THEN_ELSE_END" class="macrooutersql">
+					<h1>CASE, WHEN, THEN, ELSE, END</h1>
+					<h2>Evaluates a list of conditions. Next, returns one of possible result expressions.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT OrderID, Quantity,</h4>
+						<h4>CASE</h4>
+						<h4>WHEN Quantity < 5 THEN 'Small quantity'</h4>
+						<h4>WHEN Quantity BETWEEN 5 AND 20 THEN 'Medium quantity'</h4>
+						<h4>ELSE 'Big quantity'</h4>
+						<h4>END AS 'Quantity range'</h4>
+						<h4>FROM [Order Details]</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">OrderID</th>
+							<th class="tg-yw4l">Quantity</th>
+							<th class="tg-yw4l">Quantity range</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10248</td>
+							<td class="tg-yw4l">12</td>
+							<td class="tg-yw4l">Medium quantity</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10248</td>
+							<td class="tg-yw4l">10</td>
+							<td class="tg-yw4l">Medium quantity</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10248</td>
+							<td class="tg-yw4l">5</td>
+							<td class="tg-yw4l">Medium quantity</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10249</td>
+							<td class="tg-yw4l">9</td>
+							<td class="tg-yw4l">Medium quantity</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10249</td>
+							<td class="tg-yw4l">40</td>
+							<td class="tg-yw4l">Big quantity</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10250</td>
+							<td class="tg-yw4l">10</td>
+							<td class="tg-yw4l">Medium quantity</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10250</td>
+							<td class="tg-yw4l">35</td>
+							<td class="tg-yw4l">Big quantity</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10250</td>
+							<td class="tg-yw4l">15</td>
+							<td class="tg-yw4l">Medium quantity</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10251</td>
+							<td class="tg-yw4l">6</td>
+							<td class="tg-yw4l">Medium quantity</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10251</td>
+							<td class="tg-yw4l">15</td>
+							<td class="tg-yw4l">Medium quantity</td>
+						  </tr>
+						</table>
+						<h6>2155 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="ORDER_BY" class="macrooutersql">
+					<h1>ORDER BY</h1>
+					<h2>Sorts data in either ascending or descending order. In the example sorted in ascending order by last name.
+					<p>! No need to type ASC. By default, data is be sorted in ascending order.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT LastName, FirstName</h4>
+						<h4>FROM Employees</h4>
+						<h4>ORDER BY LastName ASC;</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">LastName</th>
+							<th class="tg-yw4l">FirstName</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Buchanan</td>
+							<td class="tg-yw4l">Steven</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Callahan</td>
+							<td class="tg-yw4l">Laura</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Davolio</td>
+							<td class="tg-yw4l">Nancy</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Dodsworth</td>
+							<td class="tg-yw4l">Anne</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Fuller</td>
+							<td class="tg-yw4l">Andrew</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">King</td>
+							<td class="tg-yw4l">Robert</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Leverling</td>
+							<td class="tg-yw4l">Janet</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Peacock</td>
+							<td class="tg-yw4l">Margaret</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Suyama</td>
+							<td class="tg-yw4l">Michael</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+
+
+				<div id="" class="macrooutersql">
+					<h2>In the example data is sorted in descending order by employee's birth of date.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT LastName, FirstName, BirthDate</h4>
+						<h4>FROM Employees</h4>
+						<h4>ORDER BY BirthDate DESC;</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">LastName</th>
+							<th class="tg-yw4l">FirstName</th>
+							<th class="tg-yw4l">BirthDate</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Dodsworth</td>
+							<td class="tg-yw4l">Anne</td>
+							<td class="tg-yw4l">1966-01-27 00:00:00.000</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Leverling</td>
+							<td class="tg-yw4l">Janet</td>
+							<td class="tg-yw4l">1963-08-30 00:00:00.000</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Suyama</td>
+							<td class="tg-yw4l">Michael</td>
+							<td class="tg-yw4l">1963-07-02 00:00:00.000</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">King</td>
+							<td class="tg-yw4l">Robert</td>
+							<td class="tg-yw4l">1960-05-29 00:00:00.000</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Callahan</td>
+							<td class="tg-yw4l">Laura</td>
+							<td class="tg-yw4l">1958-01-09 00:00:00.000</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Buchanan</td>
+							<td class="tg-yw4l">Steven</td>
+							<td class="tg-yw4l">1955-03-04 00:00:00.000</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Fuller</td>
+							<td class="tg-yw4l">Andrew</td>
+							<td class="tg-yw4l">1952-02-19 00:00:00.000</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Davolio</td>
+							<td class="tg-yw4l">Nancy</td>
+							<td class="tg-yw4l">1948-12-08 00:00:00.000</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Peacock</td>
+							<td class="tg-yw4l">Margaret</td>
+							<td class="tg-yw4l">1937-09-19 00:00:00.000</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Data sorted by several columns.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT LastName, FirstName, City</h4>
+						<h4>FROM Employees</h4>
+						<h4>ORDER BY City, LastName;</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">LastName</th>
+							<th class="tg-yw4l">FirstName</th>
+							<th class="tg-yw4l">City</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Leverling</td>
+							<td class="tg-yw4l">Janet</td>
+							<td class="tg-yw4l">Kirkland</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Buchanan</td>
+							<td class="tg-yw4l">Steven</td>
+							<td class="tg-yw4l">London</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Dodsworth</td>
+							<td class="tg-yw4l">Anne</td>
+							<td class="tg-yw4l">London</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">King</td>
+							<td class="tg-yw4l">Robert</td>
+							<td class="tg-yw4l">London</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Suyama</td>
+							<td class="tg-yw4l">Michael</td>
+							<td class="tg-yw4l">London</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Peacock</td>
+							<td class="tg-yw4l">Margaret</td>
+							<td class="tg-yw4l">Redmond</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Callahan</td>
+							<td class="tg-yw4l">Laura</td>
+							<td class="tg-yw4l">Seattle</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Davolio</td>
+							<td class="tg-yw4l">Nancy</td>
+							<td class="tg-yw4l">Seattle</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Fuller</td>
+							<td class="tg-yw4l">Andrew</td>
+							<td class="tg-yw4l">Tacoma</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Again, data sorted by several columns.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT LastName, FirstName, City</h4>
+						<h4>FROM Employees</h4>
+						<h4>ORDER BY City ASC, LastName DESC;</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">LastName</th>
+							<th class="tg-yw4l">FirstName</th>
+							<th class="tg-yw4l">City</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Leverling</td>
+							<td class="tg-yw4l">Janet</td>
+							<td class="tg-yw4l">Kirkland</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Suyama</td>
+							<td class="tg-yw4l">Michael</td>
+							<td class="tg-yw4l">London</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">King</td>
+							<td class="tg-yw4l">Robert</td>
+							<td class="tg-yw4l">London</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Dodsworth</td>
+							<td class="tg-yw4l">Anne</td>
+							<td class="tg-yw4l">London</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Buchanan</td>
+							<td class="tg-yw4l">Steven</td>
+							<td class="tg-yw4l">London</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Peacock</td>
+							<td class="tg-yw4l">Margaret</td>
+							<td class="tg-yw4l">Redmond</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Davolio</td>
+							<td class="tg-yw4l">Nancy</td>
+							<td class="tg-yw4l">Seattle</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Callahan</td>
+							<td class="tg-yw4l">Laura</td>
+							<td class="tg-yw4l">Seattle</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Fuller</td>
+							<td class="tg-yw4l">Andrew</td>
+							<td class="tg-yw4l">Tacoma</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="WHERE" class="macrooutersql">
+					<h1>WHERE</h1>
+					<h2>The WHERE clause filters for rows that meet certain criteria.
+					<p>In the example city equals 'London'.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT CustomerID, CompanyName, ContactName, City</h4>
+						<h4>FROM Customers</h4>
+						<h4>WHERE City = 'London';</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">CustomerID</th>
+							<th class="tg-yw4l">CompanyName</th>
+							<th class="tg-yw4l">ContactName</th>
+							<th class="tg-yw4l">City</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">AROUT</td>
+							<td class="tg-yw4l">Around the Horn</td>
+							<td class="tg-yw4l">Thomas Hardy</td>
+							<td class="tg-yw4l">London</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">BSBEV</td>
+							<td class="tg-yw4l">B's Beverages</td>
+							<td class="tg-yw4l">Victoria Ashworth</td>
+							<td class="tg-yw4l">London</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">CONSH</td>
+							<td class="tg-yw4l">Consolidated Holdings</td>
+							<td class="tg-yw4l">Elizabeth Brown</td>
+							<td class="tg-yw4l">London</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">EASTC</td>
+							<td class="tg-yw4l">Eastern Connection</td>
+							<td class="tg-yw4l">Ann Devon</td>
+							<td class="tg-yw4l">London</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">NORTS</td>
+							<td class="tg-yw4l">North/South</td>
+							<td class="tg-yw4l">Simon Crowther</td>
+							<td class="tg-yw4l">London</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">SEVES</td>
+							<td class="tg-yw4l">Seven Seas Imports</td>
+							<td class="tg-yw4l">Hari Kumar</td>
+							<td class="tg-yw4l">London</td>
+						  </tr>
+						</table>
+						<h6>6 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>In the example quantity is greater than 110.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT *</h4>
+						<h4>FROM [Order Details]</h4>
+						<h4>WHERE Quantity >110</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">OrderID</th>
+							<th class="tg-yw4l">ProductID</th>
+							<th class="tg-yw4l">UnitPrice</th>
+							<th class="tg-yw4l">Quantity</th>
+							<th class="tg-yw4l">Discount</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10398</td>
+							<td class="tg-yw4l">55</td>
+							<td class="tg-yw4l">19.20</td>
+							<td class="tg-yw4l">120</td>
+							<td class="tg-yw4l">0.1</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10451</td>
+							<td class="tg-yw4l">55</td>
+							<td class="tg-yw4l">19.20</td>
+							<td class="tg-yw4l">120</td>
+							<td class="tg-yw4l">0.1</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10515</td>
+							<td class="tg-yw4l">27</td>
+							<td class="tg-yw4l">43.90</td>
+							<td class="tg-yw4l">120</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10595</td>
+							<td class="tg-yw4l">61</td>
+							<td class="tg-yw4l">28.50</td>
+							<td class="tg-yw4l">120</td>
+							<td class="tg-yw4l">0.25</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10678</td>
+							<td class="tg-yw4l">41</td>
+							<td class="tg-yw4l">9.65</td>
+							<td class="tg-yw4l">120</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10711</td>
+							<td class="tg-yw4l">53</td>
+							<td class="tg-yw4l">32.80</td>
+							<td class="tg-yw4l">120</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10764</td>
+							<td class="tg-yw4l">39</td>
+							<td class="tg-yw4l">18.00</td>
+							<td class="tg-yw4l">130</td>
+							<td class="tg-yw4l">0.1</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10776</td>
+							<td class="tg-yw4l">51</td>
+							<td class="tg-yw4l">53.00</td>
+							<td class="tg-yw4l">120</td>
+							<td class="tg-yw4l">0.05</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10894</td>
+							<td class="tg-yw4l">75</td>
+							<td class="tg-yw4l">7.75</td>
+							<td class="tg-yw4l">120</td>
+							<td class="tg-yw4l">0.05</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">11072</td>
+							<td class="tg-yw4l">64</td>
+							<td class="tg-yw4l">33.25</td>
+							<td class="tg-yw4l">130</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						</table>
+						<h6>10 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>In the example quantity is greater or equal to 120.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT *</h4>
+						<h4>FROM [Order Details]</h4>
+						<h4>WHERE Quantity >=120</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">OrderID</th>
+							<th class="tg-yw4l">ProductID</th>
+							<th class="tg-yw4l">UnitPrice</th>
+							<th class="tg-yw4l">Quantity</th>
+							<th class="tg-yw4l">Discount</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10398</td>
+							<td class="tg-yw4l">55</td>
+							<td class="tg-yw4l">19.20</td>
+							<td class="tg-yw4l">120</td>
+							<td class="tg-yw4l">0.1</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10451</td>
+							<td class="tg-yw4l">55</td>
+							<td class="tg-yw4l">19.20</td>
+							<td class="tg-yw4l">120</td>
+							<td class="tg-yw4l">0.1</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10515</td>
+							<td class="tg-yw4l">27</td>
+							<td class="tg-yw4l">43.90</td>
+							<td class="tg-yw4l">120</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10595</td>
+							<td class="tg-yw4l">61</td>
+							<td class="tg-yw4l">28.50</td>
+							<td class="tg-yw4l">120</td>
+							<td class="tg-yw4l">0.25</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10678</td>
+							<td class="tg-yw4l">41</td>
+							<td class="tg-yw4l">9.65</td>
+							<td class="tg-yw4l">120</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10711</td>
+							<td class="tg-yw4l">53</td>
+							<td class="tg-yw4l">32.80</td>
+							<td class="tg-yw4l">120</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10764</td>
+							<td class="tg-yw4l">39</td>
+							<td class="tg-yw4l">18.00</td>
+							<td class="tg-yw4l">130</td>
+							<td class="tg-yw4l">0.1</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10776</td>
+							<td class="tg-yw4l">51</td>
+							<td class="tg-yw4l">53.00</td>
+							<td class="tg-yw4l">120</td>
+							<td class="tg-yw4l">0.05</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10894</td>
+							<td class="tg-yw4l">75</td>
+							<td class="tg-yw4l">7.75</td>
+							<td class="tg-yw4l">120</td>
+							<td class="tg-yw4l">0.05</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">11072</td>
+							<td class="tg-yw4l">64</td>
+							<td class="tg-yw4l">33.25</td>
+							<td class="tg-yw4l">130</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						</table>
+						<h6>10 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>In the example quantity is smaller or equal to 10.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT *</h4>
+						<h4>FROM [Order Details]</h4>
+						<h4>WHERE Quantity <=10</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">OrderID</th>
+							<th class="tg-yw4l">ProductID</th>
+							<th class="tg-yw4l">UnitPrice</th>
+							<th class="tg-yw4l">Quantity</th>
+							<th class="tg-yw4l">Discount</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10248</td>
+							<td class="tg-yw4l">42</td>
+							<td class="tg-yw4l">9.80</td>
+							<td class="tg-yw4l">10</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10248</td>
+							<td class="tg-yw4l">72</td>
+							<td class="tg-yw4l">34.80</td>
+							<td class="tg-yw4l">5</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10249</td>
+							<td class="tg-yw4l">14</td>
+							<td class="tg-yw4l">18.60</td>
+							<td class="tg-yw4l">9</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10250</td>
+							<td class="tg-yw4l">41</td>
+							<td class="tg-yw4l">7.70</td>
+							<td class="tg-yw4l">10</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10251</td>
+							<td class="tg-yw4l">22</td>
+							<td class="tg-yw4l">16.80</td>
+							<td class="tg-yw4l">6</td>
+							<td class="tg-yw4l">0.05</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10257</td>
+							<td class="tg-yw4l">39</td>
+							<td class="tg-yw4l">14.40</td>
+							<td class="tg-yw4l">6</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10258</td>
+							<td class="tg-yw4l">32</td>
+							<td class="tg-yw4l">25.60</td>
+							<td class="tg-yw4l">6</td>
+							<td class="tg-yw4l">0.2</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10259</td>
+							<td class="tg-yw4l">21</td>
+							<td class="tg-yw4l">8.00</td>
+							<td class="tg-yw4l">10</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10259</td>
+							<td class="tg-yw4l">37</td>
+							<td class="tg-yw4l">20.80</td>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10262</td>
+							<td class="tg-yw4l">56</td>
+							<td class="tg-yw4l">30.40</td>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						</table>
+						<h6>608 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>In the example Title is different than 'Sales Representative'.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT EmployeeID, LastName, FirstName, Title</h4>
+						<h4>FROM Employees</h4>
+						<h4>WHERE Title <> 'Sales Representative';</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">EmployeeID</th>
+							<th class="tg-yw4l">LastName</th>
+							<th class="tg-yw4l">FirstName</th>
+							<th class="tg-yw4l">Title</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Fuller</td>
+							<td class="tg-yw4l">Andrew</td>
+							<td class="tg-yw4l">Vice President, Sales</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">5</td>
+							<td class="tg-yw4l">Buchanan</td>
+							<td class="tg-yw4l">Steven</td>
+							<td class="tg-yw4l">Sales Manager</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">8</td>
+							<td class="tg-yw4l">Callahan</td>
+							<td class="tg-yw4l">Laura</td>
+							<td class="tg-yw4l">Inside Sales Coordinator</td>
+						  </tr>
+						</table>
+						<h6>3 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="BETWEEN" class="macrooutersql">
+					<h1>BETWEEN</h1>
+					<h2>The BETWEEN operator selects values within a given range.
+					<p>In the example Unit Price value is between 10 and 15.
+					<p>! BETWEEN is inclusive.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT *</h4>
+						<h4>FROM [Order Details]</h4>
+						<h4>WHERE UnitPrice BETWEEN 10 AND 15;</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">OrderID</th>
+							<th class="tg-yw4l">ProductID</th>
+							<th class="tg-yw4l">UnitPrice</th>
+							<th class="tg-yw4l">Quantity</th>
+							<th class="tg-yw4l">Discount</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10248</td>
+							<td class="tg-yw4l">11</td>
+							<td class="tg-yw4l">14.00</td>
+							<td class="tg-yw4l">12</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10253</td>
+							<td class="tg-yw4l">31</td>
+							<td class="tg-yw4l">10.00</td>
+							<td class="tg-yw4l">20</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10253</td>
+							<td class="tg-yw4l">39</td>
+							<td class="tg-yw4l">14.40</td>
+							<td class="tg-yw4l">42</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10255</td>
+							<td class="tg-yw4l">16</td>
+							<td class="tg-yw4l">13.90</td>
+							<td class="tg-yw4l">35</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10256</td>
+							<td class="tg-yw4l">77</td>
+							<td class="tg-yw4l">10.40</td>
+							<td class="tg-yw4l">12</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10257</td>
+							<td class="tg-yw4l">39</td>
+							<td class="tg-yw4l">14.40</td>
+							<td class="tg-yw4l">6</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10257</td>
+							<td class="tg-yw4l">77</td>
+							<td class="tg-yw4l">10.40</td>
+							<td class="tg-yw4l">15</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10260</td>
+							<td class="tg-yw4l">70</td>
+							<td class="tg-yw4l">12.00</td>
+							<td class="tg-yw4l">21</td>
+							<td class="tg-yw4l">0.25</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10261</td>
+							<td class="tg-yw4l">35</td>
+							<td class="tg-yw4l">14.40</td>
+							<td class="tg-yw4l">20</td>
+							<td class="tg-yw4l">0</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10263</td>
+							<td class="tg-yw4l">16</td>
+							<td class="tg-yw4l">13.90</td>
+							<td class="tg-yw4l">60</td>
+							<td class="tg-yw4l">0.25</td>
+						  </tr>
+						</table>
+						<h6>412 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="SELECT_TOP" class="macrooutersql">
+					<h1>SELECT TOP</h1>
+					<h2>Limits selection to a specified number of records.
+					<p>In the example top 10 rows are returned.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT TOP 10 UnitPrice FROM [Order Details]</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">UnitPrice</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">14.00</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">9.80</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">34.80</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">18.60</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">42.40</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">7.70</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">42.40</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">16.80</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">16.80</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">15.60</td>
+						  </tr>
+						</table>
+						<h6>10 rows in total</h6>
+					</div>
+				</div>
+
+
+				<div id="" class="macrooutersql">
+					<h2>In the example top 5% of rows is returned.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT TOP 5 PERCENT UnitPrice FROM [Order Details]</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">UnitPrice</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">14.00</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">9.80</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">34.80</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">18.60</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">42.40</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">7.70</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">42.40</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">16.80</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">16.80</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">15.60</td>
+						  </tr>
+						</table>
+						<h6>108 rows in total</h6>
+					</div>
+				</div>
+
+
+				<div id="" class="macrooutersql">
+					<h2>In the example top 10 Unit Price rows are returned and sorted by Unit Price.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT TOP 10 UnitPrice, Quantity FROM [Order Details]</h4>
+						<h4>ORDER BY UnitPrice ASC</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">UnitPrice</th>
+							<th class="tg-yw4l">Quantity</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2.00</td>
+							<td class="tg-yw4l">25</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2.00</td>
+							<td class="tg-yw4l">60</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2.00</td>
+							<td class="tg-yw4l">24</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2.00</td>
+							<td class="tg-yw4l">20</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2.00</td>
+							<td class="tg-yw4l">8</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2.00</td>
+							<td class="tg-yw4l">60</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2.00</td>
+							<td class="tg-yw4l">49</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2.00</td>
+							<td class="tg-yw4l">50</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2.00</td>
+							<td class="tg-yw4l">20</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2.00</td>
+							<td class="tg-yw4l">20</td>
+						  </tr>
+						</table>
+						<h6>10 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="AND_OR_NOT" class="macrooutersql">
+					<h1>AND, OR, NOT</h1>
+					<h2>Comparisons with NULL and the three-valued logic (3VL).
+					SQL query can result in True, False or Unknown (NULL). The following table presents possible combinations:</h2>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">p</th>
+							<th class="tg-yw4l">q</th>
+							<th class="tg-yw4l">p OR q</th>
+							<th class="tg-yw4l">p AND q</th>
+							<th class="tg-yw4l">p = q</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">True</td>
+							<td class="tg-yw4l">True</td>
+							<td class="tg-yw4l">True</td>
+							<td class="tg-yw4l">True</td>
+							<td class="tg-yw4l">True</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">True</td>
+							<td class="tg-yw4l">False</td>
+							<td class="tg-yw4l">True</td>
+							<td class="tg-yw4l">False</td>
+							<td class="tg-yw4l">False</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">True</td>
+							<td class="tg-yw4l">Unknown</td>
+							<td class="tg-yw4l">True</td>
+							<td class="tg-yw4l">Unknown</td>
+							<td class="tg-yw4l">Unknown</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">False</td>
+							<td class="tg-yw4l">True</td>
+							<td class="tg-yw4l">True</td>
+							<td class="tg-yw4l">False</td>
+							<td class="tg-yw4l">False</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">False</td>
+							<td class="tg-yw4l">False</td>
+							<td class="tg-yw4l">False</td>
+							<td class="tg-yw4l">False</td>
+							<td class="tg-yw4l">True</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">False</td>
+							<td class="tg-yw4l">Unknown</td>
+							<td class="tg-yw4l">Unknown</td>
+							<td class="tg-yw4l">False</td>
+							<td class="tg-yw4l">Unknown</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Unknown</td>
+							<td class="tg-yw4l">True</td>
+							<td class="tg-yw4l">True</td>
+							<td class="tg-yw4l">Unknown</td>
+							<td class="tg-yw4l">Unknown</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Unknown</td>
+							<td class="tg-yw4l">False</td>
+							<td class="tg-yw4l">Unknown</td>
+							<td class="tg-yw4l">False</td>
+							<td class="tg-yw4l">Unknown</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Unknown</td>
+							<td class="tg-yw4l">Unknown</td>
+							<td class="tg-yw4l">Unknown</td>
+							<td class="tg-yw4l">Unknown</td>
+							<td class="tg-yw4l">Unknown</td>
+						  </tr>
+						</table>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">p</th>
+							<th class="tg-yw4l">NOT p</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">True</td>
+							<td class="tg-yw4l">False</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">False</td>
+							<td class="tg-yw4l">True</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Unknown</td>
+							<td class="tg-yw4l">Unknown</td>
+						  </tr>
+						</table>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>In the example companies starting with the letter "L" and located in France are returned.
+					<p>For more information about the "Like" operator scroll down.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT *</h4>
+						<h4>FROM Customers</h4>
+						<h4>WHERE CompanyName LIKE 'L%' AND Country = 'France'</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">CustomerID</th>
+							<th class="tg-yw4l">CompanyName</th>
+							<th class="tg-yw4l">ContactName</th>
+							<th class="tg-yw4l">ContactTitle</th>
+							<th class="tg-yw4l">Address</th>
+							<th class="tg-yw4l">City</th>
+							<th class="tg-yw4l">Region</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">LACOR</td>
+							<td class="tg-yw4l">La corne d'abondance</td>
+							<td class="tg-yw4l">Daniel Tonini</td>
+							<td class="tg-yw4l">Sales Representative</td>
+							<td class="tg-yw4l">67, avenue de l'Europe</td>
+							<td class="tg-yw4l">Versailles</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">31000</td>
+							<td class="tg-yw4l">LAMAI</td>
+							<td class="tg-yw4l">La maison d'Asie</td>
+							<td class="tg-yw4l">Annette Roulet</td>
+							<td class="tg-yw4l">Sales Manager</td>
+							<td class="tg-yw4l">1 rue Alsace-Lorraine</td>
+							<td class="tg-yw4l">Toulouse</td>
+						  </tr>
+						</table>
+						<h6>More columns below</h6>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">PostalCode</th>
+							<th class="tg-yw4l">Country</th>
+							<th class="tg-yw4l">Phone</th>
+							<th class="tg-yw4l">Fax</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">78000</td>
+							<td class="tg-yw4l">France</td>
+							<td class="tg-yw4l">30.59.84.10</td>
+							<td class="tg-yw4l">30.59.85.11</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">France</td>
+							<td class="tg-yw4l">61.77.61.10</td>
+							<td class="tg-yw4l">61.77.61.11</td>
+						  </tr>
+						</table>
+						<h6>2 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>In the example companies starting with the letter "L" or located in Poland are returned.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT *</h4>
+						<h4>FROM Customers</h4>
+						<h4>WHERE CompanyName LIKE 'L%' OR Country = 'Poland'</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">CustomerID</th>
+							<th class="tg-yw4l">CompanyName</th>
+							<th class="tg-yw4l">ContactName</th>
+							<th class="tg-yw4l">ContactTitle</th>
+							<th class="tg-yw4l">Address</th>
+							<th class="tg-yw4l">City</th>
+							<th class="tg-yw4l">Region</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">LACOR</td>
+							<td class="tg-yw4l">La corne d'abondance</td>
+							<td class="tg-yw4l">Daniel Tonini</td>
+							<td class="tg-yw4l">Sales Representative</td>
+							<td class="tg-yw4l">67, avenue de l'Europe</td>
+							<td class="tg-yw4l">Versailles</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">LAMAI</td>
+							<td class="tg-yw4l">La maison d'Asie</td>
+							<td class="tg-yw4l">Annette Roulet</td>
+							<td class="tg-yw4l">Sales Manager</td>
+							<td class="tg-yw4l">1 rue Alsace-Lorraine</td>
+							<td class="tg-yw4l">Toulouse</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">LAUGB</td>
+							<td class="tg-yw4l">Laughing Bacchus Wine Cellars</td>
+							<td class="tg-yw4l">Yoshi Tannamuri</td>
+							<td class="tg-yw4l">Marketing Assistant</td>
+							<td class="tg-yw4l">1900 Oak St.</td>
+							<td class="tg-yw4l">Vancouver</td>
+							<td class="tg-yw4l">BC</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">LAZYK</td>
+							<td class="tg-yw4l">Lazy K Kountry Store</td>
+							<td class="tg-yw4l">John Steel</td>
+							<td class="tg-yw4l">Marketing Manager</td>
+							<td class="tg-yw4l">12 Orchestra Terrace</td>
+							<td class="tg-yw4l">Walla Walla</td>
+							<td class="tg-yw4l">WA</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">LEHMS</td>
+							<td class="tg-yw4l">Lehmanns Marktstand</td>
+							<td class="tg-yw4l">Renate Messner</td>
+							<td class="tg-yw4l">Sales Representative</td>
+							<td class="tg-yw4l">Magazinweg 7</td>
+							<td class="tg-yw4l">Frankfurt a.M.</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">LETSS</td>
+							<td class="tg-yw4l">Let's Stop N Shop</td>
+							<td class="tg-yw4l">Jaime Yorres</td>
+							<td class="tg-yw4l">Owner</td>
+							<td class="tg-yw4l">87 Polk St. Suite 5</td>
+							<td class="tg-yw4l">San Francisco</td>
+							<td class="tg-yw4l">CA</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">LILAS</td>
+							<td class="tg-yw4l">LILA-Supermercado</td>
+							<td class="tg-yw4l">Carlos González</td>
+							<td class="tg-yw4l">Accounting Manager</td>
+							<td class="tg-yw4l">Carrera 52 con Ave. Bolívar #65-98 Llano Largo</td>
+							<td class="tg-yw4l">Barquisimeto</td>
+							<td class="tg-yw4l">Lara</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">LINOD</td>
+							<td class="tg-yw4l">LINO-Delicateses</td>
+							<td class="tg-yw4l">Felipe Izquierdo</td>
+							<td class="tg-yw4l">Owner</td>
+							<td class="tg-yw4l">Ave. 5 de Mayo Porlamar</td>
+							<td class="tg-yw4l">I. de Margarita</td>
+							<td class="tg-yw4l">Nueva Esparta</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">LONEP</td>
+							<td class="tg-yw4l">Lonesome Pine Restaurant</td>
+							<td class="tg-yw4l">Fran Wilson</td>
+							<td class="tg-yw4l">Sales Manager</td>
+							<td class="tg-yw4l">89 Chiaroscuro Rd.</td>
+							<td class="tg-yw4l">Portland</td>
+							<td class="tg-yw4l">OR</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">WOLZA</td>
+							<td class="tg-yw4l">Wolski  Zajazd</td>
+							<td class="tg-yw4l">Zbyszek Piestrzeniewicz</td>
+							<td class="tg-yw4l">Owner</td>
+							<td class="tg-yw4l">ul. Filtrowa 68</td>
+							<td class="tg-yw4l">Warszawa</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						</table>
+						<h6>More columns below</h6>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">PostalCode</th>
+							<th class="tg-yw4l">Country</th>
+							<th class="tg-yw4l">Phone</th>
+							<th class="tg-yw4l">Fax</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">78000</td>
+							<td class="tg-yw4l">France</td>
+							<td class="tg-yw4l">30.59.84.10</td>
+							<td class="tg-yw4l">30.59.85.11</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">31000</td>
+							<td class="tg-yw4l">France</td>
+							<td class="tg-yw4l">61.77.61.10</td>
+							<td class="tg-yw4l">61.77.61.11</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">V3F 2K1</td>
+							<td class="tg-yw4l">Canada</td>
+							<td class="tg-yw4l">(604) 555-3392</td>
+							<td class="tg-yw4l">(604) 555-7293</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">99362</td>
+							<td class="tg-yw4l">USA</td>
+							<td class="tg-yw4l">(509) 555-7969</td>
+							<td class="tg-yw4l">(509) 555-6221</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">60528</td>
+							<td class="tg-yw4l">Germany</td>
+							<td class="tg-yw4l">069-0245984</td>
+							<td class="tg-yw4l">069-0245874</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">94117</td>
+							<td class="tg-yw4l">USA</td>
+							<td class="tg-yw4l">(415) 555-5938</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">3508</td>
+							<td class="tg-yw4l">Venezuela</td>
+							<td class="tg-yw4l">(9) 331-6954</td>
+							<td class="tg-yw4l">(9) 331-7256</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">4980</td>
+							<td class="tg-yw4l">Venezuela</td>
+							<td class="tg-yw4l">(8) 34-56-12</td>
+							<td class="tg-yw4l">(8) 34-93-93</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">97219</td>
+							<td class="tg-yw4l">USA</td>
+							<td class="tg-yw4l">(503) 555-9573</td>
+							<td class="tg-yw4l">(503) 555-9646</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">01-012</td>
+							<td class="tg-yw4l">Poland</td>
+							<td class="tg-yw4l">(26) 642-7012</td>
+							<td class="tg-yw4l">(26) 642-7012</td>
+						  </tr>
+						</table>
+						<h6>10 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>In the example companies starting with the letter "L" and located in France or Germany are returned.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT *</h4>
+						<h4>FROM Customers</h4>
+						<h4>WHERE CompanyName LIKE 'L%' AND (Country = 'France' OR Country = 'Germany')</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">CustomerID</th>
+							<th class="tg-yw4l">CompanyName</th>
+							<th class="tg-yw4l">ContactName</th>
+							<th class="tg-yw4l">ContactTitle</th>
+							<th class="tg-yw4l">Address</th>
+							<th class="tg-yw4l">City</th>
+							<th class="tg-yw4l">Region</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">LACOR</td>
+							<td class="tg-yw4l">La corne d'abondance</td>
+							<td class="tg-yw4l">Daniel Tonini</td>
+							<td class="tg-yw4l">Sales Representative</td>
+							<td class="tg-yw4l">67, avenue de l'Europe</td>
+							<td class="tg-yw4l">Versailles</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">LAMAI</td>
+							<td class="tg-yw4l">La maison d'Asie</td>
+							<td class="tg-yw4l">Annette Roulet</td>
+							<td class="tg-yw4l">Sales Manager</td>
+							<td class="tg-yw4l">1 rue Alsace-Lorraine</td>
+							<td class="tg-yw4l">Toulouse</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">LEHMS</td>
+							<td class="tg-yw4l">Lehmanns Marktstand</td>
+							<td class="tg-yw4l">Renate Messner</td>
+							<td class="tg-yw4l">Sales Representative</td>
+							<td class="tg-yw4l">Magazinweg 7</td>
+							<td class="tg-yw4l">Frankfurt a.M.</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						</table>
+						<h6>More columns below</h6>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">PostalCode</th>
+							<th class="tg-yw4l">Country</th>
+							<th class="tg-yw4l">Phone</th>
+							<th class="tg-yw4l">Fax</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">78000</td>
+							<td class="tg-yw4l">France</td>
+							<td class="tg-yw4l">30.59.84.10</td>
+							<td class="tg-yw4l">30.59.85.11</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">31000</td>
+							<td class="tg-yw4l">France</td>
+							<td class="tg-yw4l">61.77.61.10</td>
+							<td class="tg-yw4l">61.77.61.11</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">60528</td>
+							<td class="tg-yw4l">Germany</td>
+							<td class="tg-yw4l">069-0245984</td>
+							<td class="tg-yw4l">069-0245874</td>
+						  </tr>
+						</table>
+						<h6>3 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>In the example companies starting with the letter "L" and not located in France are returned.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT *</h4>
+						<h4>FROM Customers</h4>
+						<h4>WHERE CompanyName LIKE 'L%' AND NOT Country = 'France'</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">CustomerID</th>
+							<th class="tg-yw4l">CompanyName</th>
+							<th class="tg-yw4l">ContactName</th>
+							<th class="tg-yw4l">ContactTitle</th>
+							<th class="tg-yw4l">Address</th>
+							<th class="tg-yw4l">City</th>
+							<th class="tg-yw4l">Region</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">LAUGB</td>
+							<td class="tg-yw4l">Laughing Bacchus Wine Cellars</td>
+							<td class="tg-yw4l">Yoshi Tannamuri</td>
+							<td class="tg-yw4l">Marketing Assistant</td>
+							<td class="tg-yw4l">1900 Oak St.</td>
+							<td class="tg-yw4l">Vancouver</td>
+							<td class="tg-yw4l">BC</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">LAZYK</td>
+							<td class="tg-yw4l">Lazy K Kountry Store</td>
+							<td class="tg-yw4l">John Steel</td>
+							<td class="tg-yw4l">Marketing Manager</td>
+							<td class="tg-yw4l">12 Orchestra Terrace</td>
+							<td class="tg-yw4l">Walla Walla</td>
+							<td class="tg-yw4l">WA</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">LEHMS</td>
+							<td class="tg-yw4l">Lehmanns Marktstand</td>
+							<td class="tg-yw4l">Renate Messner</td>
+							<td class="tg-yw4l">Sales Representative</td>
+							<td class="tg-yw4l">Magazinweg 7</td>
+							<td class="tg-yw4l">Frankfurt a.M.</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">LETSS</td>
+							<td class="tg-yw4l">Let's Stop N Shop</td>
+							<td class="tg-yw4l">Jaime Yorres</td>
+							<td class="tg-yw4l">Owner</td>
+							<td class="tg-yw4l">87 Polk St. Suite 5</td>
+							<td class="tg-yw4l">San Francisco</td>
+							<td class="tg-yw4l">CA</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">LILAS</td>
+							<td class="tg-yw4l">LILA-Supermercado</td>
+							<td class="tg-yw4l">Carlos González</td>
+							<td class="tg-yw4l">Accounting Manager</td>
+							<td class="tg-yw4l">Carrera 52 con Ave. Bolívar #65-98 Llano Largo</td>
+							<td class="tg-yw4l">Barquisimeto</td>
+							<td class="tg-yw4l">Lara</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">LINOD</td>
+							<td class="tg-yw4l">LINO-Delicateses</td>
+							<td class="tg-yw4l">Felipe Izquierdo</td>
+							<td class="tg-yw4l">Owner</td>
+							<td class="tg-yw4l">Ave. 5 de Mayo Porlamar</td>
+							<td class="tg-yw4l">I. de Margarita</td>
+							<td class="tg-yw4l">Nueva Esparta</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">LONEP</td>
+							<td class="tg-yw4l">Lonesome Pine Restaurant</td>
+							<td class="tg-yw4l">Fran Wilson</td>
+							<td class="tg-yw4l">Sales Manager</td>
+							<td class="tg-yw4l">89 Chiaroscuro Rd.</td>
+							<td class="tg-yw4l">Portland</td>
+							<td class="tg-yw4l">OR</td>
+						  </tr>
+						</table>
+						<h6>More columns below</h6>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">PostalCode</th>
+							<th class="tg-yw4l">Country</th>
+							<th class="tg-yw4l">Phone</th>
+							<th class="tg-yw4l">Fax</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">V3F 2K1</td>
+							<td class="tg-yw4l">Canada</td>
+							<td class="tg-yw4l">(604) 555-3392</td>
+							<td class="tg-yw4l">(604) 555-7293</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">99362</td>
+							<td class="tg-yw4l">USA</td>
+							<td class="tg-yw4l">(509) 555-7969</td>
+							<td class="tg-yw4l">(509) 555-6221</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">60528</td>
+							<td class="tg-yw4l">Germany</td>
+							<td class="tg-yw4l">069-0245984</td>
+							<td class="tg-yw4l">069-0245874</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">94117</td>
+							<td class="tg-yw4l">USA</td>
+							<td class="tg-yw4l">(415) 555-5938</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">3508</td>
+							<td class="tg-yw4l">Venezuela</td>
+							<td class="tg-yw4l">(9) 331-6954</td>
+							<td class="tg-yw4l">(9) 331-7256</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">4980</td>
+							<td class="tg-yw4l">Venezuela</td>
+							<td class="tg-yw4l">(8) 34-56-12</td>
+							<td class="tg-yw4l">(8) 34-93-93</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">97219</td>
+							<td class="tg-yw4l">USA</td>
+							<td class="tg-yw4l">(503) 555-9573</td>
+							<td class="tg-yw4l">(503) 555-9646</td>
+						  </tr>
+						</table>
+						<h6>7 rows in total</h6>
+					</div>
+				</div>
+				<br>
+				
+				<div id="IN" class="macrooutersql">
+					<h1>IN</h1>
+					<h2>IN operator in the WHERE clause is useful to filter data by a list of values. It is similar to multiple OR conditions.
+					<p>In the example companies operating in Argentina or Mexico are returned.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT CustomerID, CompanyName, Country</h4>
+						<h4>FROM Customers</h4>
+						<h4>WHERE Country IN ('Argentina', 'Mexico')</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">CustomerID</th>
+							<th class="tg-yw4l">CompanyName</th>
+							<th class="tg-yw4l">Country</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">ANATR</td>
+							<td class="tg-yw4l">Ana Trujillo Emparedados y helados</td>
+							<td class="tg-yw4l">Mexico</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">ANTON</td>
+							<td class="tg-yw4l">Antonio Moreno Taquería</td>
+							<td class="tg-yw4l">Mexico</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">CACTU</td>
+							<td class="tg-yw4l">Cactus Comidas para llevar</td>
+							<td class="tg-yw4l">Argentina</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">CENTC</td>
+							<td class="tg-yw4l">Centro comercial Moctezuma</td>
+							<td class="tg-yw4l">Mexico</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">OCEAN</td>
+							<td class="tg-yw4l">Océano Atlántico Ltda.</td>
+							<td class="tg-yw4l">Argentina</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">PERIC</td>
+							<td class="tg-yw4l">Pericles Comidas clásicas</td>
+							<td class="tg-yw4l">Mexico</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">RANCH</td>
+							<td class="tg-yw4l">Rancho grande</td>
+							<td class="tg-yw4l">Argentina</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">TORTU</td>
+							<td class="tg-yw4l">Tortuga Restaurante</td>
+							<td class="tg-yw4l">Mexico</td>
+						  </tr>
+						</table>
+						<h6>3 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>In the example companies operating in countries other than Argentina or Mexico are returned.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT CustomerID, CompanyName, Country</h4>
+						<h4>FROM Customers</h4>
+						<h4>WHERE Country NOT IN ('Argentina', 'Mexico')</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">CustomerID</th>
+							<th class="tg-yw4l">CompanyName</th>
+							<th class="tg-yw4l">Country</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">ALFKI</td>
+							<td class="tg-yw4l">Alfreds Futterkiste</td>
+							<td class="tg-yw4l">Germany</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">AROUT</td>
+							<td class="tg-yw4l">Around the Horn</td>
+							<td class="tg-yw4l">UK</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">BERGS</td>
+							<td class="tg-yw4l">Berglunds snabbköp</td>
+							<td class="tg-yw4l">Sweden</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">BLAUS</td>
+							<td class="tg-yw4l">Blauer See Delikatessen</td>
+							<td class="tg-yw4l">Germany</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">BLONP</td>
+							<td class="tg-yw4l">Blondesddsl père et fils</td>
+							<td class="tg-yw4l">France</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">BOLID</td>
+							<td class="tg-yw4l">Bólido Comidas preparadas</td>
+							<td class="tg-yw4l">Spain</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">BONAP</td>
+							<td class="tg-yw4l">Bon app'</td>
+							<td class="tg-yw4l">France</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">BOTTM</td>
+							<td class="tg-yw4l">Bottom-Dollar Markets</td>
+							<td class="tg-yw4l">Canada</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">BSBEV</td>
+							<td class="tg-yw4l">B's Beverages</td>
+							<td class="tg-yw4l">UK</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">CHOPS</td>
+							<td class="tg-yw4l">Chop-suey Chinese</td>
+							<td class="tg-yw4l">Switzerland</td>
+						  </tr>
+						</table>
+						<h6>83 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>The following SQL statement selects all customers that are from the same countries as the suppliers.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT CustomerID, CompanyName, ContactName, City</h4>
+						<h4>FROM Customers</h4>
+						<h4>WHERE City IN (SELECT City FROM Suppliers)</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">CustomerID</th>
+							<th class="tg-yw4l">CompanyName</th>
+							<th class="tg-yw4l">ContactName</th>
+							<th class="tg-yw4l">City</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">ALFKI</td>
+							<td class="tg-yw4l">Alfreds Futterkiste</td>
+							<td class="tg-yw4l">Maria Anders</td>
+							<td class="tg-yw4l">Berlin</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">AROUT</td>
+							<td class="tg-yw4l">Around the Horn</td>
+							<td class="tg-yw4l">Thomas Hardy</td>
+							<td class="tg-yw4l">London</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">BSBEV</td>
+							<td class="tg-yw4l">B's Beverages</td>
+							<td class="tg-yw4l">Victoria Ashworth</td>
+							<td class="tg-yw4l">London</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">COMMI</td>
+							<td class="tg-yw4l">Comércio Mineiro</td>
+							<td class="tg-yw4l">Pedro Afonso</td>
+							<td class="tg-yw4l">Sao Paulo</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">CONSH</td>
+							<td class="tg-yw4l">Consolidated Holdings</td>
+							<td class="tg-yw4l">Elizabeth Brown</td>
+							<td class="tg-yw4l">London</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">EASTC</td>
+							<td class="tg-yw4l">Eastern Connection</td>
+							<td class="tg-yw4l">Ann Devon</td>
+							<td class="tg-yw4l">London</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">FAMIA</td>
+							<td class="tg-yw4l">Familia Arquibaldo</td>
+							<td class="tg-yw4l">Aria Cruz</td>
+							<td class="tg-yw4l">Sao Paulo</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">MEREP</td>
+							<td class="tg-yw4l">Mère Paillarde</td>
+							<td class="tg-yw4l">Jean Fresnière</td>
+							<td class="tg-yw4l">Montréal</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">NORTS</td>
+							<td class="tg-yw4l">North/South</td>
+							<td class="tg-yw4l">Simon Crowther</td>
+							<td class="tg-yw4l">London</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">PARIS</td>
+							<td class="tg-yw4l">Paris spécialités</td>
+							<td class="tg-yw4l">Marie Bertrand</td>
+							<td class="tg-yw4l">Paris</td>
+						  </tr>
+						</table>
+						<h6>14 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>The following SQL statement selects all Suppliers that are from the same countries as the customers.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT SupplierID, CompanyName, ContactName, City</h4>
+						<h4>FROM Suppliers</h4>
+						<h4>WHERE City IN (SELECT City FROM Customers)</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">SupplierID</th>
+							<th class="tg-yw4l">CompanyName</th>
+							<th class="tg-yw4l">ContactName</th>
+							<th class="tg-yw4l">City</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Exotic Liquids</td>
+							<td class="tg-yw4l">Charlotte Cooper</td>
+							<td class="tg-yw4l">London</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">10</td>
+							<td class="tg-yw4l">Refrescos Americanas LTDA</td>
+							<td class="tg-yw4l">Carlos Diaz</td>
+							<td class="tg-yw4l">Sao Paulo</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">11</td>
+							<td class="tg-yw4l">Heli Süßwaren GmbH &amp; Co. KG</td>
+							<td class="tg-yw4l">Petra Winkler</td>
+							<td class="tg-yw4l">Berlin</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">18</td>
+							<td class="tg-yw4l">Aux joyeux ecclésiastiques</td>
+							<td class="tg-yw4l">Guylène Nodier</td>
+							<td class="tg-yw4l">Paris</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">25</td>
+							<td class="tg-yw4l">Ma Maison</td>
+							<td class="tg-yw4l">Jean-Guy Lauzon</td>
+							<td class="tg-yw4l">Montréal</td>
+						  </tr>
+						</table>
+						<h6>5 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="LIKE" class="macrooutersql">
+					<h1>LIKE</h1>
+					<h2>LIKE operator determines if a character string matches a pattern. Wildcard characters are % (percent) and _ (underscore).
+					<p>A % matches any string with zero or more characters. While an _ matches any single character.
+					<p>In the example companies starting with the letter "S" are returned. 
+					<p>! It doesn't matter whether the letter is in upper or lower case.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT *</h4>
+						<h4>FROM Customers</h4>
+						<h4>WHERE Country Like 's%'</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">CustomerID</th>
+							<th class="tg-yw4l">CompanyName</th>
+							<th class="tg-yw4l">ContactName</th>
+							<th class="tg-yw4l">ContactTitle</th>
+							<th class="tg-yw4l">Address</th>
+							<th class="tg-yw4l">City</th>
+							<th class="tg-yw4l">Region</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">BERGS</td>
+							<td class="tg-yw4l">Berglunds snabbköp</td>
+							<td class="tg-yw4l">Christina Berglund</td>
+							<td class="tg-yw4l">Order Administrator</td>
+							<td class="tg-yw4l">Berguvsvägen  8</td>
+							<td class="tg-yw4l">Luleå</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">BOLID</td>
+							<td class="tg-yw4l">Bólido Comidas preparadas</td>
+							<td class="tg-yw4l">Martín Sommer</td>
+							<td class="tg-yw4l">Owner</td>
+							<td class="tg-yw4l">C/ Araquil, 67</td>
+							<td class="tg-yw4l">Madrid</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">CHOPS</td>
+							<td class="tg-yw4l">Chop-suey Chinese</td>
+							<td class="tg-yw4l">Yang Wang</td>
+							<td class="tg-yw4l">Owner</td>
+							<td class="tg-yw4l">Hauptstr. 29</td>
+							<td class="tg-yw4l">Bern</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">FISSA</td>
+							<td class="tg-yw4l">FISSA Fabrica Inter. Salchichas S.A.</td>
+							<td class="tg-yw4l">Diego Roel</td>
+							<td class="tg-yw4l">Accounting Manager</td>
+							<td class="tg-yw4l">C/ Moralzarzal, 86</td>
+							<td class="tg-yw4l">Madrid</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">FOLKO</td>
+							<td class="tg-yw4l">Folk och fä HB</td>
+							<td class="tg-yw4l">Maria Larsson</td>
+							<td class="tg-yw4l">Owner</td>
+							<td class="tg-yw4l">Åkergatan 24</td>
+							<td class="tg-yw4l">Bräcke</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">GALED</td>
+							<td class="tg-yw4l">Galería del gastrónomo</td>
+							<td class="tg-yw4l">Eduardo Saavedra</td>
+							<td class="tg-yw4l">Marketing Manager</td>
+							<td class="tg-yw4l">Rambla de Cataluña, 23</td>
+							<td class="tg-yw4l">Barcelona</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">GODOS</td>
+							<td class="tg-yw4l">Godos Cocina Típica</td>
+							<td class="tg-yw4l">José Pedro Freyre</td>
+							<td class="tg-yw4l">Sales Manager</td>
+							<td class="tg-yw4l">C/ Romero, 33</td>
+							<td class="tg-yw4l">Sevilla</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">RICSU</td>
+							<td class="tg-yw4l">Richter Supermarkt</td>
+							<td class="tg-yw4l">Michael Holz</td>
+							<td class="tg-yw4l">Sales Manager</td>
+							<td class="tg-yw4l">Grenzacherweg 237</td>
+							<td class="tg-yw4l">Genève</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">ROMEY</td>
+							<td class="tg-yw4l">Romero y tomillo</td>
+							<td class="tg-yw4l">Alejandra Camino</td>
+							<td class="tg-yw4l">Accounting Manager</td>
+							<td class="tg-yw4l">Gran Vía, 1</td>
+							<td class="tg-yw4l">Madrid</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						</table>
+						<h6>More columns below</h6>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">PostalCode</th>
+							<th class="tg-yw4l">Country</th>
+							<th class="tg-yw4l">Phone</th>
+							<th class="tg-yw4l">Fax</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">S-958 22</td>
+							<td class="tg-yw4l">Sweden</td>
+							<td class="tg-yw4l">0921-12 34 65</td>
+							<td class="tg-yw4l">0921-12 34 67</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">28023</td>
+							<td class="tg-yw4l">Spain</td>
+							<td class="tg-yw4l">(91) 555 22 82</td>
+							<td class="tg-yw4l">(91) 555 91 99</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">3012</td>
+							<td class="tg-yw4l">Switzerland</td>
+							<td class="tg-yw4l">0452-076545</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">28034</td>
+							<td class="tg-yw4l">Spain</td>
+							<td class="tg-yw4l">(91) 555 94 44</td>
+							<td class="tg-yw4l">(91) 555 55 93</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">S-844 67</td>
+							<td class="tg-yw4l">Sweden</td>
+							<td class="tg-yw4l">0695-34 67 21</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">08022</td>
+							<td class="tg-yw4l">Spain</td>
+							<td class="tg-yw4l">(93) 203 4560</td>
+							<td class="tg-yw4l">(93) 203 4561</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">41101</td>
+							<td class="tg-yw4l">Spain</td>
+							<td class="tg-yw4l">(95) 555 82 82</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1203</td>
+							<td class="tg-yw4l">Switzerland</td>
+							<td class="tg-yw4l">0897-034214</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">28001</td>
+							<td class="tg-yw4l">Spain</td>
+							<td class="tg-yw4l">(91) 745 6200</td>
+							<td class="tg-yw4l">(91) 745 6210</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Companies which names end with "ssen".</h2>
+					<div class="macroinnersql">
+						<h4>SELECT CompanyName </h4>
+						<h4>FROM Customers</h4>
+						<h4>WHERE CompanyName Like '%ssen'</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">CompanyName</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Blauer See Delikatessen</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Drachenblut Delikatessen</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Königlich Essen</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Old World Delicatessen</td>
+						  </tr>
+						</table>
+						<h6>4 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Customers which name consists of 8 signs (8 x underscore). Including space(s) and signs such as apostrophe.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT CompanyName </h4>
+						<h4>FROM Customers</h4>
+						<h4>WHERE CompanyName Like '________'</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">CompanyName</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Bon app'</td>
+						  </tr>
+						</table>
+						<h6>1 row in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Customers where second letter in the name is "a".</h2>
+					<div class="macroinnersql">
+						<h4>SELECT CompanyName</h4>
+						<h4>FROM Customers</h4>
+						<h4>WHERE CompanyName Like '_a%'</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">CompanyName</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Cactus Comidas para llevar</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Eastern Connection</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Familia Arquibaldo</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Galería del gastrónomo</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Hanari Carnes</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">La corne d'abondance</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">La maison d'Asie</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Laughing Bacchus Wine Cellars</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Lazy K Kountry Store</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Magazzini Alimentari Riuniti</td>
+						  </tr>
+						</table>
+						<h6>18 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Customers where first letter in the name is "c" and the last one is "r".</h2>
+					<div class="macroinnersql">
+						<h4>SELECT CompanyName</h4>
+						<h4>FROM Customers</h4>
+						<h4>WHERE CompanyName Like 'c%r'</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">CompanyName</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Cactus Comidas para llevar</td>
+						  </tr>
+						</table>
+						<h6>1 row in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="Null_Values" class="macrooutersql">
+					<h1>Null Values</h1>
+					<h2>A field that contains a NULL value has no value. NULL value is different from a zero value or a field that contains spaces. 
+					A field with a NULL value has been left blank when a record has been created.
+					<p>It is not possible to compare NULL values against operators, such as =, <, or <>. Instead, WHERE IS NULL or WHERE IS NOT NULL are used as shown in examples below.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT FirstName, LastName, Title, Region</h4>
+						<h4>FROM Employees</h4>
+						<h4>WHERE Region IS NULL</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">FirstName</th>
+							<th class="tg-yw4l">LastName</th>
+							<th class="tg-yw4l">Title</th>
+							<th class="tg-yw4l">Region</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Steven</td>
+							<td class="tg-yw4l">Buchanan</td>
+							<td class="tg-yw4l">Sales Manager</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Michael</td>
+							<td class="tg-yw4l">Suyama</td>
+							<td class="tg-yw4l">Sales Representative</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Robert</td>
+							<td class="tg-yw4l">King</td>
+							<td class="tg-yw4l">Sales Representative</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Anne</td>
+							<td class="tg-yw4l">Dodsworth</td>
+							<td class="tg-yw4l">Sales Representative</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						</table>
+						<h6>4 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>No results are shown since WHERE IS NULL clause has to be used to return NULL records.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT FirstName, LastName, Title, Region </h4>
+						<h4>FROM Employees</h4>
+						<h4>WHERE Region = 'NULL'</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">FirstName</th>
+							<th class="tg-yw4l">LastName</th>
+							<th class="tg-yw4l">Title</th>
+							<th class="tg-yw4l">Region</th>
+						  </tr>
+						</table> 
+						<h6>0 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Similarly, no results are shown since WHERE IS NULL clause has to be used to return NULL records.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT FirstName, LastName, Title, Region </h4>
+						<h4>FROM Employees</h4>
+						<h4>WHERE Region = ''</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">FirstName</th>
+							<th class="tg-yw4l">LastName</th>
+							<th class="tg-yw4l">Title</th>
+							<th class="tg-yw4l">Region</th>
+						  </tr>
+						</table> 
+						<h6>0 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Error, no records returned.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT FirstName, LastName, Title, Region</h4>
+						<h4>FROM Employees</h4>
+						<h4>WHERE Region = 0</h4>
+					</div>
+					<div class="tbl">
+					Error returned
+					<i>Msg 245, Level 16, State 1, Line 1
+					<p>Conversion failed when converting the nvarchar value 'WA' to data type int.</i>
+					<h6> rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Returns records where region is not NULL.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT FirstName, LastName, Title, Region</h4>
+						<h4>FROM Employees</h4>
+						<h4>WHERE Region IS NOT NULL</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">FirstName</th>
+							<th class="tg-yw4l">LastName</th>
+							<th class="tg-yw4l">Title</th>
+							<th class="tg-yw4l">Region</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Nancy</td>
+							<td class="tg-yw4l">Davolio</td>
+							<td class="tg-yw4l">Sales Representative</td>
+							<td class="tg-yw4l">WA</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Andrew</td>
+							<td class="tg-yw4l">Fuller</td>
+							<td class="tg-yw4l">Vice President, Sales</td>
+							<td class="tg-yw4l">WA</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Janet</td>
+							<td class="tg-yw4l">Leverling</td>
+							<td class="tg-yw4l">Sales Representative</td>
+							<td class="tg-yw4l">WA</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Margaret</td>
+							<td class="tg-yw4l">Peacock</td>
+							<td class="tg-yw4l">Sales Representative</td>
+							<td class="tg-yw4l">WA</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Laura</td>
+							<td class="tg-yw4l">Callahan</td>
+							<td class="tg-yw4l">Inside Sales Coordinator</td>
+							<td class="tg-yw4l">WA</td>
+						  </tr>
+						</table>
+						<h6>5 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>In the example region's NULL values are replaced with "Unknown".</h2>
+					<div class="macroinnersql">
+						<h4>SELECT FirstName, LastName, Title, ISNULL(Region, 'Unknown')</h4>
+						<h4>FROM Employees</h4>
+						<h4>WHERE Region IS NULL</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">FirstName</th>
+							<th class="tg-yw4l">LastName</th>
+							<th class="tg-yw4l">Title</th>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Steven</td>
+							<td class="tg-yw4l">Buchanan</td>
+							<td class="tg-yw4l">Sales Manager</td>
+							<td class="tg-yw4l">Unknown</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Michael</td>
+							<td class="tg-yw4l">Suyama</td>
+							<td class="tg-yw4l">Sales Representative</td>
+							<td class="tg-yw4l">Unknown</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Robert</td>
+							<td class="tg-yw4l">King</td>
+							<td class="tg-yw4l">Sales Representative</td>
+							<td class="tg-yw4l">Unknown</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Anne</td>
+							<td class="tg-yw4l">Dodsworth</td>
+							<td class="tg-yw4l">Sales Representative</td>
+							<td class="tg-yw4l">Unknown</td>
+						  </tr>
+						</table>
+						<h6>4 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="SELECT_DISTINCT" class="macrooutersql">
+					<h1>SELECT DISTINCT</h1>
+					<h2>DISTINCT statement returns only distinct (unique) values.
+					<p>In the example distinct countries are returned.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT DISTINCT Country</h4>
+						<h4>FROM Customers</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">Country</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Argentina</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Austria</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Belgium</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Brazil</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Canada</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Denmark</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Finland</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">France</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Germany</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Ireland</td>
+						  </tr>
+						</table>
+						<h6>21 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>In the example distinct customer IDs are returned from the Orders table.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT DISTINCT CustomerID</h4>
+						<h4>FROM Orders</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">CustomerID</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">ALFKI</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">ANATR</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">ANTON</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">AROUT</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">BERGS</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">BLAUS</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">BLONP</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">BOLID</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">BONAP</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">BOTTM</td>
+						  </tr>
+						</table>
+						<h6>89 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="COUNT_AVG_SUM" class="macrooutersql">
+					<h1>COUNT, AVG, SUM</h1>
+					<h2>COUNT function returns a count of the number of data values. SUM function returns the sum of the data values. AVG function returns the average of the data values.
+					<p>The example shows number of customer IDs from Customers table.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT COUNT(CustomerID)</h4>
+						<h4>FROM Customers</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">91</td>
+						  </tr>
+						</table>
+						<h6>1 row in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>The example shows number of countries from Customers table.
+					<p>! The query doesn't remove duplicates. Countries are counted multiple times.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT COUNT(Country)</h4>
+						<h4>FROM Customers</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">91</td>
+						  </tr>
+						</table>
+						<h6>1 row in total</h6>
+					</div>
+				</div>
+
+
+				<div id="" class="macrooutersql">
+					<h2>The example shows number of countries from Customers table.
+					<p>! Duplicates are removed thanks to DISTINCT statement. Query counts unique countries.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT COUNT(DISTINCT Country)</h4>
+						<h4>FROM Customers</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">21</td>
+						  </tr>
+						</table>
+						<h6>1 row in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Average value of discount granted on condition that any discount was granted.
+					<p>! There is no limit in terms of decimal places.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT AVG(Discount)</h4>
+						<h4>FROM [Order Details]</h4>
+						<h4>WHERE Discount > 0</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">0,144439142966434</td>
+						  </tr>
+						</table>
+						<h6>1 row in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Average value of discount granted on condition that any discount was granted.
+					<p>Limited to two decimal places.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT ROUND(AVG(Discount),2)</h4>
+						<h4>FROM [Order Details]</h4>
+						<h4>WHERE Discount > 0</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">0,14</td>
+						  </tr>
+						</table>
+						<h6>1 row in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Ordered quantity in total.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT SUM(Quantity)</h4>
+						<h4>FROM [Order Details]</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">51317</td>
+						  </tr>
+						</table>
+						<h6>1 row in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="MIN_MAX" class="macrooutersql">
+					<h1>MIN, MAX</h1>
+					<h2>Min and Max functions show the smallest value and the largest value respectively.
+					<p>In the example the product with the highest price.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT MAX(UnitPrice)</h4>
+						<h4>FROM Products</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">263.50</td>
+						  </tr>
+						</table>
+						<h6>1 row in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>In the example the product with the lowest price.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT MIN(UnitPrice)</h4>
+						<h4>FROM Products</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2.50</td>
+						  </tr>
+						</table>
+						<h6>1 row in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="GROUP_BY" class="macrooutersql">
+					<h1>GROUP BY</h1>
+					<h2>GROUP BY is used to collect data across multiple records and group the results by one or more columns. 
+					The clause typically also involves aggregates, such as COUNT, MAX, SUM, AVG, etc.
+					<p>In the example grouping by country.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT Country</h4>
+						<h4>FROM Customers</h4>
+						<h4>GROUP BY Country</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">Country</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Argentina</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Austria</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Belgium</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Brazil</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Canada</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Denmark</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Finland</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">France</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Germany</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Ireland</td>
+						  </tr>
+						</table>
+						<h6>21 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>In the example grouping by title and aggregating (counting) by employee ID.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT COUNT(EmployeeID), Title</h4>
+						<h4>FROM Employees</h4>
+						<h4>GROUP BY Title</h4>
+						<h4>ORDER BY COUNT(EmployeeID) DESC</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">(No column name)</th>
+							<th class="tg-yw4l">Title</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">6</td>
+							<td class="tg-yw4l">Sales Representative</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Vice President, Sales</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Inside Sales Coordinator</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Sales Manager</td>
+						  </tr>
+						</table>
+						<h6>4 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="HAVING" class="macrooutersql">
+					<h1>HAVING</h1>
+					<h2>HAVING clause filters records that work on summarized GROUP BY results.
+					<p>In the example Having clause is used as a filter of grouped results.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT Country AS 'Customer''s country', COUNT(CustomerID) AS 'Number of customers'</h4>
+						<h4>FROM Customers</h4>
+						<h4>GROUP BY Country</h4>
+						<h4>HAVING COUNT(CustomerID) > 5</h4>
+						<h4>ORDER BY COUNT(CustomerID) DESC</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">Customer's country</th>
+							<th class="tg-yw4l">Number of customers</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">USA</td>
+							<td class="tg-yw4l">13</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">France</td>
+							<td class="tg-yw4l">11</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Germany</td>
+							<td class="tg-yw4l">11</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Brazil</td>
+							<td class="tg-yw4l">9</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">UK</td>
+							<td class="tg-yw4l">7</td>
+						  </tr>
+						</table>
+						<h6>5 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="EXISTS" class="macrooutersql">
+					<h1>EXISTS</h1>
+					<h2>EXISTS condition is used in combination with a subquery and is considered to be met, if the subquery returns at least one row. 
+					Subqueries are nested queries that provide data to the enclosing query.
+					<p>In the example products are returned on condition that supplier is from London.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT ProductName</h4>
+						<h4>From Products</h4>
+						<h4>WHERE EXISTS (SELECT * FROM Suppliers WHERE SupplierID = Products.SupplierID AND City = 'London')</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">ProductName</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Chai</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Chang</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Aniseed Syrup</td>
+						  </tr>
+						</table>
+						<h6>3 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>In the example products are returned on condition that supplier is not from London and product category is "Beverages".</h2>
+					<div class="macroinnersql">
+					<h4>SELECT ProductName</h4>
+						<h4>From Products</h4>
+						<h4>WHERE EXISTS (SELECT * FROM Suppliers WHERE SupplierID = Products.SupplierID AND NOT City = 'London')</h4>
+						<h4>AND EXISTS (SELECT * FROM Categories WHERE CategoryID = Products.CategoryID AND CategoryName = 'Beverages')</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">ProductName</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Guaraná Fantástica</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Sasquatch Ale</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Steeleye Stout</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Côte de Blaye</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Chartreuse verte</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Ipoh Coffee</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Laughing Lumberjack Lager</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Outback Lager</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Rhönbräu Klosterbier</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Lakkalikööri</td>
+						  </tr>
+						</table>
+						<h6>10 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="ANY_ALL" class="macrooutersql">
+					<h1>ANY, ALL</h1>
+					<h2>The ANY and ALL operators are used with a WHERE or HAVING clause.
+					The ANY operator returns true if any of the subquery values meet the condition.
+					The ALL operator returns true if all of the subquery values meet the condition.
+					<p>In the example records are returned since at least one of the products meet the condition in terms of quantity.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT ProductName</h4>
+						<h4>From Products</h4>
+						<h4>WHERE ProductID = ANY (SELECT ProductID FROM [Order Details] WHERE Quantity > 110)</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">ProductName</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Schoggi Schokolade</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Chartreuse verte</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Jack's New England Clam Chowder</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Manjimup Dried Apples</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Perth Pasties</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Pâté chinois</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Sirop d'érable</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Wimmers gute Semmelknödel</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Rhönbräu Klosterbier</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>There are no results since one of the conditions is not met.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT ProductName</h4>
+						<h4>From Products</h4>
+						<h4>WHERE 77 > ALL (SELECT ProductID FROM [Order Details])</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">ProductName</th>
+						  </tr>
+						</table>
+						<h6>0 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Since all of the conditions are met all 77 results are shown.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT ProductName</h4>
+						<h4>From Products</h4>
+						<h4>WHERE 78 > ALL (SELECT ProductID FROM [Order Details])</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">ProductName</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Alice Mutton</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Aniseed Syrup</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Boston Crab Meat</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Camembert Pierrot</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Carnarvon Tigers</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Chai</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Chang</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Chartreuse verte</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Chef Anton's Cajun Seasoning</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Chef Anton's Gumbo Mix</td>
+						  </tr>
+						</table>
+						<h6>77 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="JOINS" class="macrooutersql">
+					<h1>SQL Joins</h1>
+					<h2>A SQL JOIN combines records from two or more tables. Possible joins in the picture below.</h2>
+					<img src="img/sql/sqljoins.png" class="img-responsive" alt="SQL joins">
+				</div>
+				<br>
+
+				<div id="INNER_JOIN" class="macrooutersql">
+					<h1>INNER JOIN</h1>
+					<h2>Returns rows when the joining key between both tables matches.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT EmployeeID, Territories.TerritoryDescription</h4>
+						<h4>FROM EmployeeTerritories</h4>
+						<h4>INNER JOIN Territories ON EmployeeTerritories.TerritoryID = Territories.TerritoryID;</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">EmployeeID</th>
+							<th class="tg-yw4l">TerritoryDescription</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Wilton</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Neward</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Westboro</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Bedford</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Georgetow</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Boston</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Cambridge</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Braintree</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Louisville</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">3</td>
+							<td class="tg-yw4l">Atlanta</td>
+						  </tr>
+						</table>
+						<h6>49 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="LEFT_JOIN" class="macrooutersql">
+					<h1>LEFT JOIN</h1>
+					<h2><p>The LEFT JOIN keyword returns all records from the left table (table A), and the matched records from the right table (table B). If there is no match, the result is NULL from the right side.</p>
+					<p>! If we use RIGHT JOIN and switch the order of tables in query the same results will be obtained which will be shown in the next example.</p>
+					<p>! Similar results were obtained in above INNER JOIN query which means there are records in table A (EmployeeTerritories) which don't match table B (Territories).</p>
+					</h2>
+					<div class="macroinnersql">
+						<h4>SELECT EmployeeID, Territories.TerritoryDescription</h4>
+						<h4>FROM EmployeeTerritories</h4>
+						<h4>LEFT JOIN Territories ON EmployeeTerritories.TerritoryID = Territories.TerritoryID</h4>
+					<h4>ORDER BY EmployeeID, Territories.TerritoryDescription</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">EmployeeID</th>
+							<th class="tg-yw4l">TerritoryDescription</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Wilton</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Neward</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Westboro</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Bedford</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Georgetow</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Boston</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Cambridge</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Braintree</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Louisville</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">3</td>
+							<td class="tg-yw4l">Atlanta</td>
+						  </tr>
+						</table>
+						<h6>49 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Using RIGHT JOIN to obtain the same result as above. Order of tables in query was altered.</h2>
+					<div class="macroinnersql">
+					<h4>SELECT EmployeeID, Territories.TerritoryDescription</h4>
+						<h4>FROM Territories</h4>
+						<h4>RIGHT JOIN EmployeeTerritories ON Territories.TerritoryID = EmployeeTerritories.TerritoryID</h4>
+						<h4>ORDER BY EmployeeID, Territories.TerritoryDescription</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">EmployeeID</th>
+							<th class="tg-yw4l">TerritoryDescription</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Wilton</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Neward</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Westboro</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Bedford</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Georgetow</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Boston</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Cambridge</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Braintree</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Louisville</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">3</td>
+							<td class="tg-yw4l">Atlanta</td>
+						  </tr>
+						</table>
+						<h6>49 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Three-table left join example.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT EmployeeTerritories.EmployeeID, Employees.FirstName + ' ' + Employees.LastName AS FullName,</h4>
+						<h4>Territories.TerritoryDescription</h4>
+						<h4>FROM Employees</h4>
+						<h4>LEFT JOIN EmployeeTerritories ON Employees.EmployeeID = EmployeeTerritories.EmployeeID</h4>
+						<h4>LEFT JOIN Territories ON EmployeeTerritories.TerritoryID = Territories.TerritoryID</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">EmployeeID</th>
+							<th class="tg-yw4l">FullName</th>
+							<th class="tg-yw4l">TerritoryDescription</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Nancy Davolio</td>
+							<td class="tg-yw4l">Wilton</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Nancy Davolio</td>
+							<td class="tg-yw4l">Neward</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Westboro</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Bedford</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Georgetow</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Boston</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Cambridge</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Braintree</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Louisville</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">3</td>
+							<td class="tg-yw4l">Janet Leverling</td>
+							<td class="tg-yw4l">Atlanta</td>
+						  </tr>
+						</table>
+						<h6>49 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="RIGHT_JOIN" class="macrooutersql">
+					<h1>RIGHT JOIN</h1>
+					<h2><p>The RIGHT JOIN keyword returns all records from the right table (table B), and the matched records from the left table (table A). If there is no match, the result is NULL from the left side.</p>
+					<p>! If we use LEFT JOIN and switch the order of tables in query the same results will be obtained which will be shown in the next example.</p>
+					<p>! There are 4 more records than in case of similar LEFT JOIN example. This is because in 4 cases there are no matches which results in NULL values.</p>
+					</h2>
+					<div class="macroinnersql">
+						<h4>SELECT EmployeeID, Territories.TerritoryDescription</h4>
+						<h4>FROM EmployeeTerritories</h4>
+						<h4>RIGHT JOIN Territories ON EmployeeTerritories.TerritoryID = Territories.TerritoryID</h4>
+						<h4>ORDER BY EmployeeID, Territories.TerritoryDescription</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">EmployeeID</th>
+							<th class="tg-yw4l">TerritoryDescription</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">Austin</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">Bentonville</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">Columbia</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">Dallas</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Neward</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Wilton</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Bedford</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Boston</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Braintree</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Cambridge</td>
+						  </tr>
+						</table>
+						<h6>53 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Using RIGHT JOIN to obtain the same result as above. Order of tables in query was altered.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT EmployeeID, Territories.TerritoryDescription</h4>
+						<h4>FROM Territories</h4>
+						<h4>LEFT JOIN EmployeeTerritories ON Territories.TerritoryID = EmployeeTerritories.TerritoryID</h4>
+						<h4>ORDER BY EmployeeID, Territories.TerritoryDescription</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">EmployeeID</th>
+							<th class="tg-yw4l">TerritoryDescription</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">Austin</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">Bentonville</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">Columbia</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">Dallas</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Neward</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Wilton</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Bedford</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Boston</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Braintree</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Cambridge</td>
+						  </tr>
+						</table>
+						<h6>53 rows in total</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h2>Three-table right join example.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT EmployeeTerritories.EmployeeID, Employees.FirstName + ' ' + Employees.LastName,</h4>
+						<h4>Territories.TerritoryDescription</h4>
+						<h4>FROM Employees</h4>
+						<h4>RIGHT JOIN EmployeeTerritories ON Employees.EmployeeID = EmployeeTerritories.EmployeeID</h4>
+						<h4>RIGHT JOIN Territories ON EmployeeTerritories.TerritoryID = Territories.TerritoryID</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">EmployeeID</th>
+							<th class="tg-yw4l">(No column name)</th>
+							<th class="tg-yw4l">TerritoryDescription</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Westboro</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Bedford</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Georgetow</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Boston</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Cambridge</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Braintree</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">5</td>
+							<td class="tg-yw4l">Steven Buchanan</td>
+							<td class="tg-yw4l">Providence</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">9</td>
+							<td class="tg-yw4l">Anne Dodsworth</td>
+							<td class="tg-yw4l">Hollis</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">9</td>
+							<td class="tg-yw4l">Anne Dodsworth</td>
+							<td class="tg-yw4l">Portsmouth</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Nancy Davolio</td>
+							<td class="tg-yw4l">Wilton</td>
+						  </tr>
+						</table>
+						<h6>53 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="FULL_JOIN" class="macrooutersql">
+					<h1>FULL JOIN</h1>
+					<h2>Returns all records from both Table A and Table B regardless there are matches or not.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT EmployeeID, Territories.TerritoryDescription</h4>
+						<h4>FROM EmployeeTerritories</h4>
+						<h4>FULL JOIN Territories ON EmployeeTerritories.TerritoryID = Territories.TerritoryID</h4>
+						<h4>ORDER BY EmployeeID, Territories.TerritoryDescription</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">EmployeeID</th>
+							<th class="tg-yw4l">(No column name)</th>
+							<th class="tg-yw4l">TerritoryDescription</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Westboro</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Bedford</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Georgetow</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Boston</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Cambridge</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Braintree</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">5</td>
+							<td class="tg-yw4l">Steven Buchanan</td>
+							<td class="tg-yw4l">Providence</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">9</td>
+							<td class="tg-yw4l">Anne Dodsworth</td>
+							<td class="tg-yw4l">Hollis</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">9</td>
+							<td class="tg-yw4l">Anne Dodsworth</td>
+							<td class="tg-yw4l">Portsmouth</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Nancy Davolio</td>
+							<td class="tg-yw4l">Wilton</td>
+						  </tr>
+						</table>
+						<h6>53 rows in total</h6>
+					</div>
+				</div>
+
+
+				<div id="" class="macrooutersql">
+					<h2>Example shows combination of full and left table joins.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT EmployeeTerritories.EmployeeID, Employees.FirstName + ' ' + Employees.LastName,</h4>
+						<h4>Territories.TerritoryDescription</h4>
+						<h4>FROM Employees</h4>
+						<h4>FULL JOIN EmployeeTerritories ON Employees.EmployeeID = EmployeeTerritories.EmployeeID</h4>
+						<h4>LEFT JOIN Territories ON EmployeeTerritories.TerritoryID = Territories.TerritoryID</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">EmployeeID</th>
+							<th class="tg-yw4l">(No column name)</th>
+							<th class="tg-yw4l">TerritoryDescription</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Nancy Davolio</td>
+							<td class="tg-yw4l">Wilton</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Nancy Davolio</td>
+							<td class="tg-yw4l">Neward</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Westboro</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Bedford</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Georgetow</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Boston</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Cambridge</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Braintree</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Andrew Fuller</td>
+							<td class="tg-yw4l">Louisville</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">3</td>
+							<td class="tg-yw4l">Janet Leverling</td>
+							<td class="tg-yw4l">Atlanta</td>
+						  </tr>
+						</table>
+						<h6>53 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="SELF_JOIN" class="macrooutersql">
+					<h1>SELF JOIN</h1>
+					<h2>Self joins connects rows with other rows in the same table.</h2>
+					<p>In the example Andrew Fuller doesn't appear as he reports to NULL. We may assume there is no one also above in hierarchy.</p>
+					<div class="macroinnersql">
+						<h4>SELECT a.LastName AS Employee, b.LastName AS Supervisor</h4>
+						<h4>FROM Employees a, Employees b</h4>
+						<h4>WHERE b.EmployeeID = a.ReportsTo</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">Employee</th>
+							<th class="tg-yw4l">Supervisor</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Davolio</td>
+							<td class="tg-yw4l">Fuller</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Leverling</td>
+							<td class="tg-yw4l">Fuller</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Peacock</td>
+							<td class="tg-yw4l">Fuller</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Buchanan</td>
+							<td class="tg-yw4l">Fuller</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Suyama</td>
+							<td class="tg-yw4l">Buchanan</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">King</td>
+							<td class="tg-yw4l">Buchanan</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Callahan</td>
+							<td class="tg-yw4l">Fuller</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Dodsworth</td>
+							<td class="tg-yw4l">Buchanan</td>
+						  </tr>
+						</table>
+						<h6>8 rows in total</h6>
+					</div>
+				</div>
+
+
+				<div id="" class="macrooutersql">
+					<h2>In the example we assume that Andrew Fuller reports to himself.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT a.LastName AS Employee, b.LastName AS Supervisor</h4>
+						<h4>FROM Employees a, Employees b</h4>
+						<h4>WHERE b.EmployeeID = ISNULL(a.ReportsTo, 2)</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">Employee</th>
+							<th class="tg-yw4l">Supervisor</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Davolio</td>
+							<td class="tg-yw4l">Fuller</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Fuller</td>
+							<td class="tg-yw4l">Fuller</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Leverling</td>
+							<td class="tg-yw4l">Fuller</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Peacock</td>
+							<td class="tg-yw4l">Fuller</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Buchanan</td>
+							<td class="tg-yw4l">Fuller</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Suyama</td>
+							<td class="tg-yw4l">Buchanan</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">King</td>
+							<td class="tg-yw4l">Buchanan</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Callahan</td>
+							<td class="tg-yw4l">Fuller</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Dodsworth</td>
+							<td class="tg-yw4l">Buchanan</td>
+						  </tr>
+						</table>
+						<h6>9 rows in total</h6>
+					</div>
+				</div>
+				<br>
+				
+				<div id="UNION" class="macrooutersql">
+					<h1>UNION</h1>
+					<h2>The UNION operator combines the results of two or more SELECT statements. In order to use UNION columns in tables have to match. Duplicated pairs are removed.</h2>
+					<div class="macroinnersql">
+						<h4>SELECT City, Country FROM Suppliers</h4>
+						<h4>UNION</h4>
+						<h4>SELECT City, Country FROM Employees</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">City</th>
+							<th class="tg-yw4l">Country</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Ann Arbor</td>
+							<td class="tg-yw4l">USA</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Annecy</td>
+							<td class="tg-yw4l">France</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Bend</td>
+							<td class="tg-yw4l">USA</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Berlin</td>
+							<td class="tg-yw4l">Germany</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Boston</td>
+							<td class="tg-yw4l">USA</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Cuxhaven</td>
+							<td class="tg-yw4l">Germany</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Frankfurt</td>
+							<td class="tg-yw4l">Germany</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Göteborg</td>
+							<td class="tg-yw4l">Sweden</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Kirkland</td>
+							<td class="tg-yw4l">USA</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Lappeenranta</td>
+							<td class="tg-yw4l">Finland</td>
+						  </tr>
+						</table>
+						<h6>33 rows in total</h6>
+					</div>
+				</div>
+
+
+				<div id="" class="macrooutersql">
+					<h2>The UNION ALL operator combines the results of two or more SELECT statements, however duplicated pairs are not removed. London, UK appears multiple times</h2>
+					<div class="macroinnersql">
+						<h4>SELECT City, Country FROM Suppliers</h4>
+						<h4>UNION ALL</h4>
+						<h4>SELECT City, Country FROM Employees</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">City</th>
+							<th class="tg-yw4l">Country</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">London</td>
+							<td class="tg-yw4l">UK</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">New Orleans</td>
+							<td class="tg-yw4l">USA</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Ann Arbor</td>
+							<td class="tg-yw4l">USA</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Tokyo</td>
+							<td class="tg-yw4l">Japan</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Oviedo</td>
+							<td class="tg-yw4l">Spain</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Osaka</td>
+							<td class="tg-yw4l">Japan</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Melbourne</td>
+							<td class="tg-yw4l">Australia</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Manchester</td>
+							<td class="tg-yw4l">UK</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Göteborg</td>
+							<td class="tg-yw4l">Sweden</td>
+						  </tr>
+						</table>
+						<h6>38 rows in total</h6>
+					</div>
+				</div>
+				<br>
+
+				<div id="INSERT_INTO" class="macrooutersql">
+					<h1>INSERT INTO</h1>
+					<h2>Inserts a new record into a table.</h2>
+					<div class="macroinnersql">
+						<h4>INSERT INTO Employees (LastName, FirstName, Title)</h4>
+						<h4>VALUES ('Janus', 'Piotr', 'Sales Representative')</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">LastName</th>
+							<th class="tg-yw4l">FirstName</th>
+							<th class="tg-yw4l">Title</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Davolio</td>
+							<td class="tg-yw4l">Nancy</td>
+							<td class="tg-yw4l">Sales Representative</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Fuller</td>
+							<td class="tg-yw4l">Andrew</td>
+							<td class="tg-yw4l">Vice President, Sales</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Leverling</td>
+							<td class="tg-yw4l">Janet</td>
+							<td class="tg-yw4l">Sales Representative</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Peacock</td>
+							<td class="tg-yw4l">Margaret</td>
+							<td class="tg-yw4l">Sales Representative</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Buchanan</td>
+							<td class="tg-yw4l">Steven</td>
+							<td class="tg-yw4l">Sales Manager</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Suyama</td>
+							<td class="tg-yw4l">Michael</td>
+							<td class="tg-yw4l">Sales Representative</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">King</td>
+							<td class="tg-yw4l">Robert</td>
+							<td class="tg-yw4l">Sales Representative</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Callahan</td>
+							<td class="tg-yw4l">Laura</td>
+							<td class="tg-yw4l">Inside Sales Coordinator</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Dodsworth</td>
+							<td class="tg-yw4l">Anne</td>
+							<td class="tg-yw4l">Sales Representative</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Janus</td>
+							<td class="tg-yw4l">Piotr</td>
+							<td class="tg-yw4l">Sales Representative</td>
+						  </tr>
+						</table>
+						<h6>(1 row affected)</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h1>UPDATE</h1>
+					<h2>Updates a record in a table.</h2>
+					<div class="macroinnersql">
+					<h4>UPDATE Employees</h4>
+						<h4>SET FirstName = 'Peter', LastName = 'Janusz'</h4>
+						<h4>WHERE EmployeeID = 10</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">LastName</th>
+							<th class="tg-yw4l">FirstName</th>
+							<th class="tg-yw4l">Title</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Davolio</td>
+							<td class="tg-yw4l">Nancy</td>
+							<td class="tg-yw4l">Sales Representative</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Fuller</td>
+							<td class="tg-yw4l">Andrew</td>
+							<td class="tg-yw4l">Vice President, Sales</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Leverling</td>
+							<td class="tg-yw4l">Janet</td>
+							<td class="tg-yw4l">Sales Representative</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Peacock</td>
+							<td class="tg-yw4l">Margaret</td>
+							<td class="tg-yw4l">Sales Representative</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Buchanan</td>
+							<td class="tg-yw4l">Steven</td>
+							<td class="tg-yw4l">Sales Manager</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Suyama</td>
+							<td class="tg-yw4l">Michael</td>
+							<td class="tg-yw4l">Sales Representative</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">King</td>
+							<td class="tg-yw4l">Robert</td>
+							<td class="tg-yw4l">Sales Representative</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Callahan</td>
+							<td class="tg-yw4l">Laura</td>
+							<td class="tg-yw4l">Inside Sales Coordinator</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Dodsworth</td>
+							<td class="tg-yw4l">Anne</td>
+							<td class="tg-yw4l">Sales Representative</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Janusz</td>
+							<td class="tg-yw4l">Piotr</td>
+							<td class="tg-yw4l">Sales Representative</td>
+						  </tr>
+						</table>
+						<h6>(1 row affected)</h6>
+					</div>
+				</div>
+
+				<div id="" class="macrooutersql">
+					<h1>DELETE</h1>
+					<h2>Deletes a record from a table.</h2>
+					<div class="macroinnersql">
+						<h4>DELETE FROM Employees</h4>
+						<h4>WHERE EmployeeID = 10</h4>
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">LastName</th>
+							<th class="tg-yw4l">FirstName</th>
+							<th class="tg-yw4l">Title</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Davolio</td>
+							<td class="tg-yw4l">Nancy</td>
+							<td class="tg-yw4l">Sales Representative</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Fuller</td>
+							<td class="tg-yw4l">Andrew</td>
+							<td class="tg-yw4l">Vice President, Sales</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Leverling</td>
+							<td class="tg-yw4l">Janet</td>
+							<td class="tg-yw4l">Sales Representative</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Peacock</td>
+							<td class="tg-yw4l">Margaret</td>
+							<td class="tg-yw4l">Sales Representative</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Buchanan</td>
+							<td class="tg-yw4l">Steven</td>
+							<td class="tg-yw4l">Sales Manager</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Suyama</td>
+							<td class="tg-yw4l">Michael</td>
+							<td class="tg-yw4l">Sales Representative</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">King</td>
+							<td class="tg-yw4l">Robert</td>
+							<td class="tg-yw4l">Sales Representative</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Callahan</td>
+							<td class="tg-yw4l">Laura</td>
+							<td class="tg-yw4l">Inside Sales Coordinator</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">Dodsworth</td>
+							<td class="tg-yw4l">Anne</td>
+							<td class="tg-yw4l">Sales Representative</td>
+						  </tr>
+						</table>
+						<h6>(1 row affected)</h6>
+					</div>
+				</div>
+
+			</div><!--Intro class md-->
+
+			
+			<!--Contact and list-->
+
+			<!--dekstop-->		
+			<div class="col-md-3 hidden-xs hidden-sm">
+				<div id="" class="list">
+						<h1><a href="#setup">SQL Tutorial</a></h1>
+						<h4><a href="#setup">Set up SQL database</a></h4>
+						<h4><a href="#SELECT">SELECT</a></h4>
+						<h4><a href="#Aliases">Aliases</a></h4>
+						<h4><a href="#LEFT_RIGHT_SUBSTRING">LEFT, RIGHT, SUBSTRING</a></h4>
+						<h4><a href="#LTRIM">LTRIM</a></h4>
+						<h4><a href="#RTRIM">RTRIM</a></h4>
+						<h4><a href="#CONCAT">CONCAT</a></h4>
+						<h4><a href="#PLUS_MINUS">Operators +, -, *, /</a></h4>
+						<h4><a href="#UPPER">UPPER</a></h4>
+						<h4><a href="#LOWER">LOWER</a></h4>
+						<h4><a href="#GETDATE">GETDATE</a></h4>
+						<h4><a href="#CURRENT_TIMESTAMP">CURRENT_TIMESTAMP</a></h4>
+						<h4><a href="#DATEPART">DATEPART</a></h4>
+						<h4><a href="#DATEDIFF">DATEDIFF</a></h4>
+						<h4><a href="#CASE_WHEN_THEN_ELSE_END">CASE, WHEN, THEN, ELSE, END</a></h4>
+						<h4><a href="#ORDER_BY">ORDER BY</a></h4>
+						<h4><a href="#WHERE">WHERE</a></h4>
+						<h4><a href="#BETWEEN">BETWEEN</a></h4>
+						<h4><a href="#SELECT_TOP">SELECT TOP</a></h4>
+						<h4><a href="#AND_OR_NOT">AND, OR, NOT</a></h4>
+						<h4><a href="#IN">IN</a></h4>
+						<h4><a href="#LIKE">LIKE</a></h4>
+						<h4><a href="#Null_Values">Null Values</a></h4>
+						<h4><a href="#SELECT_DISTINCT">SELECT DISTINCT</a></h4>
+						<h4><a href="#COUNT_AVG_SUM">COUNT, AVG, SUM</a></h4>
+						<h4><a href="#MIN_MAX">MIN, MAX</a></h4>
+						<h4><a href="#GROUP_BY">GROUP BY</a></h4>
+						<h4><a href="#HAVING">HAVING</a></h4>
+						<h4><a href="#EXISTS">EXISTS</a></h4>
+						<h4><a href="#ANY_ALL">ANY, ALL</a></h4>
+						<h4><a href="#JOINS">JOINS</a></h4>
+						<h4><a href="#INNER_JOIN">INNER JOIN</a></h4>
+						<h4><a href="#LEFT_JOIN">LEFT JOIN</a></h4>
+						<h4><a href="#RIGHT_JOIN">RIGHT JOIN</a></h4>
+						<h4><a href="#FULL_JOIN">FULL JOIN</a></h4>
+						<h4><a href="#SELF_JOIN">SELF JOIN</a></h4>
+						<h4><a href="#UNION">UNION</a></h4>
+						<h4><a href="#INSERT_INTO">INSERT INTO</a></h4>
+						<h4><a href="#UPDATE">UPDATE</a></h4>
+						<h4><a href="#DELETE">DELETE</a></h4>
+					<br>
+				</div>
+			</div>
+		
+		</div> <!--row-->
+	</div> <!--container-->
+</div> <!--class main-->
+
+
+<!--scripts-->
+<script>
+/* shrink navbar on scroll */
+$(window).scroll(function() {
+  if ($(document).scrollTop() > 100) {
+    $('nav').addClass('shrink');
+    $('.add').hide();
+  } else {
+    $('nav').removeClass('shrink');
+    $('.add').show();
+  }
+});
+
+
+/* scroll to top */
+$(window).bind("load", function() {
+
+$(document).ready(function(){
+	$('a[href^="#"]').on('click',function (e) {
+	    e.preventDefault();
+
+	    var target = this.hash;
+	    var $target = $(target);
+
+	    $('html, body').stop().animate({
+	        'scrollTop': $target.offset().top - 110 /* distance from top */
+	    }, 650, 'swing');
+	});
+});
+/*https://stackoverflow.com/questions/11365091/jquery-scroll-to-anchor-minus-set-amount-of-pixels*/
+
+/*Fix to problem in IE and Mozilla
+https://stackoverflow.com/questions/18107597/jquery-scrolltop-offset-issue*/
+});
+
+/*if this is turn on dropdown menu links don't work*/
+/*$(window).bind("load", function() {
+
+$(document).ready(function () {
+        $('ul.nav > li').click(function (e) {
+            e.preventDefault();
+            $('ul.nav > li').removeClass('active');
+            $(this).addClass('active');                
+        });            
+    });
+
+});*/
+
+/* ????????????????????? */
+
+$(window).bind("load", function() {
+
+$(document).on('click','.navbar-collapse.in',function(e) {
+    if( $(e.target).is('a') ) {
+        $(this).collapse('hide');
+    }
+});
+
+});
+</script>
+
+
+</body>
+
+<footer>
+	<div id="grad2" class="container-fluid">
+		<div class="container">
+			<div class="row" style="height: 55px">
+				<div class="col-xs-12" style="color: #FFFFFF";>
+					<h4><p align="right">Copyright &copy; 2020 Piotr Janus</p></h4>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+</html>

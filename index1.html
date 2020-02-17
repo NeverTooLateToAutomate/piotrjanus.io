@@ -1,0 +1,1217 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+	<title>piotrjanus.com &#124; Python, Tableau, SQL and VBA by Piotr Janus</title>
+
+	<meta charset="utf-8" />
+	<meta name="robots" content="index, follow" />
+	<meta name="description" content="Plenty of useful VBA codes that will help you to automate your daily Excel routine &#124; Basic SQL queries to extract data from a database">
+	<meta name="keywords" content="AutomateIt, VBA, Visual Basic for Applications, macro, SQL, Structured Query Language, Tableau, business intelligence, automation, process enhancement, coding">
+	<meta name="author" content="Piotr Janus">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="format-detection" content="telephone=no"/>
+	
+	<link rel="Shortcut icon" href="img/logo/favicon.png" />
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700&subset=latin-ext' rel='stylesheet' type='text/css'>
+	<link href="//fonts.googleapis.com/css?family=Cousine" rel="stylesheet" type="text/css"/>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="java/java.js"></script>
+
+</head>
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="grad1">
+  <div class="container-fluid">
+	<div class="navbar-header">
+	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>                   
+	  </button>
+	  <a class="navbar-brand" href="index1.html"><img src="img/logo/logo_pj_white_medium.png" onmouseover="this.src='img/logo/logo_pj_pink_medium.png'" onmouseout="this.src='img/logo/logo_pj_white_medium.png'" alt="www.piotrjanus.tableau.com"/></a>
+	</div>
+	<div class="collapse navbar-collapse" id="myNavbar">
+		<ul class="nav navbar-nav navbar-right">
+			<li class="active"><a href="#top">Python</a></li>
+			<li><a href="index2.html">VBA</a></li>
+			<li><a href="index3.html">SQL</a></li>
+			<li><a href="index4.html">About</a></li>
+			<li class="hidden-xs"><a href="mailto:piotrjanus@outlook.com"><img src="img/logo/outlook_white_vsmall.png" onmouseover="this.src='img/logo/outlook_white_vsmall.png'" onmouseout="this.src='img/logo/outlook_white_vsmall.png'" alt="www.linkedin.com/in/januspiotr/"/></a></li>
+			<li class="hidden-xs"><a href="https://www.linkedin.com/in/januspiotr/"><img src="img/logo/linkedin_white_vsmall.png" alt="www.linkedin.com/in/januspiotr/"/></a></li>
+			<li class="hidden-xs"><a href="https://public.tableau.com/profile/piotr.janus2542#!/"><img src="img/logo/tableau_white_vsmall.png" alt="www.piotrjanus.tableau.com"/></a></li>
+		</ul>
+	</div>
+  </div>
+</nav>
+
+
+<div class="main"><div id="header" style="height: 70px"></div>
+	<div class="container">
+		<div class="row">
+				
+			<!--Intro-->
+			<div class="col-md-9">
+				<br>
+				<div id="top" class="">			
+					<div id="climatechangepl">
+						<h1>Climate change in Poland</h1>
+						<h3>31.01.2020 | urllib.request, BeautifulSoup, pandas, zipfile, io, matplotlib, numpy</h3>			
+						<h2>Get year list.</h2>
+						<div class="macroinner">
+							<h6>from urllib.request import urlopen</h6>
+							<h6>from bs4 import BeautifulSoup</h6>
+							<br>
+							<h6>yr_list = []</h6>
+							<br>
+							<h6>imgw_page = 'https://dane.imgw.pl/data/dane_pomiarowo_obserwacyjne/dane_meteorologiczne/dobowe/klimat/'</h6>
+							<h6>page = urlopen(imgw_page)</h6>
+							<h6>soup = BeautifulSoup(page, 'html.parser')</h6>
+							<br>
+							<h6>for link in soup.find_all('a', href=True):</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    if str(link.string)[0].isdigit():</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        yr_list.append(str(link.string)[:-1])</h6>
+							<h6>print(yr_list)</h6>
+						</div>
+						<img src="img/python/imgw1.png" class="img-responsive" alt="">
+						<h2>Get column names.</h2>
+						<div class="macroinner">
+							<h6>import pandas as pd</h6>
+							<br>
+							<h6>file_name = r'https://dane.imgw.pl/data/dane_pomiarowo_obserwacyjne/dane_meteorologiczne/dobowe/klimat/k_d_t_format.txt'</h6>
+							<br>
+							<h6>df = pd.read_fwf(file_name, header=None, encoding='windows-1250')</h6>
+							<h6>head_list = df[0].values.tolist()</h6>
+							<br>
+							<h6>del head_list[-1]</h6>
+							<br>
+							<h6>for x in range(len(head_list)):</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    head_list[x] = head_list[x].split("  ")[0]</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    head_list[x] = head_list[x].split(" 6")[0]</h6>
+							<h6>print(head_list)</h6>
+						</div>
+						<img src="img/python/imgw2.png" class="img-responsive" alt="">
+						<h2>Get the climate data.</h2>
+						<div class="macroinner">
+							<h6>from zipfile import ZipFile</h6>
+							<h6>from io import BytesIO</h6>
+							<h6>from urllib.request import urlopen</h6>
+							<br>
+							<h6>df = pd.DataFrame()</h6>
+							<br>
+							<h6>mth_list = ['01','02','03','04','05','06','07','08','09','10','11','12']</h6>
+							<br>
+							<h6>for obs_year in yr_list:</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    if len(obs_year) > 4:</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        temp_list = obs_year.split('_')</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        min_temp_list = int(min(temp_list))</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        max_temp_list = int(max(temp_list)) + 1</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        for det_year in range(min_temp_list, max_temp_list):</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            url = urlopen('https://dane.imgw.pl/data/dane_pomiarowo_obserwacyjne/dane_meteorologiczne/dobowe/klimat/' + obs_year + '/' + str(det_year) + '_k.zip')</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            file = ZipFile(BytesIO(url.read()))</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            climate_csv = file.open('k_d_t_' + str(det_year) + '.csv')</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            temp_yr_df = pd.read_csv(climate_csv, header=None, encoding='windows-1250', names=head_list)</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            df = pd.concat([df, temp_yr_df], ignore_index=True)</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    else:</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        try:</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            for obs_month in mth_list:</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                url = urlopen('https://dane.imgw.pl/data/dane_pomiarowo_obserwacyjne/dane_meteorologiczne/dobowe/klimat/' + obs_year + '/' + obs_year + '_' + obs_month + '_k.zip')</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                file = ZipFile(BytesIO(url.read()))</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                climate_csv = file.open('k_d_t_' + obs_month + '_' + obs_year + '.csv')</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                temp_yr_df = pd.read_csv(climate_csv, header=None, encoding='windows-1250', names=head_list)</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                df = pd.concat([df, temp_yr_df], ignore_index=True)</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        except:</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            break</h6>
+							<h6>print(df.shape)</h6>
+							<h6>df.head()</h6>
+						</div>
+						<img src="img/python/imgw3.png" class="img-responsive" alt="">
+						<h2>Save the data in the csv file compressed in the gzip.</h2>
+						<div class="macroinner">
+							<h6>file_name = r'C:\Users\admin\Documents\Nauka\Projects\Python\IMGW\imgw_temp_raw.csv.gz'</h6>
+							<h6>df.to_csv(file_name, sep='\t', encoding='windows-1250', index=False, compression='gzip')</h6>
+						</div>
+						<h2>Load the data from the csv file compressed in the gzip.</h2>
+						<div class="macroinner">
+							<h6>file_name = r'C:\Users\admin\Documents\Nauka\Projects\Python\IMGW\imgw_temp_raw.csv.gz'</h6>
+							<h6>df = pd.read_csv(file_name, sep='\t', encoding='windows-1250')</h6>
+							<h6>print(df.shape)</h6>
+							<h6>df.head()</h6>
+						</div>
+						<h2>Sort the data by a year, station, month and day. Next, group by a station and year.</h2>				
+						<div class="macroinner">
+							<h6>df = df.sort_values(['Rok', 'Nazwa stacji', 'Miesiąc', 'Dzień'])</h6>
+							<h6>df = df.reset_index(drop=True)</h6>
+							<h6>df = df.dropna(how='all', axis=1)</h6>
+							<h6>df_grouped = df.groupby(['Nazwa stacji', 'Rok'], as_index=False)['Średnia dobowa temperatura','Średnia dobowa wilgotność względna [%]','Średnia dobowa prędkość wiatru [m/s]','Średnie dobowe zachmurzenie ogólne [oktanty]'].mean().round(1)</h6>
+							<h6>print(df_grouped.shape)</h6>
+							<h6>df_grouped.head()</h6>
+						</div>
+						<img src="img/python/imgw4.png" class="img-responsive" alt="">
+						<h2>Save the file in the xlsx format that will be used for visualizations.</h2>					
+						<div class="macroinner">
+							<h6>file_name = r'C:\Users\admin\Documents\Nauka\Projects\Python\IMGW\imgw_grouped.xlsx'</h6>
+							<h6>df_grouped.to_excel(file_name, encoding='utf-8', index=False)</h6>
+						</div>
+						<h2>Tableau viz (mobile version):</h2>			
+						<div class='tableauPlaceholder' id='viz1580683630843' style='position: relative'>
+						<noscript>
+							<a href='#'>
+								<img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;cl&#47;climate_1951_2018_pl&#47;ClimateinPolandbetween1951-2018&#47;1_rss.png' style='border: none' />
+							</a>
+						</noscript>
+						<object class='tableauViz'  style='display:none;'>
+							<param name='device' value='phone'/>
+							<param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> 
+							<param name='embed_code_version' value='3' /> 
+							<param name='site_root' value='' />
+							<param name='name' value='climate_1951_2018_pl&#47;ClimateinPolandbetween1951-2018' />
+							<param name='tabs' value='no' /><param name='toolbar' value='yes' />
+							<param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;cl&#47;climate_1951_2018_pl&#47;ClimateinPolandbetween1951-2018&#47;1.png' /> 
+							<param name='animate_transition' value='yes' />
+							<param name='display_static_image' value='yes' />
+							<param name='display_spinner' value='yes' />
+							<param name='display_overlay' value='yes' />
+							<param name='display_count' value='yes' />
+							<param name='filter' value='publish=yes' />
+						</object>
+						</div>                
+						<script type='text/javascript'>                    
+						var divElement = document.getElementById('viz1580683630843');                    
+						var vizElement = divElement.getElementsByTagName('object')[0];                    
+							{ vizElement.style.width='100%';vizElement.style.height='550px';}                     
+						var scriptElement = document.createElement('script');                    
+							scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    
+							vizElement.parentNode.insertBefore(scriptElement, vizElement);                
+						</script>
+												
+						<h2>Visualization in Python using matplotlib:<br>
+						Load the xlsx file and limit data to Dynów. In this city, located in Subcarpathian Voivodeship, the temperature has been measured since 1951.</h2>
+						<div class="macroinner">
+							<h6>file_name = r'C:\Users\admin\Documents\Nauka\Projects\Python\IMGW\imgw_grouped.xlsx'</h6>
+							<h6>df_grouped = pd.read_excel(file_name, encoding='utf-8')</h6>
+							<h6>df_dynow = df_grouped[df_grouped['Nazwa stacji'] == 'DYNÓW']</h6>
+							<h6>df_dynow = df_dynow.reset_index(drop=True)</h6>
+							<h6>print(df_dynow.shape)</h6>
+							<h6>df_dynow.head()</h6>
+						</div>
+						<img src="img/python/imgw5.png" class="img-responsive" alt="">
+						<h2>Create a list of yearly averge temperatures for Dynów. We are removing 2019 because at the time the code was exectuded the December 2019 data was not available.</h2>
+						<div class="macroinner">
+							<h6>temp_year = df_dynow['Średnia dobowa temperatura'].tolist()</h6>
+							<h6>temp_year = temp_year[:-1] # no 2019 cause no Dec data for 2019</h6>
+							<h6>print(temp_year)</h6>
+						</div>
+						<img src="img/python/imgw.png6" class="img-responsive" alt="">						
+						<h2>The same for years.</h2>
+						<div class="macroinner">
+							<h6>single_yr_list = df_dynow["Rok"].drop_duplicates().tolist()</h6>
+							<h6>single_yr_list = single_yr_list[:-1]</h6>
+							<h6>print(single_yr_list)</h6>
+						</div>						
+						<img src="img/python/imgw.png7" class="img-responsive" alt="">
+						<h2>Plotting a map.</h2>
+						<div class="macroinner">
+							<h6>import matplotlib.pyplot as plt</h6>
+							<h6>import matplotlib.patches as mpatches</h6>
+							<h6>import numpy as np</h6>
+							<br>
+							<h6>x_labels = single_yr_list</h6>
+							<h6>y_temp_year = temp_year</h6>
+							<br>
+							<h6>plt.plot(x_labels, y_temp_year, color = 'crimson')</h6>
+							<h6>for a,b in zip(x_labels, y_temp_year): </h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    plt.text(a, b, str(b))</h6>
+							<br>
+							<h6>z = np.polyfit(x_labels, y_temp_year, 1)</h6>
+							<h6>p = np.poly1d(z)</h6>
+							<h6>plt.plot(x_labels,p(x_labels),"r--") </h6>
+							<h6>    </h6>
+							<h6>plt.title('Average yearly temperaures in Dynów between 1951 - 2018')</h6>
+							<br>
+							<h6>plt.xlabel('years')</h6>
+							<h6>plt.ylabel('temperature')</h6>
+							<h6>plt.xticks(x_labels, rotation = 'vertical')</h6>
+							<br>
+							<h6>blue_patch = mpatches.Patch(color = 'crimson', label = 'average temp')</h6>
+							<h6>plt.legend(handles = [blue_patch], loc=2, fontsize = 'x-large')</h6>
+							<br>
+							<h6>plt.rcParams["figure.figsize"] = (20,10)</h6>
+							<h6>plt.show()</h6>
+						</div>							
+						<img src="img/python/imgw8.png" class="img-responsive" alt="">						
+						<br>
+						<br>
+					</div>	
+					
+					
+					
+					<div id="xmlelementtree">
+						<h1>Tableau calculations and parameters export</h1>
+						<h3>5.12.2019 | Tableau, xml.etree.ElementTree, re, pandas</h3>			
+						<h2>Tableau calculations and parameters cannot have a negative impact on the data integrity. Making sure it won't happen is an important element of the data governance process. 
+						Unfortunately, Tableau doesn't allow you to export a list of parameters and calculations along with their respective values and formulas. The following piece of code is destined to solve the problem.</h2> 
+						<h2>As an example I use the Sworn Translators Tableau dashboard which was the results of one of my earlier projects:</h2>
+							<div class="macroinner">
+								<h6>import xml.etree.ElementTree as ET</h6>
+								<h6>import pandas as pd</h6>
+								<h6>import re</h6>
+								<br>
+								<h6>tree = ET.parse(r'C:\you_path_here\filename.twb')</h6>
+								<h6>root = tree.getroot()</h6>
+								<br>
+								<h6># parameters</h6>
+								<h6>caption_list = []</h6>
+								<h6>name_list = []</h6>
+								<h6>value_list = []</h6>
+								<br>
+								<h6>for child in root.find('.//datasources'):</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    for elem in child.iter(tag ='column'):</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        caption = elem.get('caption')</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        name = elem.get('name')</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        parameter = elem.get('param-domain-type')</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        if caption is None or parameter is None:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            continue</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        member = elem.find('members')</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        if member is None:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            ran = elem.find('range')</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            if ran is None:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                continue</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        caption_list.append(caption)</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        name_list.append(name)</h6>
+								<br>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        # list</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        if member is not None:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            temp_list = []</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            for elem2 in elem.iter(tag ='member'):</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                value = elem2.get('value')</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                temp_list.append(value)</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            value_list.append(temp_list)</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        else:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            temp_list = []</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            for elem2 in elem.iter(tag ='range'):</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                temp_list.append(elem2.tag)</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                min_value = elem2.get('min')</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                temp_list.append(min_value)</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                max_value = elem2.get('max')</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                temp_list.append(max_value)</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            value_list.append(temp_list)</h6>
+								<br>
+								<h6>df = pd.DataFrame(list(zip(caption_list, name_list, value_list)),</h6> 
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;		columns =['name', 'alt_name', 'formula'])</h6>
+								<h6>df = df.replace('\r\n', ' ', regex=True)</h6>
+								<h6>df.insert(0, 'tableau', 'parameter')</h6>
+								<h6>df = df.drop_duplicates(subset='name', keep='first')</h6>
+								<h6>df_par = df.copy()</h6>
+								<br>
+								<h6># calculations</h6>
+								<h6>caption_list = []</h6>
+								<h6>name_list = []</h6>
+								<h6>formula_list = []</h6>
+								<br>
+								<h6>for child in root.find('.//datasources'):</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    for elem in child.iter(tag ='column'):</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        caption = elem.get('caption')</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        name = elem.get('name')</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        parameter = elem.get('param-domain-type')</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        if caption is None or parameter is not None:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            continue</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        calculation = elem.find('calculation')</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        if calculation is None:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            continue</h6>
+								<br>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        caption_list.append(caption)</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        name_list.append(name)</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        for elem2 in elem.iter(tag ='calculation'):</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          formula = elem2.get('formula')</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            formula_list.append(formula)</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           break</h6>
+								<br>
+								<h6>df = pd.DataFrame(list(zip(caption_list, name_list, formula_list)),</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;		columns =['name', 'alt_name', 'formula'])</h6>
+								<h6>df = df.replace('\r\n', ' ', regex=True)</h6>
+								<h6>df.insert(0, 'tableau', 'calculation')</h6>
+								<h6>df = df.drop_duplicates(subset='name', keep='first')</h6>
+								<h6>df_calc = df.copy()</h6>
+								<br>
+								<h6># appending calculations to parameters</h6>
+								<h6>df = df_par.append(df_calc, ignore_index = True)</h6>
+								<h6>df['name'] = ('[' + df['name'] + ']')</h6>
+								<h6>df['formula'] = df['formula'].astype(str)</h6>
+								<h6>for i in range(0, df.shape[0]):</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    a = df.iloc[i, 2]</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    b = df.iloc[i, 1]</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    df['formula'] = df['formula'].str.replace(re.escape(a), b, regex=True)</h6>
+								<br>
+								<h6># xlsx export</h6>
+								<h6>extract = df.to_excel (r'C:\you_path_here\export_dataframe.xlsx', index = None, header=True)</h6>
+							</div>
+						<h2>Dataframe:</h2>
+						<img src="img/python/xml_df.png" class="img-responsive" alt="">
+						<h2>Excel file:</h2>
+						<img src="img/python/xml_excel.png" class="img-responsive" alt="">
+						<h2>ipynb file available on GitHub: LINK</h2>
+						<br>
+						<br>
+					</div>
+					
+					
+					
+					<div id="scrabbleassistant">
+						<h1>Scrabble assistant</h1>
+						<h3>16.11.2019 | pandas, zipfile, urllib.request, pickle, datetime, gzip, itertools, string</h3>	
+						<h2>Scrabble is my favourite word game. I have always wonderder how many bingos, a bonus 50 points for using all 7 letters in my rack, can I get in one game. 
+						My personal best was 2 bingos until I got a little help from the Python. Imagine that in my first game I reached 5, however I wasn't familiar with any of the bingo words!</h2>
+						<h2>The aim of the project is to help gain advantage in the Scrabble game. The code allows you to check the polish words you can create out of letters in your hand.</h2> 
+						<h2>The source file will be an official list of words available for word games and published by the Słownik Języka Polskiego PWN (Polish Dictionary). The name of the source file changes periodically so visit the site and make sure you type in the correct one.</h2>
+						<h2>The process of executing the code may last a while since the list contains 3 million words.</h2>					
+						<h2>The first step of the project is to import a list of available words and sort letters alphabetically in every word from the list. Next, save the file in compressed gzip format.</h2>
+							<div class="macroinner">
+								<h6>import pandas as pd</h6>
+								<h6>from zipfile import ZipFile</h6>
+								<h6>from io import BytesIO</h6>
+								<h6>from urllib.request import urlopen</h6>
+								<br>
+								<h6>url = urlopen('https://sjp.pl/slownik/growy/sjp-20191114.zip')</h6>
+								<h6>file = ZipFile(BytesIO(url.read()))</h6>
+								<h6>words_csv = file.open('slowa.txt')</h6>
+								<h6>df = pd.read_csv(words_csv, header=None, names = ['words'])</h6>
+								<h6>word_list = df['words'].tolist()</h6>
+								<br>
+								<h6>x = 0</h6>
+								<h6>for i in word_list:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    word_list[x] = ''.join(sorted(i))</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    x += 1</h6>
+								<h6>    </h6>
+								<h6>df_sort = pd.DataFrame(word_list)</h6>
+								<h6>df_sort.columns = ['sorted']</h6>
+								<br>
+								<h6>file_name = (r'C:\your_path_here\slowa_sort.txt.gz')</h6>
+								<h6>df_sort.to_csv(file_name, index=False, compression='gzip')</h6>
+								<br>
+								<h6>print(df_sort.shape)</h6>
+								<h6>df_sort.head()</h6>
+							</div>
+						<img src="img/python/scrabble1.png" class="img-responsive" alt="">
+						<h2></h2>
+							<div class="macroinner">
+								<h6>import pickle</h6>
+								<h6>import gzip</h6>
+								<br>
+								<h6>df_sort = pd.read_csv(r'C:\your_path_here\slowa_sort.txt.gz')</h6>
+								<h6>merged = pd.merge(df_sort, df, left_index=True, right_index=True)</h6>
+								<h6>grouped = merged.groupby('sorted').agg(list)</h6>
+								<h6>grouped = grouped.reset_index()</h6>
+								<h6>word_dict = grouped.set_index('sorted')['words'].to_dict()</h6>
+								<br>
+								<h6>with gzip.open(r'C:\your_path_here\slowa_dict.pickle', 'wb') as f:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    pickle.dump(word_dict, f, protocol=pickle.HIGHEST_PROTOCOL)</h6>
+								<h6>    </h6>
+								<h6>word_dict</h6>
+							</div>
+							<br>
+						<img src="img/python/scrabble2.png" class="img-responsive" alt="">							
+						<h2></h2>
+							<div class="macroinner">
+								<h6>from datetime import datetime</h6>
+								<h6>import pickle</h6>
+								<br>
+								<h6># load pickle</h6>
+								<h6>start_time = datetime.now()</h6>
+								<br>
+								<h6>with gzip.open(r'C:\your_path_here\slowa_dict.pickle', 'rb') as f:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    word_dict = pickle.load(f)</h6>
+								<br>
+								<h6>time_elapsed = datetime.now() - start_time </h6>
+								<h6>print('Time elapsed (hh:mm:ss.ms) {}'.format(time_elapsed))</h6>
+							</div>
+							<br>
+							<div class="macroinner">
+								<h6>from datetime import datetime</h6>
+								<h6>start_time = datetime.now()</h6>
+								<br>
+								<h6>from itertools import combinations</h6>
+								<br>
+								<h6>input_txt = 'aabchit'</h6>
+								<h6># input_sort = ''.join(sorted(input_txt))</h6>
+								<br>
+								<h6>import string</h6>
+								<h6>alphabet = list('aąbcćdeęfghijklłmnńoóprsśtuwyzźż')</h6>
+								<h6>blank = False</h6>
+								<h6>word_min = 7</h6>
+								<h6>word_max = 7</h6>
+								<br>
+								<h6>perm_list = set()</h6>
+								<br>
+								<h6>if blank:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    pass</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    for char_len in range(word_min, word_max + 1): # len(input_txt) + 2</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        for x in alphabet:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            char_list = list(input_txt + x)</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            perm = combinations(char_list, char_len)</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            for i in list(perm): </h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                join_char = ''.join(i)</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                join_sort = ''.join(sorted(join_char))</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                perm_list.add(join_sort)  </h6>
+								<h6>    </h6>
+								<h6>else:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    for char_len in range(word_min, word_max + 1): # len(input_txt) + 1</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        char_list = list(input_txt)</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        perm = combinations(char_list, char_len)</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        for i in list(perm): </h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            join_char = ''.join(i)</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            join_sort = ''.join(sorted(join_char))</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            perm_list.add(join_sort)</h6>
+								<br>
+								<h6>results = []</h6>
+								<br>
+								<h6>for i in perm_list:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    if i in word_dict:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        word = word_dict[i]</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        results.append(word)</h6>
+								<h6>        </h6>
+								<h6>print(results)</h6>
+								<h6>       </h6>
+								<h6>time_elapsed = datetime.now() - start_time</h6>
+								<h6>print('Time elapsed (hh:mm:ss.ms) {}'.format(time_elapsed))</h6>
+							</div>
+						<h2>Usage examples:<br>
+						'aabchit' - 7-letter words:</h2>
+						<img src="img/python/scrabble3.png" class="img-responsive" alt="">
+						<h2>'aaeiklmn' - 8-letter words:</h2>
+						<img src="img/python/scrabble4.png" class="img-responsive" alt="">
+						<h2>'uńchałb' - 4 to 7-letter words:</h2>
+						<img src="img/python/scrabble5.png" class="img-responsive" alt="">
+						<h2>'aabcmny' - 2 to 7-letter words:</h2>
+						<img src="img/python/scrabble6.png" class="img-responsive" alt="">							
+						<br>
+						<br>
+					</div>
+					
+					
+					
+					<div id="sworntranslators">
+						<h1>Sworn translators web scraping</h1>
+						<h3>3.11.2019 | requests, BeautifulSoup, pandas, Tableau, matplotlib, geopandas</h3>				
+						<h2>The purpose of the excersise is data scraping from the website of the Polish Ministry of Justice and presenting the results on a map chart using both matplotlib and Tableau.</h2>
+						<h2>The object of the web scraping are sworn translators. In Poland it is a group of professionals that are authorized by the government to translate official documents. They are listed on the website of the Polish Ministry of Justice.</h2>
+						<img src="img/python/sworn1.png" class="img-responsive" alt="">
+						<h2>The list is being updated periodically, therefore the results of the exercise may differ.</h2>
+							<div class="macroinner">
+								<h6>import pandas as pd</h6>
+								<h6>pd.set_option('display.max_rows', 11000)</h6>
+								<h6>import requests</h6>
+								<h6>from bs4 import BeautifulSoup</h6>
+								<br>
+								<h6># language dictionary</h6>
+								<h6>r = requests.get('https://arch-bip.ms.gov.pl/pl/rejestry-i-ewidencje/tlumacze-przysiegli/lista-tlumaczy-przysieglych/search.html')</h6>
+								<h6>soup = BeautifulSoup(r.text, 'html.parser')</h6>
+								<br>
+								<h6>lang_dict = {}</h6>
+								<h6>for i in soup.find_all('select', attrs = {'name':'Language'}):</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    for option in i.find_all('option'):</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        lang_dict[option['value']] = option.text</h6>
+								<h6>lang_dict.pop('') # empty record removed</h6>
+								<h6>lang_dict.pop('64') # czarnogórski removed</h6>
+								<br>
+								<h6>results = []</h6>
+								<h6>for language in lang_dict:</h6>
+								<br>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    # number of pages</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    r = requests.get(f'https://arch-bip.ms.gov.pl/pl/rejestry-i-ewidencje/tlumacze-przysiegli/lista-tlumaczy-przysieglych/search.html?Language={language}')</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    soup = BeautifulSoup(r.text, 'html.parser')</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    page_list = []</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    tags = soup.find_all('a', href = True)</h6>
+								<br>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    try:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        for tag in tags:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            page_list.append(tag.get_text())</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        extracted_list = [s for s in page_list if s.isdigit()]</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        extracted_list = [int(s) for s in extracted_list]</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        extracted_list.sort()</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        max_page = extracted_list[-1]</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        page_list = list(range(1, max_page + 1))</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        pages = [',' + str(s) for s in page_list]</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    except:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        pages = ['']</h6>
+								<br>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    # collect data</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    for page in pages:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        r = requests.get(f'https://arch-bip.ms.gov.pl/pl/rejestry-i-ewidencje/tlumacze-przysiegli/lista-tlumaczy-przysieglych/search{page}.html?Language={language}')</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        soup = BeautifulSoup(r.text, 'html.parser')</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        html_table = soup.find_all('table')[0]</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        temp_table = []</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        for row in html_table.find_all('tr'):</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            my_row_td = [element.get_text(strip = True) for element in row.find_all('td')]</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            if my_row_td:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                temp_table.append(my_row_td)</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            my_row_th = [element.get_text(strip = True) for element in row.find_all('th')]</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            if my_row_th:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                temp_table.append(my_row_th)</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        translators = pd.DataFrame(temp_table[1:], columns = temp_table[0])</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        translators['Język'] = lang_dict[language] # adding 'Language' column</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        results.append(translators)</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        df = pd.concat(results, ignore_index = True, sort = False)    </h6>
+								<h6>df = df.reset_index(drop=True)</h6>
+								<h6>file_name = r'C:\your_path_here\translators_raw.csv'</h6>
+								<h6>df.to_csv(file_name, sep = '\t', encoding = 'utf-8', index = False)</h6>
+								<br>
+								<h6>print(df.shape)</h6>
+								<h6>df.head()</h6>
+							</div>
+						<h2>Montenegrin has no results. It was excluded from the web scraping.</h2>
+						<img src="img/python/sworn2.png" class="img-responsive" alt="">
+						<h2>The dictionary of the langueages and sample results:</h2>
+						<img src="img/python/sworn3.png" class="img-responsive" alt="">
+						<br>
+						<img src="img/python/sworn4.png" class="img-responsive" alt="">
+						<br>
+						<h2>Dataframe shaping</h2>
+							<div class="macroinner">
+								<h6>import datetime</h6>
+								<br>
+								<h6>file_name = r'C:\your_path_here\translators_raw.csv'</h6>
+								<h6>df = pd.read_csv(file_name, sep = '\t', encoding = 'utf-8')</h6>
+								<br>
+								<h6># column "Imię"</h6>
+								<h6>df['Imię'] = df['Imię'].str.replace('\n\t\t\t', ' ', case = False)</h6>
+								<br>
+								<h6># column "Język"</h6>
+								<h6>max_lang = df['Języki'].str.count(',').max()</h6>
+								<h6>df['Języki'] = df['Języki'].str.replace('(', '').str.replace(')', '')</h6>
+								<h6>new = df['Języki'].str.split(',', expand = True) </h6>
+								<h6>for i in range(0,max_lang + 1):</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    df['Lan' + str(i)] = new[i]</h6>
+								<h6>df.insert(loc = 3, column = 'Data', value = None)</h6>
+								<h6>for i in range(0,5):</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    for index, row in df.iterrows():</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        if df.loc[index,'Język'] in str(row['Lan' + str(i)]):</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            df.loc[index,'Data'] = str(row['Lan' + str(i)])</h6>
+								<h6>df = df[df.columns.drop(list(df.filter(regex='Lan')))]</h6>
+								<br>
+								<h6># column "Data"</h6>
+								<h6># Nowak-Błaszczak Agnieszka and Zielnik-Kołodzińska Róża have nulls in "Data" column</h6>
+								<h6>df['Data'] = df['Data'].str.strip()</h6>
+								<h6>df['Data'] = df['Data'].str.split(' ').str[-1]</h6>
+								<h6>df['Data']=df['Data'].str.replace("[^0-9]",'')</h6>
+								<h6>df["Data"] = pd.to_datetime(df["Data"]).dt.strftime('%Y-%m-%d')</h6>
+								<br>
+								<h6># column "Miasto"</h6>
+								<h6>df['Adres do korespondencji'] = df['Adres do korespondencji'].str.split('\n\t\t\t').str[-1]</h6>
+								<h6>df['Adres do korespondencji'] = df['Adres do korespondencji'].str.split('Tel.').str[0]</h6>
+								<h6>df['Adres do korespondencji'] = df['Adres do korespondencji'].str.split('Email:').str[0]</h6>
+								<h6># replace Gorzów Wklp. with full name Gorzów Wielkopolski </h6>
+								<h6>df['Adres do korespondencji'] = df['Adres do korespondencji'].replace('Gorzów Wklp.', 'Gorzów Wielkopolski')</h6>
+								<h6># list of the main polish cities</h6>
+								<h6>cities = ['Warszawa',</h6>
+								<h6>'Kraków',</h6>
+								<h6>'Łódź',</h6>
+								<h6>'Wrocław',</h6>
+								<h6>'Poznań',</h6>
+								<h6>'Gdańsk',</h6>
+								<h6>'Szczecin',</h6>
+								<h6>'Bydgoszcz',</h6>
+								<h6>'Lublin',</h6>
+								<h6>'Białystok',</h6>
+								<h6>'Katowice',</h6>
+								<h6>'Gdynia',</h6>
+								<h6>'Częstochowa',</h6>
+								<h6>'Radom',</h6>
+								<h6>'Toruń',</h6>
+								<h6>'Sosnowiec',</h6>
+								<h6>'Kielce',</h6>
+								<h6>'Rzeszów',</h6>
+								<h6>'Gliwice',</h6>
+								<h6>'Zabrze',</h6>
+								<h6>'Olsztyn',</h6>
+								<h6>'Bielsko-Biała',</h6>
+								<h6>'Bytom',</h6>
+								<h6>'Zielona Góra',</h6>
+								<h6>'Rybnik',</h6>
+								<h6>'Ruda Śląska',</h6>
+								<h6>'Opole',</h6>
+								<h6>'Tychy',</h6>
+								<h6>'Gorzów Wielkopolski',</h6>
+								<h6>'Dąbrowa Górnicza',</h6>
+								<h6>'Elbląg',</h6>
+								<h6>'Płock',</h6>
+								<h6>'Wałbrzych',</h6>
+								<h6>'Włocławek',</h6>
+								<h6>'Tarnów',</h6>
+								<h6>'Chorzów',</h6>
+								<h6>'Koszalin',</h6>
+								<h6>'Kalisz',</h6>
+								<h6>'Legnica',</h6>
+								<h6>'Grudziądz',</h6>
+								<h6>'Jaworzno',</h6>
+								<h6>'Słupsk',</h6>
+								<h6>'Jastrzębie-Zdrój',</h6>
+								<h6>'Nowy Sącz',</h6>
+								<h6>'Jelenia Góra',</h6>
+								<h6>'Siedlce',</h6>
+								<h6>'Mysłowice',</h6>
+								<h6>'Konin',</h6>
+								<h6>'Piotrków Trybunalski',</h6>
+								<h6>'Piła']</h6>
+								<br>
+								<h6>for city in cities:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    df.loc[df['Adres do korespondencji'].str.contains(city), 'Miasto'] = city</h6>
+								<h6>df_final = df[['Imię','Język','Miasto','Województwo','Data']].copy()</h6>
+								<h6>df_final.head()   </h6>
+								<h6>file_name = r'C:\your_path_here\translators_cleaned.csv'</h6>
+								<h6>df_final.to_csv(file_name, sep = '\t', encoding = 'utf-8', index = False)</h6>
+								<br>
+								<h6>print(df_final.shape)</h6>
+								<h6>df_final.head()</h6>				
+							</div>
+						<h2>Dataframe:</h2>
+						<img src="img/python/sworn5.png" class="img-responsive" alt="">
+						<h2>Tableau viz (mobile version):</h2>			
+						<div class='tableauPlaceholder' id='viz1579469509414' style='position: relative'>
+							<noscript>
+								<a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;sw&#47;sworn_translators_nov_2019_pl&#47;SworntranslatorsinPoland&#47;1_rss.png' style='border: none' /></a>
+							</noscript>
+							<object class='tableauViz'  style='display:none;'>
+								<param name='device' value='phone'/>
+								<param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> 
+								<param name='embed_code_version' value='3' /> 
+								<param name='site_root' value='' />
+								<param name='name' value='sworn_translators_nov_2019_pl&#47;SworntranslatorsinPoland' />
+								<param name='tabs' value='no' />
+								<param name='toolbar' value='yes' />
+								<param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;sw&#47;sworn_translators_nov_2019_pl&#47;SworntranslatorsinPoland&#47;1.png' /> 
+								<param name='animate_transition' value='yes' />
+								<param name='display_static_image' value='yes' />
+								<param name='display_spinner' value='yes' />
+								<param name='display_overlay' value='yes' />
+								<param name='display_count' value='yes' />
+								<param name='filter' value='publish=yes' />
+							</object>
+						</div>              
+						<script type='text/javascript'>                    
+						var divElement = document.getElementById('viz1579469509414');                    
+						var vizElement = divElement.getElementsByTagName('object')[0];                    
+							if ( divElement.offsetWidth > 800 ) { vizElement.style.width='100%';vizElement.style.height='1177px';} 
+							else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='100%';vizElement.style.height='1177px';} 
+							else { vizElement.style.width='100%';vizElement.style.height='1177px';}                     
+						var scriptElement = document.createElement('script');                    
+							scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    
+							vizElement.parentNode.insertBefore(scriptElement, vizElement);                
+						</script>
+						<div class='tableauPlaceholder' id='viz1579469667707' style='position: relative'>
+							<noscript>
+								<a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;sw&#47;sworn_translators_nov_2019_pl&#47;SworntranslatorsinPoland-details&#47;1_rss.png' style='border: none' /></a>
+							</noscript>
+							<object class='tableauViz'  style='display:none;'>
+								<param name='device' value='phone'/>
+								<param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> 
+								<param name='embed_code_version' value='3' /> 
+								<param name='site_root' value='' />
+								<param name='name' value='sworn_translators_nov_2019_pl&#47;SworntranslatorsinPoland-details' />
+								<param name='tabs' value='no' />
+								<param name='toolbar' value='yes' />
+								<param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;sw&#47;sworn_translators_nov_2019_pl&#47;SworntranslatorsinPoland-details&#47;1.png' /> 
+								<param name='animate_transition' value='yes' />
+								<param name='display_static_image' value='yes' />
+								<param name='display_spinner' value='yes' />
+								<param name='display_overlay' value='yes' />
+								<param name='display_count' value='yes' />
+							</object>
+						</div>              
+						<script type='text/javascript'>                    
+						var divElement = document.getElementById('viz1579469667707');                    
+						var vizElement = divElement.getElementsByTagName('object')[0];                    
+							if ( divElement.offsetWidth > 800 ) { vizElement.style.width='100%';vizElement.style.height='1177px';} 
+							else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='100%';vizElement.style.height='1177px';} 
+							else { vizElement.style.width='100%';vizElement.style.height='1177px';}                     
+						var scriptElement = document.createElement('script');                    
+							scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    
+							vizElement.parentNode.insertBefore(scriptElement, vizElement);                
+						</script>
+						
+						<h2><b>Visualization in Python using geopandas and matplotlib:</b><br>
+						Step 1. Import of polish voivodeship shapefile, sworn translators data and getting centroids of polygons.</h2>
+						<div class="macroinner">
+							<h6>import pandas as pd</h6>
+							<h6>pd.set_option('display.max_columns', 500)</h6>
+							<h6>import geopandas as gpd</h6>
+							<h6>import matplotlib.pyplot as plt</h6>
+							<h6>%matplotlib inline</h6>
+							<br>
+							<h6># load shapefile</h6>
+							<h6>map_shp = r'C:\your_path_here\województwa.shp'</h6>
+							<h6>map_df = gpd.read_file(map_shp, encoding = 'utf-8')</h6>
+							<br>
+							<h6># load translators DataFrame</h6>
+							<h6>file_name = r'C:\your_path_here\translators_cleaned.csv'</h6>
+							<h6>df = pd.read_csv(file_name, sep = '\t', encoding = 'utf-8')</h6>
+							<h6>df.head()</h6>
+							<br>
+							<h6>df_woj = df.groupby('Województwo').count()[['Język']]</h6>
+							<h6>df_woj = df_woj.reset_index()</h6>
+							<br>
+							<h6>df_merged = map_df.merge(df_woj, left_on = 'jpt_nazwa_', right_on = 'Województwo')</h6>
+							<br>
+							<h6>df_merged["centroid x"] = df_merged.centroid.x</h6>
+							<h6>df_merged["centroid y"] = df_merged.centroid.y</h6>
+							<br>
+							<h6>df_merged</h6>					
+						</div>
+						<br>
+						<img src="img/python/sworn6.png" class="img-responsive" alt="">	
+						<h2>Step 2. Plotting a map:</h2>					
+						<div class="macroinner">
+							<h6>colors = 9</h6>
+							<h6>cmap = 'Blues'</h6>
+							<h6>fig, ax = plt.subplots(figsize=(14, 10))</h6>
+							<h6>df_merged.plot(column = 'Język', cmap=cmap, scheme='equal_interval', k=colors, ax=ax, legend=False, linewidth=0.8, edgecolor='0.8')</h6>
+							<br>
+							<h6>ax.set_title("Sworn translators in Poland - November 2019")</h6>
+							<h6>ax.axis('off')</h6>
+							<br>
+							<h6>sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=150, vmax=2100))</h6>
+							<br>
+							<h6>sm.set_array([])</h6>
+							<br>
+							<h6>fig.colorbar(sm, ax = ax)</h6>
+							<br>
+							<h6>count_row = df_merged.shape[0]</h6>
+							<h6>for i in range(0,count_row):</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    plt.text(df_merged.iloc[i,32] - 30000, df_merged.iloc[i,33], df_merged.iloc[i,30])</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    plt.text(df_merged.iloc[i,32] - 10000, df_merged.iloc[i,33] - 20000, df_merged.iloc[i,31])</h6>
+							<br>
+							<h6>plt.show()</h6>
+						</div>
+						<br>
+						<img src="img/python/sworn7.png" class="img-responsive" alt="">										
+						<br>
+						<br>						
+					</div>
+					
+					
+					
+					<div id="postgresql">
+						<h1>PostgreSQL database</h1>
+						<h3>24.10.2019 | psycopg2, pandas, SQL queries</h3>
+						<h2>The purpose of the excersise is to connect and query a postgreSQL database.</h2>
+						<h2>First, install PostgreSQL on your local system. 
+						Next, download and connect to the DVD rental database, which is a common sample database for PostgreSQL used for practice. 
+						Follow the instructions on the <a href="http://www.postgresqltutorial.com/postgresql-sample-database/">POSTGRESQL TUTORIAL</a> website to complete the above steps. 
+						Finally, install <a href="https://pypi.org/project/psycopg2/">psycopg2</a> package, e.g. in your Anaconda Prompt terminal.</h2>
+						<h2><b>DVD Rental ER Model</b></h2>
+						<img src="img/python/printable-postgresql-sample-database-diagram.png" class="img-responsive" alt="">
+						<h2>Once all set up, use the following code to connect to the database.</h2>
+							<div class="macroinner">
+								<h6>import pandas as pd</h6>
+								<h6>import psycopg2</h6>
+								<h6>from IPython.core.display import HTML</h6>
+								<br>
+								<h6>conn = psycopg2.connect(user = "postgres",</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  password = "yourpassword",</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  host = "localhost",</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  port = "5432",</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	database = "dvdrental")</h6>
+								<h6>sql = """</h6>
+								<h6>SELECT * </h6>
+								<h6>FROM customer</h6>
+								<h6>LIMIT 10</h6>
+								<h6>;</h6>
+								<h6>"""</h6>
+								<br>
+								<h6>df = pd.read_sql(sql, conn)</h6>
+								<h6>print("Nº of rows: " + str(len(df)))</h6>
+								<h6>print("Nº of columns: " + str(len(df.columns)))</h6>
+								<h6>display(HTML("&lt;style&gt;.container {width:100% !important; }&lt;/style&gt;"))</h6>
+								<h6>display(HTML(df.to_html()))</h6>
+								<br>
+								<h6>conn = None</h6>
+								<br>
+								<h6># df.to_excel("your_path\output.xlsx", index=False)</h6>
+							</div>
+						<h2>The code returns the result of the query in a dataframe structure.
+						Apart from that returns the number of columns and rows of the table.
+						HTML display part extends the view in the notebook to 100%.
+						Uncomment the last line to save your query's results in the Excel file.</h2>	
+						<h2>The result of the query:</h2>					
+						<img src="img/python/query1.png" class="img-responsive" alt="">
+		
+						<h2><b>Useful queries:</b><br>
+						List all the tables and views from dvdrental.</h2>
+							<div class="macroinner">
+								<h6>"""</h6>
+								<h6>SELECT table_catalog, table_schema, table_name, table_type</h6>
+								<h6>FROM information_schema.tables</h6>
+								<h6>WHERE table_schema = 'public'</h6>
+								<h6>ORDER BY table_type, table_name</h6>
+								<h6>;</h6>
+								<h6>"""</h6>
+							</div>
+
+						<h2>Find all the columns that contain a specific word.</h2>
+							<div class="macroinner">
+								<h6>"""</h6>
+								<h6>SELECT table_catalog, table_schema, table_name</h6>
+								<h6>FROM information_schema.columns</h6>
+								<h6>WHERE column_name LIKE 'film_id'</h6>
+								<h6>ORDER BY table_name</h6>
+								<h6>;</h6>
+								<h6>"""</h6>
+							</div>
+
+						<h2>Get the types of the data in the table.</h2>
+							<div class="macroinner">
+								<h6>"""</h6>
+								<h6>SELECT column_name, data_type</h6>
+								<h6>FROM information_schema.columns</h6>
+								<h6>WHERE table_name = 'payment'</h6>
+								<h6>;</h6>
+								<h6>"""</h6>
+							</div>
+
+						<h2><b>Excercises to practice:</b><br>
+						Excercise 1<br>
+						Find the title of the film stariing Penelope Guiness, Warren Nolte and Rock Dukakis.<br>
+						Possible solution:</h2>					
+							<div class="macroinner">
+								<h6>"""</h6>
+								<h6>SELECT title</h6>
+								<h6>FROM film</h6>
+								<h6>WHERE film_id = (SELECT film_id</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	FROM (SELECT film_id, COUNT(actor_id) As actor_count</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	FROM film_actor</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	WHERE actor_id IN (SELECT actor_id</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	FROM actor</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	WHERE (first_name = 'Penelope' AND last_name = 'Guiness')</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	OR (first_name = 'Warren' AND last_name = 'Nolte')</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	OR (first_name = 'Rock' AND last_name = 'Dukakis'))</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	GROUP BY film_id) As a</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	WHERE actor_count = 3)</h6>				
+								<h6>;</h6>
+								<h6>"""</h6>
+							</div>
+						<img src="img/python/query2.png" class="img-responsive" alt="">
+						
+						<h2>Excercise 2<br>
+						Find the first name and last name of the most profitable customer in April 2007.<br>
+						Possible solution:</h2>	
+							<div class="macroinner">
+								<h6>"""</h6>
+								<h6>SELECT first_name, last_name</h6>
+								<h6>FROM customer As a</h6>
+								<h6>RIGHT JOIN (SELECT customer_id, SUM(amount) AS sum_amount</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	FROM payment</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	WHERE EXTRACT(MONTH FROM payment_date) = 2</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	GROUP BY customer_id</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	ORDER BY sum_amount DESC</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	LIMIT 1) As b</h6>
+								<h6>ON a.customer_id = b.customer_id</h6>
+								<h6>;</h6>
+								<h6>"""</h6>
+							</div>
+						<img src="img/python/query3.png" class="img-responsive" alt="">
+
+						<h2>Excercise 3<br>
+						Find the film categories where the average rental rate is above the average rental rate for all films.<br>
+						Possible solution:</h2>	
+							<div class="macroinner">
+								<h6>	"""</h6>
+								<h6>	SELECT c.name As "Film category", AVG(a.rental_rate) As "Avg rate"</h6>
+								<h6>	FROM film As a</h6>
+								<h6>	INNER JOIN film_category As b</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;	    ON a.film_id = b.film_id</h6>
+								<h6>	INNER JOIN category As c</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;	    ON b.category_id = c.category_id</h6>
+								<h6>GROUP BY c.name</h6>
+								<h6>HAVING AVG(a.rental_rate) > (SELECT AVG(rental_rate) FROM film)</h6>
+								<h6>;</h6>
+								<h6>"""</h6>						
+							</div>
+						<img src="img/python/query4.png" class="img-responsive" alt="">
+						<br>
+						<br>
+					</div>
+					
+					
+					
+					<div id="geocoordinates">
+						<h1>Geocoordinates with geopy</h1>
+						<h3>13.09.2019 | geopy, pandas</h3>	
+						<h2>The purpose of the excersise is to identify geographical coordinates for the list of Polish cities.<br>
+						Firstly, let's get a list of the cities.</h2>
+							<div class="macroinner">
+								<h6>from geopy.geocoders import Nominatim</h6>
+								<h6>geolocator = Nominatim(user_agent="yourmail@mail.com")</h6>
+								<h6>import pandas as pd</h6>
+								<br>
+								<h6>url="https://pkgstore.datahub.io/core/world-cities/world-cities_csv/data/6cc66692f0e82b18216a48443b6b95da/world-cities_csv.csv"</h6>
+								<h6>df=pd.read_csv(url)</h6>
+								<h6>df=df[['name', 'country']]</h6>
+								<br>
+								<h6>df = df.loc[df['country'] == 'Poland']</h6>
+								<h6>df = df.rename(columns = {'name':'city'})</h6>
+								<h6>df = df.sort_values(by=['city'])</h6>
+								<h6>df = df.reset_index(drop=True)</h6>
+								<br>
+								<h6>print(df.shape)</h6>
+								<h6>df.head()</h6>
+							</div>
+						<img src="img/python/geo1.png" class="img-responsive" alt="">
+						<h2>Secondly, let's use geopy to locate the coordinates of the cities. 
+						Bear in mind that geopy allows limited amount of results to return from the service. 
+						Too many queries will result in time out error. Luckily, the limit is high enough to get the list of cities of our interest for the exercise.</h2>
+							<div class="macroinner">
+								<h6>city_list = df.values.tolist()</h6>
+								<br>
+								<h6>geo_list = []</h6>
+								<h6>lat_list = []</h6>
+								<h6>lon_list = []</h6>
+								<br>
+								<h6>for i in city_list:</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    location = geolocator.geocode(i[0], i[1])</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    lat_list.append(location.latitude)</h6>
+								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    lon_list.append(location.longitude)  </h6>
+								<h6>    </h6>
+								<h6>df['latitude'] = lat_list</h6>
+								<h6>df['longitude'] = lon_list</h6>
+								<br>
+								<h6>df.to_excel (r'C:\your_path_here\poland_coordinates_raw.xlsx', index = None, header=True)</h6>
+							</div>
+						<h2>First 12 rows:</h2>
+						<img src="img/python/geo2.png" class="img-responsive" alt="">
+						<h2>The results that we have are not perfect. Final stage of the task is to remove results that don't interest us, e.g. cities which are beyond the coordinates of Poland, or districts of Warsaw that don't interest us.</h2>					
+							<div class="macroinner">
+								<h6>df = pd.read_excel(r'C:\your_path_here\poland_coordinates_raw.xlsx')</h6>
+								<h6>df = df.loc[(df['latitude'] < 49) | (df['latitude'] > 55)]</h6>
+								<h6>df = df.drop(df.index[[4,8,10,87,102,125,133,158,187,188,251,263,264,277,312]])</h6>
+								<h6>df["city"].replace("Warsaw", value="Warszawa", inplace=True)</h6>
+								<h6>df = df.reset_index(drop=True)</h6>
+								<h6>df.to_excel (r'C:\your_path_here\poland_coordinates.xlsx', index = None, header=True)</h6>
+							</div>	
+						<h2>Removed rows:</h2>
+						<img src="img/python/geo4.png" class="img-responsive" alt="">
+						<br>
+						<img src="img/python/geo5.png" class="img-responsive" alt="">
+						<h2>Tableau can also be helpful to identify the geocoordinates of the locations. Let's load our poland_coordinates.xlsx file to the application. Next, let's put cities on the map.</h2>
+						<img src="img/python/geo6.png" class="img-responsive" alt="">
+						<h2>Press Ctr + A to select all the cities on the map.</h2>
+						<img src="img/python/geo7.png" class="img-responsive" alt="">
+						<h2>Select View Data and Export All. Voila, the latitude and the longitude generated by the Tableau libraries.</h2>
+						<img src="img/python/geo8.png" class="img-responsive" alt="">
+						<br>
+						<br>
+					</div>
+					
+
+	
+					<div id="bitoolsjob">
+						<h1>Business intelligence tools in job offers</h1>
+						<h3>17.08.2019 | requests, BeautifulSoup, pandas, time, regular expression operations (re), Tableau</h3>	
+						<h2>Before you invest your time in learning a new skill you would often like to know if it is demanded on the market. For example, which business intelligence tools is the most commonly used?
+						To find the answer you need to analyse the job market.</h2>
+						<h2>Pracuj.pl is the biggest and the most popular job offer portal in Poland. The old job advertisements are stored in the archive and are publically available.</h2>
+						<img src="img/python/pracujpl1.png" class="img-responsive" alt="">
+						<h2>The purpose of the excercise is to webscrap the archive of Pracuj.pl and compare the popularity of the selected business intelligence tools. The key words that were used were: 'Tableau', 'Power Bi" and 'Qlik'. The collection period was January - April 2019.</h2>
+						<h2>There are around 1000 pages each month including 50 job offers per page. That is why the webscarping process is time-consuming.</h2>
+						<div class="macroinner">
+							<h6>import pandas as pd</h6>
+							<h6>import requests</h6>
+							<h6>import re</h6>
+							<h6>import time</h6>
+							<h6>from bs4 import BeautifulSoup</h6>
+							<br>
+							<h6>tableau_list = []</h6>
+							<h6>powerbi_list = []</h6>
+							<h6>qlik_list = []</h6>
+						</div>
+						<br>
+						<div class="macroinner">
+							<h6>for num in range(1, 1054):</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    r = requests.get('https://archiwum.pracuj.pl/archive/offers?Year=2018&Month=1&PageNumber=' + str(num))</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    if 'Brak ofert do wyświetlenia' in r.text:</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        break</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    else:</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        soup = BeautifulSoup(r.text, 'html.parser')</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        for a in soup.find_all('a', href=re.compile("oferta")):</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            try:</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                r2 = requests.get(a['href'])</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                if 'Tableau' in r2.text:</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                    tableau_list.append(a['href'])</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                elif 'Power BI' in r2.text:</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                    powerbi_list.append(a['href'])</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                elif 'Qlik'in r2.text:</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                    qlik_list.append(a['href'])</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            except:</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                print("Connection refused by the server..")</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                print("Let me sleep for 45 seconds")</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                print("ZZzzzz...")</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                time.sleep(45)</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                print("Was a nice sleep, now let me continue...")</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                continue</h6>
+							<h6>                </h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        print(num)</h6>
+							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        num += 1</h6>
+						</div>
+						<br>
+						<img src="img/python/pracujpl2.png" class="img-responsive" alt="">						
+						<h2>During the scarping you shall get multiple timeout errors. The exception in the code aims to omit the server rejects, however in some cases you will require to run the code again. That is why it is advised to use counter in the code to know where to continue and save and load the results ocassionally.<br>
+						Save results:</h2>
+						<div class="macroinner">
+							<h6>df_tableau = pd.DataFrame(tableau_list, columns = ['Link'])</h6>
+							<h6>df_tableau['BI tool'] = 'Tableau'</h6>
+							<h6>df_tableau['Data'] = '20180101'</h6>
+							<h6>df_tableau['Data'] = pd.to_datetime(df_tableau['Data'])</h6>
+							<h6>df_tableau</h6>
+							<h6>df_tableau.to_excel(r'C:\your_path_here\tableau_201909.xlsx', index=False)</h6>
+						</div>
+						<h2>Load results:</h2>
+						<div class="macroinner">
+							<h6>df_tableau = pd.read_excel(r'C:\your_path_here\powerbi_201801.xlsx')</h6>
+							<h6>tableau_list = df_tableau['Link'].tolist()</h6>
+						</div>
+						<h2>According to the collected data Tableau was by far more popular tool in comparison o PowerBi and Qlik in the Jan-Apr 2018 period. However, let's bear in mind that the results may be inaccurate, e.g. scraping didn't include phrases like 'PowerBi' or 'Qlick' (spelling mistake that occurs in the offers). The excercise should also be expanded to longer timespan and include more popular BI tools like MicroStrategy or SAP.</h2>
+						
+						<div class='tableauPlaceholder' id='viz1579473016853' style='position: relative'>
+							<noscript>
+								<a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;bi&#47;bi_tools_pracupl_jan_apr_2018&#47;BItoolsshareonPracuj_plJan-Apr2018&#47;1_rss.png' style='border: none' /></a>
+							</noscript>
+							<object class='tableauViz'  style='display:none;'>
+								<param name='device' value='tablet'/>
+								<param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+								<param name='embed_code_version' value='3' />
+								<param name='site_root' value='' />
+								<param name='name' value='bi_tools_pracupl_jan_apr_2018&#47;BItoolsshareonPracuj_plJan-Apr2018' />
+								<param name='tabs' value='no' />
+								<param name='toolbar' value='yes' />
+								<param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;bi&#47;bi_tools_pracupl_jan_apr_2018&#47;BItoolsshareonPracuj_plJan-Apr2018&#47;1.png' /> 
+								<param name='animate_transition' value='yes' />
+								<param name='display_static_image' value='yes' />
+								<param name='display_spinner' value='yes' />
+								<param name='display_overlay' value='yes' />
+								<param name='display_count' value='yes' />
+								<param name='filter' value='publish=yes' />
+							</object>
+						</div>              					
+						<script type='text/javascript'>                    
+						var divElement = document.getElementById('viz1579473016853');                    
+						var vizElement = divElement.getElementsByTagName('object')[0];                    
+							{ vizElement.style.width='100%';vizElement.style.height='703px';}                     
+						var scriptElement = document.createElement('script');                    
+							scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    
+							vizElement.parentNode.insertBefore(scriptElement, vizElement);                
+						</script>	
+						<br>
+					</div>
+					
+					
+					
+					
+<!--					
+						<h2></h2>
+						<img src="img/python/.png" class="img-responsive" alt="">
+						<div class="macroinner">
+						</div>
+-->	
+				</div> <!--End of Section 2-->
+
+			</div> <!--Intro class md-->
+	
+			<!--dekstop-->
+			<div class="col-md-3 hidden-xs hidden-sm">
+				<br>
+				<div id="" class="list">
+					<h1>Projects</h1>
+						<h4><a href="#climatechangepl">Climate change in Poland</a></h4>
+						<h4><a href="#xmlelementtree">Tableau calc & param export</a></h4>
+						<h4><a href="#scrabbleassistant">Scrabble assistant</a></h4>
+						<h4><a href="#sworntranslators">Sworn translators web scraping</a></h4>	
+						<h4><a href="#postgresql">PostgreSQL database</a></h4>
+						<h4><a href="#geocoordinates">Geocoordinates with geopy</a></h4>					
+						<h4><a href="#bitoolsjob">BI tools in job offers</a></h4>
+				</div>
+			</div>
+
+			
+		</div> <!--row-->
+	</div> <!--container-->
+</div> <!--class main-->
+
+
+<!--scripts-->
+<script>
+/* shrink navbar on scroll */
+$(window).scroll(function() {
+  if ($(document).scrollTop() > 100) {
+    $('nav').addClass('shrink');
+    $('.add').hide();
+  } else {
+    $('nav').removeClass('shrink');
+    $('.add').show();
+  }
+});
+
+
+/* scroll to top */
+$(window).bind("load", function() {
+
+$(document).ready(function(){
+	$('a[href^="#"]').on('click',function (e) {
+	    e.preventDefault();
+
+	    var target = this.hash;
+	    var $target = $(target);
+
+	    $('html, body').stop().animate({
+	        'scrollTop': $target.offset().top - 110 /* distance from top */
+	    }, 650, 'swing');
+	});
+});
+/*https://stackoverflow.com/questions/11365091/jquery-scroll-to-anchor-minus-set-amount-of-pixels*/
+
+/*Fix to problem in IE and Mozilla
+https://stackoverflow.com/questions/18107597/jquery-scrolltop-offset-issue*/
+});
+
+/*if this is turn on dropdown menu links don't work*/
+/*$(window).bind("load", function() {
+
+$(document).ready(function () {
+        $('ul.nav > li').click(function (e) {
+            e.preventDefault();
+            $('ul.nav > li').removeClass('active');
+            $(this).addClass('active');                
+        });            
+    });
+
+});*/
+
+/* ????????????????????? */
+
+$(window).bind("load", function() {
+
+$(document).on('click','.navbar-collapse.in',function(e) {
+    if( $(e.target).is('a') ) {
+        $(this).collapse('hide');
+    }
+});
+
+});
+</script>
+
+</body>
+
+<footer>
+	<div id="grad2" class="container-fluid">
+		<div class="container">
+			<div class="row" style="height: 55px">
+				<div class="col-xs-12" style="color: #FFFFFF";>
+					<h4><p align="right">Copyright &copy; 2020 Piotr Janus</p></h4>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+</html>
