@@ -61,9 +61,9 @@
 						<h1>Climate change in Poland</h1>
 						<h3>31.01.2020 | urllib.request, BeautifulSoup, pandas, zipfile, io, matplotlib, numpy</h3>
 						<h2>Winter 2020 in Warsaw has never been warmer. No snow and temperatures above 10°C are common. Looks like the global warming has become a fact.</h2>
-						<h2>Climate changes inspired me to track the average yearly temperatures in different places of Poland. Timespan is the early 50s of the 20th century till 2018. The yearly temperatures are calculated as an average of daily avergage temperatures.</h2>
-						<h2>The source of the data is Polish Institute of Meteorology and Water Management - National Research Institute which is an official body to collect the climate data in Poland.</h2>
-						<h2>As a first step let's parse a list of years.</h2>
+						<h2>Climate changes inspired me to track the average yearly temperatures in different places in Poland. The timespan is the early 50s of the 20th century till 2018. The yearly temperatures are calculated as an average of daily average temperatures.</h2>
+						<h2>The source of the data is the Polish Institute of Meteorology and Water Management - National Research Institute which is an official body collecting climate data in Poland.</h2>
+						<h2>At first, let's parse a list of years:</h2>
 						<div class="macroinner">
 							<h6>from urllib.request import urlopen</h6>
 							<h6>from bs4 import BeautifulSoup</h6>
@@ -80,7 +80,7 @@
 							<h6>print(yr_list)</h6>
 						</div>
 						<img src="img/python/imgw1.png" class="img-responsive" alt="">
-						<h2>Get column names.</h2>
+						<h2>Get the column names:</h2>
 						<div class="macroinner">
 							<h6>import pandas as pd</h6>
 							<br>
@@ -97,7 +97,7 @@
 							<h6>print(head_list)</h6>
 						</div>
 						<img src="img/python/imgw2.png" class="img-responsive" alt="">
-						<h2>Get the climate data.</h2>
+						<h2>Get the climate data:</h2>
 						<div class="macroinner">
 							<h6>from zipfile import ZipFile</h6>
 							<h6>from io import BytesIO</h6>
@@ -144,7 +144,7 @@
 							<h6>print(df.shape)</h6>
 							<h6>df.head()</h6>
 						</div>
-						<h2>Sort the data by a year, station, month and day. Next, group by a station and year.</h2>				
+						<h2>Sort the data by year, station, month and day. Next, group it by station and year.</h2>				
 						<div class="macroinner">
 							<h6>df = df.sort_values(['Rok', 'Nazwa stacji', 'Miesiąc', 'Dzień'])</h6>
 							<h6>df = df.reset_index(drop=True)</h6>
@@ -192,7 +192,7 @@
 						</script>
 												
 						<h2>Visualization in Python using matplotlib:<br>
-						Load the xlsx file and limit data to Dynów. In this city, located in Subcarpathian Voivodeship, the temperature has been measured since 1951.</h2>
+						Load the xlsx file and limit the data to Dynów. In this city, located in Subcarpathian Voivodeship, the temperature has been measured since 1951.</h2>
 						<div class="macroinner">
 							<h6>file_name = r'C:\your_path_here\imgw_grouped.xlsx'</h6>
 							<h6>df_grouped = pd.read_excel(file_name, encoding='utf-8')</h6>
@@ -202,7 +202,7 @@
 							<h6>df_dynow.head()</h6>
 						</div>
 						<img src="img/python/imgw5.png" class="img-responsive" alt="">
-						<h2>Create a list of yearly averge temperatures for Dynów. We are removing 2019 because at the time the code was exectuded the December 2019 data has not been yet available:</h2>
+						<h2>Create the list of yearly averge temperatures for Dynów. 2019 hasn't been included because at the time the code was exectuded the data for December 2019 wasn't available:</h2>
 						<div class="macroinner">
 							<h6>temp_year = df_dynow['Średnia dobowa temperatura'].tolist()</h6>
 							<h6>temp_year = temp_year[:-1] # no 2019 cause no Dec data for 2019</h6>
@@ -216,7 +216,7 @@
 							<h6>print(single_yr_list)</h6>
 						</div>						
 						<img src="img/python/imgw.png7" class="img-responsive" alt="">
-						<h2>Plot a map:</h2>
+						<h2>Plot the map:</h2>
 						<div class="macroinner">
 							<h6>import matplotlib.pyplot as plt</h6>
 							<h6>import matplotlib.patches as mpatches</h6>
@@ -248,16 +248,16 @@
 						<img src="img/python/imgw8.png" class="img-responsive" alt="">						
 						<br>
 						<br>
-					</div>	
+					</div>
 					
 					
 					
 					<div id="xmlelementtree">
 						<h1>Tableau calculations and parameters export</h1>
 						<h3>5.12.2019 | Tableau, xml.etree.ElementTree, re, pandas</h3>			
-						<h2>Sometimes it is required to export a list of parameters and calculations along with their respective values and formulas. As a developer I was asked for that as a part of the data governance process.
-						Unfortunately, such actions is not supported in Tableau. That is why I created the following piece of code.</h2>
-						<h2>As an example I use the Sworn Translators Tableau dashboard which was the results of one of my earlier projects:</h2>
+						<h2>Sometimes it is required to export a list of parameters and calculations along with their respective values and formulas. As a developer, I was asked for that as a part of a data governance process.
+						Unfortunately, such action is not supported in Tableau. That is why I created the following piece of code.</h2>
+						<h2>As an example I've used the Sworn Translators Tableau dashboard which was the result of one of my earlier projects:</h2>
 							<div class="macroinner">
 								<h6>import xml.etree.ElementTree as ET</h6>
 								<h6>import pandas as pd</h6>
@@ -364,12 +364,12 @@
 					<div id="scrabbleassistant">
 						<h1>Scrabble assistant</h1>
 						<h3>16.11.2019 | pandas, zipfile, urllib.request, pickle, datetime, gzip, itertools, string</h3>	
-						<h2>Scrabble is my favourite word game. I have always wonderder how many bingos, a bonus 50 points for using all 7 letters in your rack, am I able to achieve during one game. 
-						My personal best was 2 bingos until I realized I can get a little help. Supported by Python I managed to get 5 bingos. However, I wasn't familiar with any of the bingo words!</h2>
-						<h2>The aim of the project is to help gain advantage in the Scrabble game. The code allows you to check the polish words you can create out of letters in your hand.</h2> 
-						<h2>The source file is an official list of words available for word games and published by the Słownik Języka Polskiego PWN (Polish Dictionary). The name of the source file changes periodically so visit the site and make sure you type in the correct one.</h2>
+						<h2>Scrabble is my favourite word game. I have always wondered how many bingos, bonus 50 points for using all the 7 letters in the rack, I was able to achieve during one game. 
+						My personal best was 2 bingos until I realized I could get a little help. Thanks to Python I managed to get 5 bingos. However, I wasn't familiar with any of the bingo words!</h2>
+						<h2>The aim of the project is to help gain advantage in Scrabble. The code allows you to check the Polish words you can create out of the letters in your hand.</h2> 
+						<h2>The source file is the official wordlist available for word games and published by Słownik Języka Polskiego PWN (Polish Language Dictionary). The name of the source file changes periodically so visit the site and make sure you type in the correct one.</h2>
 						<h2>The process of executing the code may last a while since the list contains 3 million words.</h2>					
-						<h2>The first step of the project is to import a list of available words and sort letters alphabetically in every word from the list. Next, save the file in a compressed gzip format.</h2>
+						<h2>The first step of the project is to import the list of available words and sort the letters of every word alphabetically. Next, save the file in a compressed gzip format.</h2>
 							<div class="macroinner">
 								<h6>import pandas as pd</h6>
 								<h6>from zipfile import ZipFile</h6>
@@ -498,7 +498,7 @@
 						<h1>Sworn translators web scraping</h1>
 						<h3>3.11.2019 | requests, BeautifulSoup, pandas, Tableau, matplotlib, geopandas</h3>				
 						<h2>The purpose of the excersise is to scrap the data from the website of the Polish Ministry of Justice and to present the results on a map chart using both matplotlib and Tableau.</h2>
-						<h2>The object of the web scraping are sworn translators. In Poland it is a group of professionals that are authorized by the government to translate official documents. They are listed on the website of the Polish Ministry of Justice.</h2>
+						<h2>The object of the web scraping are sworn translators. In Poland, it is a group of professionals that are authorized by the government to translate official documents.</h2>
 						<img src="img/python/sworn1.png" class="img-responsive" alt="">
 						<h2>The list is being updated periodically, therefore the results of the exercise may differ.</h2>
 							<div class="macroinner">
@@ -734,7 +734,7 @@
 						</script>
 						
 						<h2><b>Visualization in Python using geopandas and matplotlib:</b><br>
-						Step 1. Import a polish voivodeship shapefile, sworn translators data and get centroids of polygons.</h2>
+						Step 1. Import the Polish voivodeship shapefile, the sworn translators data and get the centroids of the polygons.</h2>
 						<div class="macroinner">
 							<h6>import pandas as pd</h6>
 							<h6>pd.set_option('display.max_columns', 500)</h6>
@@ -763,7 +763,7 @@
 						</div>
 						<br>
 						<img src="img/python/sworn6.png" class="img-responsive" alt="">	
-						<h2>Step 2. Plot a map:</h2>					
+						<h2>Step 2. Plot the map:</h2>				
 						<div class="macroinner">
 							<h6>colors = 9</h6>
 							<h6>cmap = 'Blues'</h6>
@@ -804,7 +804,7 @@
 						Finally, install <a href="https://pypi.org/project/psycopg2/">psycopg2</a> package, e.g. in your Anaconda Prompt terminal.</h2>
 						<h2><b>DVD Rental ER Model</b></h2>
 						<img src="img/python/printable-postgresql-sample-database-diagram.png" class="img-responsive" alt="">
-						<h2>Once all set up, use the following code to connect to the database.</h2>
+						<h2>Once all set up, use the following code to connect to the database:</h2>
 							<div class="macroinner">
 								<h6>import pandas as pd</h6>
 								<h6>import psycopg2</h6>
@@ -833,14 +833,14 @@
 								<h6># df.to_excel("your_path\output.xlsx", index=False)</h6>
 							</div>
 						<h2>The code returns the result of the query in a dataframe structure.
-						Apart from that returns the number of columns and rows of the table.
-						HTML display part extends the view in the notebook to 100%.
+						Apart from that it returns the number of columns and rows of the table.
+						The HTML display part extends the view in the notebook to 100%.
 						Uncomment the last line to save your query's results in the Excel file.</h2>	
 						<h2>The result of the query:</h2>					
 						<img src="img/python/query1.png" class="img-responsive" alt="">
 		
 						<h2><b>Useful queries:</b><br>
-						List all the tables and views from dvdrental.</h2>
+						List all the tables and views from the dvdrental.</h2>
 							<div class="macroinner">
 								<h6>"""</h6>
 								<h6>SELECT table_catalog, table_schema, table_name, table_type</h6>
@@ -915,7 +915,7 @@
 						<img src="img/python/query3.png" class="img-responsive" alt="">
 
 						<h2>Excercise 3<br>
-						Find the film categories where the average rental rate is above the average rental rate for all films.<br>
+						Find the film categories where the average rental rate is above the average rental rate for all the films.<br>
 						Possible solution:</h2>	
 							<div class="macroinner">
 								<h6>	"""</h6>
@@ -941,7 +941,7 @@
 						<h1>Geocoordinates with geopy</h1>
 						<h3>13.09.2019 | geopy, pandas</h3>	
 						<h2>The purpose of the excersise is to identify geographical coordinates for the list of Polish cities.<br>
-						Get a list of the cities.</h2>
+						Get the list of the cities:</h2>
 							<div class="macroinner">
 								<h6>from geopy.geocoders import Nominatim</h6>
 								<h6>geolocator = Nominatim(user_agent="yourmail@mail.com")</h6>
@@ -961,8 +961,8 @@
 							</div>
 						<img src="img/python/geo1.png" class="img-responsive" alt="">
 						<h2>Use geopy to locate the coordinates of the cities. 
-						Bear in mind that geopy allows limited amount of results to return from the service. 
-						Too many queries will result in time out error. Luckily, the limit is high enough to get the list of cities of our interest for the exercise.</h2>
+						Bear in mind that geopy allows a limited amount of results to return from the service. 
+						Too many queries will result in time out error. Luckily, the limit is high enough to get the list of the cities of our interest for the exercise.</h2>
 							<div class="macroinner">
 								<h6>city_list = df.values.tolist()</h6>
 								<br>
@@ -982,7 +982,7 @@
 							</div>
 						<h2>First 12 rows:</h2>
 						<img src="img/python/geo2.png" class="img-responsive" alt="">
-						<h2>The results that we have are not perfect. Final stage of the task is to remove results that don't interest us, e.g. cities which are beyond the coordinates of Poland, or districts of Warsaw that don't interest us.</h2>					
+						<h2>The results that we have are not perfect. The final stage of the task is to remove the results that don't interest us, e.g. non-Polish cities or districts of Warsaw.</h2>					
 							<div class="macroinner">
 								<h6>df = pd.read_excel(r'C:\your_path_here\poland_coordinates_raw.xlsx')</h6>
 								<h6>df = df.loc[(df['latitude'] < 49) | (df['latitude'] > 55)]</h6>
@@ -995,7 +995,7 @@
 						<img src="img/python/geo3.png" class="img-responsive" alt="">
 						<br>
 						<img src="img/python/geo4.png" class="img-responsive" alt="">
-						<h2>Tableau can also be helpful to identify the geocoordinates of the locations. Let's load our poland_coordinates.xlsx file to the application. Next, let's put cities on the map.</h2>
+						<h2>Tableau can also be helpful to identify the geocoordinates of locations. Let's load our poland_coordinates.xlsx file to the application. Next, let's put the cities on the map.</h2>
 						<img src="img/python/geo5.png" class="img-responsive" alt="">
 						<h2>Press Ctr + A to select all the cities on the map.</h2>
 						<img src="img/python/geo6.png" class="img-responsive" alt="">
@@ -1012,9 +1012,9 @@
 						<h3>17.08.2019 | requests, BeautifulSoup, pandas, time, regular expression operations (re), Tableau</h3>	
 						<h2>Before you invest your time in learning a new skill you would often like to know if it is demanded on the market. For example, which business intelligence tool is the most commonly used?
 						To find the answer you need to analyse the job market.</h2>
-						<h2>Pracuj.pl is the biggest and the most popular job offer portal in Poland. The old job advertisements are stored in the archive and are publically available.</h2>
+						<h2>Pracuj.pl is the biggest and the most popular job offer portal in Poland. The old job advertisements are stored in the archives and are publically available.</h2>
 						<img src="img/python/pracujpl1.png" class="img-responsive" alt="">
-						<h2>The purpose of the excercise is to webscrap the archive of Pracuj.pl and compare the popularity of the selected business intelligence tools. The key words that were used were: 'Tableau', 'Power Bi" and 'Qlik'. The collection period was January - April 2019.</h2>
+						<h2>The purpose of the excercise is to webscrap the archive of Pracuj.pl and compare the popularity of the selected business intelligence tools. The key words that were used were: 'Tableau', 'Power Bi" and 'Qlik'. The data collection period was January - April 2019.</h2>
 						<h2>There are around 1000 pages each month including 50 job offers per page. That is why the webscarping process is time-consuming.</h2>
 						<div class="macroinner">
 							<h6>import pandas as pd</h6>
@@ -1057,8 +1057,8 @@
 						</div>
 						<br>
 						<img src="img/python/pracujpl2.png" class="img-responsive" alt="">						
-						<h2>During the scarping you shall get multiple timeout errors. The exception in the code aims to omit the server rejects, however in some cases you will require to run the code again. That is why it is advised to use counter in the code to know where to continue and save and load the results ocassionally.<br>
-						Save results:</h2>
+						<h2>During scraping you shall get multiple timeout errors. The exception in the code aims to omit server rejects. However, in some cases you will have to run the code again. That is why it is advised to use counter in the code to know where to continue and save and load the results ocassionally.<br>
+						Save the results:</h2>
 						<div class="macroinner">
 							<h6>df_tableau = pd.DataFrame(tableau_list, columns = ['Link'])</h6>
 							<h6>df_tableau['BI tool'] = 'Tableau'</h6>
@@ -1067,13 +1067,12 @@
 							<h6>df_tableau</h6>
 							<h6>df_tableau.to_excel(r'C:\your_path_here\tableau_201909.xlsx', index=False)</h6>
 						</div>
-						<h2>Load results:</h2>
+						<h2>Load the results:</h2>
 						<div class="macroinner">
 							<h6>df_tableau = pd.read_excel(r'C:\your_path_here\powerbi_201801.xlsx')</h6>
 							<h6>tableau_list = df_tableau['Link'].tolist()</h6>
 						</div>
-						<h2>According to the collected data Tableau was by far more popular tool in comparison o PowerBi and Qlik in the Jan-Apr 2018 period. However, let's bear in mind that the results may be inaccurate, e.g. scraping didn't include phrases like 'PowerBi' or 'Qlick' (spelling mistake that occurs in the offers). The excercise should also be expanded to longer timespan and include more popular BI tools like MicroStrategy or SAP.</h2>
-						
+						<h2>According to the collected data, Tableau was by far more popular than PowerBi and Qlik in the Jan-Apr 2018 period. However, let's bear in mind that the results may be inaccurate, e.g. scraping may not have included such phrases as 'PowerBi' or 'Qlick' (spelling mistakes do occur in some offers). The excercise should also be expanded to wider timespan and include more popular BI tools like MicroStrategy or SAP.</h2>
 						<div class='tableauPlaceholder' id='viz1579473016853' style='position: relative'>
 							<noscript>
 								<a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;bi&#47;bi_tools_pracupl_jan_apr_2018&#47;BItoolsshareonPracuj_plJan-Apr2018&#47;1_rss.png' style='border: none' /></a>
