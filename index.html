@@ -60,10 +60,10 @@
 					<div id="climatechangepl">
 						<h1>Climate change in Poland</h1>
 						<h3>31.01.2020 | urllib.request, BeautifulSoup, pandas, zipfile, io, matplotlib, numpy</h3>
-						<h2>Winter 2020 in Wasarw was warm as never before. There was no snow and the temperatures above 10°C happened more than once. Global warming has become a fact.</h2>
-						<h2>That inspired me to compare average yearly temperatures in different places of Poland starting from the 50s of the 20th century. The yearly temperatures are calculated as an average of daily avergage temperatures.</h2>
-						<h2>The source of the data is Polish Institute of Meteorology and Water Management - National Research Institute which is an official body to collect climate data in Poland.</h2>
-						<h2>As a first step let's get year list.</h2>
+						<h2>Winter 2020 in Warsaw has never been warmer. No snow and temperatures above 10°C are common. Looks like the global warming has become a fact.</h2>
+						<h2>Climate changes inspired me to track the average yearly temperatures in different places of Poland. Timespan is the early 50s of the 20th century till 2018. The yearly temperatures are calculated as an average of daily avergage temperatures.</h2>
+						<h2>The source of the data is Polish Institute of Meteorology and Water Management - National Research Institute which is an official body to collect the climate data in Poland.</h2>
+						<h2>As a first step let's parse a list of years.</h2>
 						<div class="macroinner">
 							<h6>from urllib.request import urlopen</h6>
 							<h6>from bs4 import BeautifulSoup</h6>
@@ -156,7 +156,7 @@
 						<img src="img/python/imgw4.png" class="img-responsive" alt="">
 						<h2>Save the file in the xlsx format that will be used for visualizations.</h2>					
 						<div class="macroinner">
-							<h6>file_name = r'C:\Users\admin\Documents\Nauka\Projects\Python\IMGW\imgw_grouped.xlsx'</h6>
+							<h6>file_name = r'C:\your_path_here\imgw_grouped.xlsx'</h6>
 							<h6>df_grouped.to_excel(file_name, encoding='utf-8', index=False)</h6>
 						</div>
 						<h2>Tableau viz (mobile version):</h2>			
@@ -194,7 +194,7 @@
 						<h2>Visualization in Python using matplotlib:<br>
 						Load the xlsx file and limit data to Dynów. In this city, located in Subcarpathian Voivodeship, the temperature has been measured since 1951.</h2>
 						<div class="macroinner">
-							<h6>file_name = r'C:\Users\admin\Documents\Nauka\Projects\Python\IMGW\imgw_grouped.xlsx'</h6>
+							<h6>file_name = r'C:\your_path_here\imgw_grouped.xlsx'</h6>
 							<h6>df_grouped = pd.read_excel(file_name, encoding='utf-8')</h6>
 							<h6>df_dynow = df_grouped[df_grouped['Nazwa stacji'] == 'DYNÓW']</h6>
 							<h6>df_dynow = df_dynow.reset_index(drop=True)</h6>
@@ -202,21 +202,21 @@
 							<h6>df_dynow.head()</h6>
 						</div>
 						<img src="img/python/imgw5.png" class="img-responsive" alt="">
-						<h2>Create a list of yearly averge temperatures for Dynów. We are removing 2019 because at the time the code was exectuded the December 2019 data was not available.</h2>
+						<h2>Create a list of yearly averge temperatures for Dynów. We are removing 2019 because at the time the code was exectuded the December 2019 data has not been yet available:</h2>
 						<div class="macroinner">
 							<h6>temp_year = df_dynow['Średnia dobowa temperatura'].tolist()</h6>
 							<h6>temp_year = temp_year[:-1] # no 2019 cause no Dec data for 2019</h6>
 							<h6>print(temp_year)</h6>
 						</div>
 						<img src="img/python/imgw.png6" class="img-responsive" alt="">						
-						<h2>The same for years.</h2>
+						<h2>The same for years:</h2>
 						<div class="macroinner">
 							<h6>single_yr_list = df_dynow["Rok"].drop_duplicates().tolist()</h6>
 							<h6>single_yr_list = single_yr_list[:-1]</h6>
 							<h6>print(single_yr_list)</h6>
 						</div>						
 						<img src="img/python/imgw.png7" class="img-responsive" alt="">
-						<h2>Plotting a map.</h2>
+						<h2>Plot a map:</h2>
 						<div class="macroinner">
 							<h6>import matplotlib.pyplot as plt</h6>
 							<h6>import matplotlib.patches as mpatches</h6>
@@ -255,8 +255,8 @@
 					<div id="xmlelementtree">
 						<h1>Tableau calculations and parameters export</h1>
 						<h3>5.12.2019 | Tableau, xml.etree.ElementTree, re, pandas</h3>			
-						<h2>Tableau calculations and parameters cannot have a negative impact on the data integrity. Making sure it won't happen is an important element of the data governance process. 
-						Unfortunately, Tableau doesn't allow you to export a list of parameters and calculations along with their respective values and formulas. The following piece of code is destined to solve the problem.</h2> 
+						<h2>Sometimes it is required to export a list of parameters and calculations along with their respective values and formulas. As a developer I was asked for that as a part of the data governance process.
+						Unfortunately, such actions is not supported in Tableau. That is why I created the following piece of code.</h2>
 						<h2>As an example I use the Sworn Translators Tableau dashboard which was the results of one of my earlier projects:</h2>
 							<div class="macroinner">
 								<h6>import xml.etree.ElementTree as ET</h6>
@@ -356,8 +356,6 @@
 						<img src="img/python/xml_df.png" class="img-responsive" alt="">
 						<h2>Excel file:</h2>
 						<img src="img/python/xml_excel.png" class="img-responsive" alt="">
-						<h2>ipynb file available on GitHub: LINK</h2>
-						<br>
 						<br>
 					</div>
 					
@@ -366,12 +364,12 @@
 					<div id="scrabbleassistant">
 						<h1>Scrabble assistant</h1>
 						<h3>16.11.2019 | pandas, zipfile, urllib.request, pickle, datetime, gzip, itertools, string</h3>	
-						<h2>Scrabble is my favourite word game. I have always wonderder how many bingos, a bonus 50 points for using all 7 letters in my rack, can I get in one game. 
-						My personal best was 2 bingos until I got a little help from the Python. Imagine that in my first game I reached 5, however I wasn't familiar with any of the bingo words!</h2>
+						<h2>Scrabble is my favourite word game. I have always wonderder how many bingos, a bonus 50 points for using all 7 letters in your rack, am I able to achieve during one game. 
+						My personal best was 2 bingos until I realized I can get a little help. Supported by Python I managed to get 5 bingos. However, I wasn't familiar with any of the bingo words!</h2>
 						<h2>The aim of the project is to help gain advantage in the Scrabble game. The code allows you to check the polish words you can create out of letters in your hand.</h2> 
-						<h2>The source file will be an official list of words available for word games and published by the Słownik Języka Polskiego PWN (Polish Dictionary). The name of the source file changes periodically so visit the site and make sure you type in the correct one.</h2>
+						<h2>The source file is an official list of words available for word games and published by the Słownik Języka Polskiego PWN (Polish Dictionary). The name of the source file changes periodically so visit the site and make sure you type in the correct one.</h2>
 						<h2>The process of executing the code may last a while since the list contains 3 million words.</h2>					
-						<h2>The first step of the project is to import a list of available words and sort letters alphabetically in every word from the list. Next, save the file in compressed gzip format.</h2>
+						<h2>The first step of the project is to import a list of available words and sort letters alphabetically in every word from the list. Next, save the file in a compressed gzip format.</h2>
 							<div class="macroinner">
 								<h6>import pandas as pd</h6>
 								<h6>from zipfile import ZipFile</h6>
@@ -481,7 +479,7 @@
 								<h6>time_elapsed = datetime.now() - start_time</h6>
 								<h6>print('Time elapsed (hh:mm:ss.ms) {}'.format(time_elapsed))</h6>
 							</div>
-						<h2>Usage examples:<br>
+						<h2>Examples:<br>
 						'aabchit' - 7-letter words:</h2>
 						<img src="img/python/scrabble3.png" class="img-responsive" alt="">
 						<h2>'aaeiklmn' - 8-letter words:</h2>
@@ -499,7 +497,7 @@
 					<div id="sworntranslators">
 						<h1>Sworn translators web scraping</h1>
 						<h3>3.11.2019 | requests, BeautifulSoup, pandas, Tableau, matplotlib, geopandas</h3>				
-						<h2>The purpose of the excersise is data scraping from the website of the Polish Ministry of Justice and presenting the results on a map chart using both matplotlib and Tableau.</h2>
+						<h2>The purpose of the excersise is to scrap the data from the website of the Polish Ministry of Justice and to present the results on a map chart using both matplotlib and Tableau.</h2>
 						<h2>The object of the web scraping are sworn translators. In Poland it is a group of professionals that are authorized by the government to translate official documents. They are listed on the website of the Polish Ministry of Justice.</h2>
 						<img src="img/python/sworn1.png" class="img-responsive" alt="">
 						<h2>The list is being updated periodically, therefore the results of the exercise may differ.</h2>
@@ -572,7 +570,7 @@
 						<br>
 						<img src="img/python/sworn4.png" class="img-responsive" alt="">
 						<br>
-						<h2>Dataframe shaping</h2>
+						<h2>Dataframe shaping:</h2>
 							<div class="macroinner">
 								<h6>import datetime</h6>
 								<br>
@@ -736,7 +734,7 @@
 						</script>
 						
 						<h2><b>Visualization in Python using geopandas and matplotlib:</b><br>
-						Step 1. Import of polish voivodeship shapefile, sworn translators data and getting centroids of polygons.</h2>
+						Step 1. Import a polish voivodeship shapefile, sworn translators data and get centroids of polygons.</h2>
 						<div class="macroinner">
 							<h6>import pandas as pd</h6>
 							<h6>pd.set_option('display.max_columns', 500)</h6>
@@ -765,7 +763,7 @@
 						</div>
 						<br>
 						<img src="img/python/sworn6.png" class="img-responsive" alt="">	
-						<h2>Step 2. Plotting a map:</h2>					
+						<h2>Step 2. Plot a map:</h2>					
 						<div class="macroinner">
 							<h6>colors = 9</h6>
 							<h6>cmap = 'Blues'</h6>
@@ -876,7 +874,7 @@
 
 						<h2><b>Excercises to practice:</b><br>
 						Excercise 1<br>
-						Find the title of the film stariing Penelope Guiness, Warren Nolte and Rock Dukakis.<br>
+						Find the title of the film starring Penelope Guiness, Warren Nolte and Rock Dukakis.<br>
 						Possible solution:</h2>					
 							<div class="macroinner">
 								<h6>"""</h6>
@@ -898,7 +896,7 @@
 						<img src="img/python/query2.png" class="img-responsive" alt="">
 						
 						<h2>Excercise 2<br>
-						Find the first name and last name of the most profitable customer in April 2007.<br>
+						Find the first name and the last name of the most profitable customer in April 2007.<br>
 						Possible solution:</h2>	
 							<div class="macroinner">
 								<h6>"""</h6>
@@ -943,7 +941,7 @@
 						<h1>Geocoordinates with geopy</h1>
 						<h3>13.09.2019 | geopy, pandas</h3>	
 						<h2>The purpose of the excersise is to identify geographical coordinates for the list of Polish cities.<br>
-						Firstly, let's get a list of the cities.</h2>
+						Get a list of the cities.</h2>
 							<div class="macroinner">
 								<h6>from geopy.geocoders import Nominatim</h6>
 								<h6>geolocator = Nominatim(user_agent="yourmail@mail.com")</h6>
@@ -962,7 +960,7 @@
 								<h6>df.head()</h6>
 							</div>
 						<img src="img/python/geo1.png" class="img-responsive" alt="">
-						<h2>Secondly, let's use geopy to locate the coordinates of the cities. 
+						<h2>Use geopy to locate the coordinates of the cities. 
 						Bear in mind that geopy allows limited amount of results to return from the service. 
 						Too many queries will result in time out error. Luckily, the limit is high enough to get the list of cities of our interest for the exercise.</h2>
 							<div class="macroinner">
@@ -1012,7 +1010,7 @@
 					<div id="bitoolsjob">
 						<h1>Business intelligence tools in job offers</h1>
 						<h3>17.08.2019 | requests, BeautifulSoup, pandas, time, regular expression operations (re), Tableau</h3>	
-						<h2>Before you invest your time in learning a new skill you would often like to know if it is demanded on the market. For example, which business intelligence tools is the most commonly used?
+						<h2>Before you invest your time in learning a new skill you would often like to know if it is demanded on the market. For example, which business intelligence tool is the most commonly used?
 						To find the answer you need to analyse the job market.</h2>
 						<h2>Pracuj.pl is the biggest and the most popular job offer portal in Poland. The old job advertisements are stored in the archive and are publically available.</h2>
 						<img src="img/python/pracujpl1.png" class="img-responsive" alt="">
