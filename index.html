@@ -2,12 +2,12 @@
 <html>
 <head>
 
-	<title>piotrjanus.com &#124; Python, Tableau, SQL and VBA by Piotr Janus</title>
+	<title>piotrjanus.com &#124; Python, Tableau, T-SQL and VBA by Piotr Janus</title>
 
 	<meta charset="utf-8" />
 	<meta name="robots" content="index, follow" />
 	<meta name="description" content="Plenty of useful VBA codes that will help you to automate your daily Excel routine &#124; Basic SQL queries to extract data from a database">
-	<meta name="keywords" content="AutomateIt, VBA, Visual Basic for Applications, macro, SQL, Structured Query Language, Tableau, business intelligence, automation, process enhancement, coding">
+	<meta name="keywords" content="AutomateIt, VBA, Visual Basic for Applications, macro, SQL, T-SQL Structured Query Language, Tableau, business intelligence, automation, process enhancement, coding">
 	<meta name="author" content="Piotr Janus">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="format-detection" content="telephone=no"/>
@@ -38,7 +38,7 @@
 		<ul class="nav navbar-nav navbar-right">
 			<li class="active"><a href="#top">Python</a></li>
 			<li><a href="index2.html">VBA</a></li>
-			<li><a href="index3.html">SQL</a></li>
+			<li><a href="index3.html">T-SQL</a></li>
 			<li><a href="index4.html">About</a></li>
 			<li class="hidden-xs"><a href="mailto:piotrjanus@outlook.com"><img src="img/logo/outlook_white_vsmall.png" onmouseover="this.src='img/logo/outlook_white_vsmall.png'" onmouseout="this.src='img/logo/outlook_white_vsmall.png'" alt="www.linkedin.com/in/januspiotr/"/></a></li>
 			<li class="hidden-xs"><a href="https://www.linkedin.com/in/januspiotr/"><img src="img/logo/linkedin_white_vsmall.png" alt="www.linkedin.com/in/januspiotr/"/></a></li>
@@ -1132,7 +1132,11 @@
 						<h4><a href="#bitoolsjob">BI tools in job offers</a></h4>
 				</div>
 			</div>
-
+			
+			<!--button-->
+			<div class="col-sm-12 hidden-md hidden-lg">
+				<button id="backToTop" title="Go to top">&ensp;SCROLL TO TOP&ensp;</button>
+			</div>
 			
 		</div> <!--row-->
 	</div> <!--container-->
@@ -1141,6 +1145,22 @@
 
 <!--scripts-->
 <script>
+/* button to top */
+jQuery(document).ready(function($){
+    $(window).scroll(function(){
+        if ($(this).scrollTop() > 100) {
+            $('#backToTop').fadeIn('slow');
+        } else {
+            $('#backToTop').fadeOut('slow');
+        }
+    });
+    $('#backToTop').click(function(){
+        $("html, body").animate({ scrollTop: 0 }, 650);
+        return false;
+    });
+});
+
+
 /* shrink navbar on scroll */
 $(window).scroll(function() {
   if ($(document).scrollTop() > 100) {

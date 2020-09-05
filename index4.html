@@ -2,12 +2,12 @@
 <html>
 <head>
 
-	<title>piotrjanus.com &#124; Python, Tableau, SQL and VBA by Piotr Janus</title>
+	<title>piotrjanus.com &#124; Python, Tableau, T-SQL and VBA by Piotr Janus</title>
 
 	<meta charset="utf-8" />
 	<meta name="robots" content="index, follow" />
 	<meta name="description" content="Plenty of useful VBA codes that will help you to automate your daily Excel routine &#124; Basic SQL queries to extract data from a database">
-	<meta name="keywords" content="AutomateIt, VBA, Visual Basic for Applications, macro, SQL, Structured Query Language, Tableau, business intelligence, automation, process enhancement, coding">
+	<meta name="keywords" content="AutomateIt, VBA, Visual Basic for Applications, macro, SQL, T-SQL, Structured Query Language, Tableau, business intelligence, automation, process enhancement, coding">
 	<meta name="author" content="Piotr Janus">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="format-detection" content="telephone=no"/>
@@ -39,7 +39,7 @@
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="index.html">Python</a></li>
 			<li><a href="index2.html">VBA</a></li>
-			<li><a href="index3.html">SQL</a></li>
+			<li><a href="index3.html">T-SQL</a></li>
 			<li class="active"><a href="#top">About</a></li>
 			<li class="hidden-xs"><a href="mailto:piotrjanus@outlook.com"><img src="img/logo/outlook_white_vsmall.png" onmouseover="this.src='img/logo/outlook_white_vsmall.png'" onmouseout="this.src='img/logo/outlook_white_vsmall.png'" alt="www.linkedin.com/in/januspiotr/"/></a></li>
 			<li class="hidden-xs"><a href="https://www.linkedin.com/in/januspiotr/"><img src="img/logo/linkedin_white_vsmall.png" alt="www.linkedin.com/in/januspiotr/"/></a></li>
@@ -68,7 +68,7 @@
 					<p>My name is Piotr.</p>
 					<p>I have a master degree in Geography and Economics. In my professional career I have been responsible for reporting, mostly in the banking and HR areas. I currently work as a business intelligence (Tableau) developer in a major real estate company.</p>
 					<p>My interests go beyond data visualization. That is why I have created the website where I can publish and share my projects coded in Python, VBA or SQL. Most of them were inspired by real-life, professional challenges and some were done just for fun.</p>	
-					<p>The Python part of the website displays my recent projects that involve mostly web-scraping excercises, data manipulation in Python and visualization in Tableau. The VBA part is a code collection that I created and used when working as a VBA developer. The SQL part is a course for beginner and intermediate SQL users. It helped me systemize my SQL knowledge.</p>
+					<p>The Python part of the website displays my recent projects that involve mostly web-scraping excercises, data manipulation in Python and visualization in Tableau. The VBA part is a code collection that I created and used when working as a VBA developer. The T-SQL part is a course for beginner and advanced SQL users. It helped me systemize my T-SQL knowledge.</p>
 					<br>
 					<a href="https://pl.linkedin.com/in/januspiotr"><img src="img/logo/outlook_pink.png" align="right" style="margin-right: 0px; margin-left: 35px; padding-top: px;"></a>
 					<a href="https://pl.linkedin.com/in/januspiotr"><img src="img/logo/linkedin_pink.png" align="right" style="margin-right: 0px; margin-left: 35px; padding-top: px;"></a>
@@ -76,6 +76,11 @@
 					<br>
 					<br>
 				</h4>
+			</div>
+
+			<!--button-->
+			<div class="col-sm-12 hidden-md hidden-lg">
+				<button id="backToTop" title="Go to top">&ensp;SCROLL TO TOP&ensp;</button>
 			</div>
 			
 		</div> <!--row-->
@@ -85,6 +90,22 @@
 
 <!--scripts-->
 <script>
+/* button to top */
+jQuery(document).ready(function($){
+    $(window).scroll(function(){
+        if ($(this).scrollTop() > 100) {
+            $('#backToTop').fadeIn('slow');
+        } else {
+            $('#backToTop').fadeOut('slow');
+        }
+    });
+    $('#backToTop').click(function(){
+        $("html, body").animate({ scrollTop: 0 }, 650);
+        return false;
+    });
+});
+
+
 /* shrink navbar on scroll */
 $(window).scroll(function() {
   if ($(document).scrollTop() > 100) {
