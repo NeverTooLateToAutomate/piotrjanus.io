@@ -6753,15 +6753,246 @@
 				<div id="INDEX" class="macrooutersql">
 					<h1>INDEX</h1>
 					<h2><p>Following the <a href="#https://docs.microsoft.com/en-us/sql/relational-databases/indexes/clustered-and-nonclustered-indexes-described?view=sql-server-ver15">Microsoft</a> definitions:</p>
-					<p>Clustered indexes sort and store the data rows in the table or view based on their key values. These are the columns included in the index definition. There can be only one clustered index per table, because the data rows themselves can be stored in only one order.</p>
-					<p>	The only time the data rows in a table are stored in sorted order is when the table contains a clustered index. When a table has a clustered index, the table is called a clustered table. If a table has no clustered index, its data rows are stored in an unordered structure called a heap</p>
-					<p>Nonclustered indexes have a structure separate from the data rows. A nonclustered index contains the nonclustered index key values and each key value entry has a pointer to the data row that contains the key value.</p>
-					<p>The pointer from an index row in a nonclustered index to a data row is called a row locator. The structure of the row locator depends on whether the data pages are stored in a heap or a clustered table. For a heap, a row locator is a pointer to the row. For a clustered table, the row locator is the clustered index key.</p></h2>
+					<p><i>"Clustered indexes sort and store the data rows in the table or view based on their key values. These are the columns included in the index definition. There can be only one clustered index per table, because the data rows themselves can be stored in only one order."</i></p>
+					<p><i>"The only time the data rows in a table are stored in sorted order is when the table contains a clustered index. When a table has a clustered index, the table is called a clustered table. If a table has no clustered index, its data rows are stored in an unordered structure called a heap."</i></p>
+					<p><i>"Nonclustered indexes have a structure separate from the data rows. A nonclustered index contains the nonclustered index key values and each key value entry has a pointer to the data row that contains the key value."</i></p>
+					<p><i>"The pointer from an index row in a nonclustered index to a data row is called a row locator. The structure of the row locator depends on whether the data pages are stored in a heap or a clustered table. For a heap, a row locator is a pointer to the row. For a clustered table, the row locator is the clustered index key."</i></p>
+					<p>To see the benefits from applying a nonclustered index we need a big dataset. Let's download a movie rating dataset that contains over 20 million rows. <a href="#https://www.kaggle.com/grouplens/movielens-20m-dataset?select=rating.csv">Link</a> to the dataset on Kaggle.</p>
+					<p>Next, let's create a database and a table, and let's upload the data using BULK INSERT.</p></h2>
 					<div class="macroinnersql">
-						<h4>query</h4>
-						<h4>&nbsp;&nbsp;&nbsp;&nbsp query</h4>
+						<h4><b>CREATE DATABASE</b> Rating_DB;</h4>
 					</div>
-
+					<br>
+					<div class="macroinnersql">					
+						<h4><b>CREATE TABLE</b> Rating (</h4>
+						<h4>&emsp;&emsp;	User_ID INT,</h4>
+						<h4>&emsp;&emsp;	Movie_ID INT,</h4>
+						<h4>&emsp;&emsp;	Rating DEC(2,1),</h4>
+						<h4>&emsp;&emsp;	Rating_Datetime DATE</h4>
+						<h4>) </h4>
+					</div>
+					<h2>In my case the data upload took around 10 mins.</h2>
+					<div class="macroinnersql">	
+						<h4><b>BULK INSERT</b> Rating</h4>
+						<h4><b>FROM</b> 'C:\path\rating.csv'</h4>
+						<h4><b>WITH</b> (</h4>
+						<h4>&emsp;&emsp;	FIRSTROW = 2,</h4>
+						<h4>&emsp;&emsp;	FIELDTERMINATOR = ',',</h4>
+						<h4>&emsp;&emsp;	ROWTERMINATOR = '\n'</h4>
+						<h4>)</h4>
+					</div>
+					<h2>The results.</h2>
+					<div class="macroinnersql">	
+						<h4><b>SELECT</b></h4>
+						<h4>&emsp;&emsp;	*</h4>
+						<h4><b>FROM</b></h4>
+						<h4>&emsp;&emsp;	Rating;</h4>			
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">User_ID</th>
+							<th class="tg-yw4l">Movie_ID</th>
+							<th class="tg-yw4l">Rating</th>
+							<th class="tg-yw4l">Rating_Datetime</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">3.5</td>
+							<td class="tg-yw4l">2005-04-02</td>					  
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">29</td>
+							<td class="tg-yw4l">3.5</td>
+							<td class="tg-yw4l">2005-04-02</td>							  
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">32</td>
+							<td class="tg-yw4l">3.5</td>
+							<td class="tg-yw4l">2005-04-02</td>							  
+						  </tr>						  
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">47</td>
+							<td class="tg-yw4l">3.5</td>
+							<td class="tg-yw4l">2005-04-02</td>							  
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">50</td>
+							<td class="tg-yw4l">3.5</td>
+							<td class="tg-yw4l">2005-04-02</td>							  
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">112</td>
+							<td class="tg-yw4l">3.5</td>
+							<td class="tg-yw4l">2004-09-10</td>							  
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">151</td>
+							<td class="tg-yw4l">4.0</td>
+							<td class="tg-yw4l">2004-09-10</td>							  
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">223</td>
+							<td class="tg-yw4l">4.0</td>
+							<td class="tg-yw4l">2005-04-02</td>								  
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">253</td>
+							<td class="tg-yw4l">4.0</td>
+							<td class="tg-yw4l">2005-04-02</td>							  
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">260</td>
+							<td class="tg-yw4l">4.0</td>
+							<td class="tg-yw4l">2005-04-02</td>							  
+						  </tr>					  
+						</table>
+						<h6>20000263 rows in total</h6>
+					</div>						
+					<h2>At this point the table has no primary key. Let's measure the execution time of the following query.</h2>
+					<div class="macroinnersql">	
+						<h4>SET STATISTICS TIME ON;</h4>
+					</div>
+					<div class="macroinnersql">						
+						<h4><b>SELECT</b></h4>
+						<h4>&emsp;&emsp;	User_ID,</h4>
+						<h4>&emsp;&emsp;	Movie_ID,</h4>
+						<h4>&emsp;&emsp;	Rating_Datetime</h4>
+						<h4><b>FROM</b></h4>
+						<h4>&emsp;&emsp;	Rating</h4>
+						<h4><b>WHERE</b></h4>
+						<h4>&emsp;&emsp;	User_ID = 138493</h4>
+						<h4>&emsp;&emsp;	AND Movie_ID = 44555</h4>
+						<h4>&emsp;&emsp;	AND Rating_Datetime = '2009-10-17';</h4>
+					</div>
+					<div class="macroinnersql">						
+						<h4>SET STATISTICS TIME OFF;</h4>	
+					</div>
+					<br>
+					<h6><p>SQL Server Execution Times:</p>
+					<p>CPU time = 10328 ms,  elapsed time = 2990 ms.</p></h6>
+					<img src="img/sql/execplan.png" class="img-responsive" alt="">					
+					<h2>Let's add a column that will hold the primary key for the table. In my case the process took around 30 mins.</h2>
+					<div class="macroinnersql">						
+						<h4><b>ALTER TABLE</b> Rating</h4>
+						<h4><b>ADD</b> ID INT IDENTITY(1,1) PRIMARY KEY;</h4>
+					</div>					
+					<h2>The table after adding the column.</h2>
+					<div class="macroinnersql">	
+						<h4><b>SELECT</b></h4>
+						<h4>&emsp;&emsp;	*</h4>
+						<h4><b>FROM</b></h4>
+						<h4>&emsp;&emsp;	Rating;</h4>			
+					</div>
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">User_ID</th>
+							<th class="tg-yw4l">Movie_ID</th>
+							<th class="tg-yw4l">Rating</th>
+							<th class="tg-yw4l">Rating_Datetime</th>
+							<th class="tg-yw4l">ID</th>							
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">3.5</td>
+							<td class="tg-yw4l">2005-04-02</td>
+							<td class="tg-yw4l">1</td>							
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">29</td>
+							<td class="tg-yw4l">3.5</td>
+							<td class="tg-yw4l">2005-04-02</td>	
+							<td class="tg-yw4l">2</td>								
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">32</td>
+							<td class="tg-yw4l">3.5</td>
+							<td class="tg-yw4l">2005-04-02</td>	
+							<td class="tg-yw4l">3</td>								
+						  </tr>						  
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">47</td>
+							<td class="tg-yw4l">3.5</td>
+							<td class="tg-yw4l">2005-04-02</td>
+							<td class="tg-yw4l">4</td>							
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">50</td>
+							<td class="tg-yw4l">3.5</td>
+							<td class="tg-yw4l">2005-04-02</td>
+							<td class="tg-yw4l">5</td>							
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">112</td>
+							<td class="tg-yw4l">3.5</td>
+							<td class="tg-yw4l">2004-09-10</td>	
+							<td class="tg-yw4l">6</td>							
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">151</td>
+							<td class="tg-yw4l">4.0</td>
+							<td class="tg-yw4l">2004-09-10</td>
+							<td class="tg-yw4l">7</td>							
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">223</td>
+							<td class="tg-yw4l">4.0</td>
+							<td class="tg-yw4l">2005-04-02</td>	
+							<td class="tg-yw4l">8</td>							
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">253</td>
+							<td class="tg-yw4l">4.0</td>
+							<td class="tg-yw4l">2005-04-02</td>	
+							<td class="tg-yw4l">9</td>							
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">260</td>
+							<td class="tg-yw4l">4.0</td>
+							<td class="tg-yw4l">2005-04-02</td>	
+							<td class="tg-yw4l">10</td>							
+						  </tr>					  
+						</table>
+						<h6>20000263 rows in total</h6>
+					</div>
+					<h2>Let's measure the execution time of the earlier query.</h2>
+					<h6><p>SQL Server Execution Times:</p>
+					<p>CPU time = 6423 ms,  elapsed time = 1794 ms.</p></h6>
+					<img src="img/sql/execplanclustered.png" class="img-responsive" alt="">	
+					<h2>Finally, let's create a nonclustered index.</h2>				
+					<div class="macroinnersql">						
+						<h4><b>CREATE</b> INDEX ix_used_movie_date </h4>
+						<h4>ON Rating(</h4>
+						<h4>&emsp;&emsp;	User_ID,</h4>
+						<h4>&emsp;&emsp;	Movie_ID,</h4>
+						<h4>&emsp;&emsp;	Rating_Datetime);</h4>
+					</div>
+					<h2>Let's measure the execution time of the earlier query.</h2>
+					<h6><p>SQL Server Execution Times:</p>
+					<p>CPU time = 0 ms,  elapsed time = 0 ms.</p></h6>
+					<img src="img/sql/execplannonclustered.png" class="img-responsive" alt="">	
+					<h2>The differences may not be very significant but imagine the time savings if there are hundreds of millions of rows. Just rememeber that the indexes are memory consuming so use them for queries that occur frequently.</h2>					
 				</div>
 				<br>
 				
@@ -7454,8 +7685,7 @@
 						<h4><a href="#SUBQUERY1">SUBQUERY SELECT, FROM, WHERE</a></h4>
 						<h4><a href="#SUBQUERY2">SUBQUERY EXISTS, NOT EXISTS</a></h4>
 						<h4><a href="#SUBQUERY3">SUBQUERY ANY, ALL</a></h4>
-						<h4><a href="#INDEX">INDEX</a></h4>
-						<h4><a href="#BULKINSERT">BULK INSERT</a></h4>						
+						<h4><a href="#INDEX">INDEX</a></h4>				
 						<h4><a href="#FUNCTION">FUNCTION</a></h4>
 						<h4><a href="#STOREDPROCEDURE">STORED PROCEDURE</a></h4>
 						<h4><a href="#IFELSE">IF ELSE</a></h4>				
