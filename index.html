@@ -258,100 +258,7 @@
 						<h2>Sometimes it is required to export a list of parameters and calculations along with their respective values and formulas. As a developer, I was asked for that as a part of a data governance process.
 						Unfortunately, such action is not supported in Tableau. That is why I created the following piece of code.</h2>
 						<h2>As an example I've used the Sworn Translators Tableau dashboard which was the result of one of my earlier projects:</h2>
-							<div class="macroinner">
-								<h6>import xml.etree.ElementTree as ET</h6>
-								<h6>import pandas as pd</h6>
-								<h6>import re</h6>
-								<br>
-								<h6>tree = ET.parse(r'C:\you_path_here\filename.twb')</h6>
-								<h6>root = tree.getroot()</h6>
-								<br>
-								<h6># parameters</h6>
-								<h6>caption_list = []</h6>
-								<h6>name_list = []</h6>
-								<h6>value_list = []</h6>
-								<br>
-								<h6>for child in root.find('.//datasources'):</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    for elem in child.iter(tag ='column'):</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        caption = elem.get('caption')</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        name = elem.get('name')</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        parameter = elem.get('param-domain-type')</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        if caption is None or parameter is None:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            continue</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        member = elem.find('members')</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        if member is None:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            ran = elem.find('range')</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            if ran is None:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                continue</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        caption_list.append(caption)</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        name_list.append(name)</h6>
-								<br>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        # list</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        if member is not None:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            temp_list = []</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            for elem2 in elem.iter(tag ='member'):</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                value = elem2.get('value')</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                temp_list.append(value)</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            value_list.append(temp_list)</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        else:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            temp_list = []</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            for elem2 in elem.iter(tag ='range'):</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                temp_list.append(elem2.tag)</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                min_value = elem2.get('min')</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                temp_list.append(min_value)</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                max_value = elem2.get('max')</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                temp_list.append(max_value)</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            value_list.append(temp_list)</h6>
-								<br>
-								<h6>df = pd.DataFrame(list(zip(caption_list, name_list, value_list)),</h6> 
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;		columns =['name', 'alt_name', 'formula'])</h6>
-								<h6>df = df.replace('\r\n', ' ', regex=True)</h6>
-								<h6>df.insert(0, 'tableau', 'parameter')</h6>
-								<h6>df = df.drop_duplicates(subset='name', keep='first')</h6>
-								<h6>df_par = df.copy()</h6>
-								<br>
-								<h6># calculations</h6>
-								<h6>caption_list = []</h6>
-								<h6>name_list = []</h6>
-								<h6>formula_list = []</h6>
-								<br>
-								<h6>for child in root.find('.//datasources'):</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    for elem in child.iter(tag ='column'):</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        caption = elem.get('caption')</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        name = elem.get('name')</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        parameter = elem.get('param-domain-type')</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        if caption is None or parameter is not None:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            continue</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        calculation = elem.find('calculation')</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        if calculation is None:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            continue</h6>
-								<br>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        caption_list.append(caption)</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        name_list.append(name)</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        for elem2 in elem.iter(tag ='calculation'):</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          formula = elem2.get('formula')</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            formula_list.append(formula)</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           break</h6>
-								<br>
-								<h6>df = pd.DataFrame(list(zip(caption_list, name_list, formula_list)),</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;		columns =['name', 'alt_name', 'formula'])</h6>
-								<h6>df = df.replace('\r\n', ' ', regex=True)</h6>
-								<h6>df.insert(0, 'tableau', 'calculation')</h6>
-								<h6>df = df.drop_duplicates(subset='name', keep='first')</h6>
-								<h6>df_calc = df.copy()</h6>
-								<br>
-								<h6># appending calculations to parameters</h6>
-								<h6>df = df_par.append(df_calc, ignore_index = True)</h6>
-								<h6>df['name'] = ('[' + df['name'] + ']')</h6>
-								<h6>df['formula'] = df['formula'].astype(str)</h6>
-								<h6>for i in range(0, df.shape[0]):</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    a = df.iloc[i, 2]</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    b = df.iloc[i, 1]</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    df['formula'] = df['formula'].str.replace(re.escape(a), b, regex=True)</h6>
-								<br>
-								<h6># xlsx export</h6>
-								<h6>extract = df.to_excel (r'C:\you_path_here\export_dataframe.xlsx', index = None, header=True)</h6>
-							</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/9aebc14c90fde5b604c8c04cbbd2ae13.js"></script>
 						<h2>Dataframe:</h2>
 						<img src="img/python/xml_df.png" class="img-responsive" alt="">
 						<h2>Excel file:</h2>
@@ -370,32 +277,7 @@
 						<h2>The source file is the official wordlist available for word games and published by Słownik Języka Polskiego PWN (Polish Language Dictionary). The name of the source file changes periodically so visit the site and make sure you type in the correct one.</h2>
 						<h2>The process of executing the code may last a while since the list contains 3 million words.</h2>					
 						<h2>The first step of the project is to import the list of available words and sort the letters of every word alphabetically. Next, save the file in a compressed gzip format.</h2>
-							<div class="macroinner">
-								<h6>import pandas as pd</h6>
-								<h6>from zipfile import ZipFile</h6>
-								<h6>from io import BytesIO</h6>
-								<h6>from urllib.request import urlopen</h6>
-								<br>
-								<h6>url = urlopen('https://sjp.pl/slownik/growy/sjp-20191114.zip')</h6>
-								<h6>file = ZipFile(BytesIO(url.read()))</h6>
-								<h6>words_csv = file.open('slowa.txt')</h6>
-								<h6>df = pd.read_csv(words_csv, header=None, names = ['words'])</h6>
-								<h6>word_list = df['words'].tolist()</h6>
-								<br>
-								<h6>x = 0</h6>
-								<h6>for i in word_list:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    word_list[x] = ''.join(sorted(i))</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    x += 1</h6>
-								<h6>    </h6>
-								<h6>df_sort = pd.DataFrame(word_list)</h6>
-								<h6>df_sort.columns = ['sorted']</h6>
-								<br>
-								<h6>file_name = (r'C:\your_path_here\slowa_sort.txt.gz')</h6>
-								<h6>df_sort.to_csv(file_name, index=False, compression='gzip')</h6>
-								<br>
-								<h6>print(df_sort.shape)</h6>
-								<h6>df_sort.head()</h6>
-							</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/58687c8c16871a239a37f0e2084d9cb7.js"></script>
 						<img src="img/python/scrabble1.png" class="img-responsive" alt="">
 						<h2></h2>
 							<div class="macroinner">
@@ -497,72 +379,11 @@
 					<div id="sworntranslators">
 						<h1>Sworn translators web scraping</h1>
 						<h3>3.11.2019 | requests, BeautifulSoup, pandas, Tableau, matplotlib, geopandas</h3>				
-						<h2>The purpose of the excersise is to scrap the data from the website of the Polish Ministry of Justice and to present the results on a map chart using both matplotlib and Tableau.</h2>
-						<h2>The object of the web scraping are sworn translators. In Poland, it is a group of professionals that are authorized by the government to translate official documents.</h2>
+						<h2><p>The purpose of the excersise is to scrap the data from the website of the Polish Ministry of Justice and to present the results on a map chart using both matplotlib and Tableau.</p>
+						<p>The object of the web scraping are sworn translators. In Poland, it is a group of professionals that are authorized by the government to translate official documents.</p></h2>
 						<img src="img/python/sworn1.png" class="img-responsive" alt="">
 						<h2>The list is being updated periodically, therefore the results of the exercise may differ.</h2>
-							<div class="macroinner">
-								<h6>import pandas as pd</h6>
-								<h6>pd.set_option('display.max_rows', 11000)</h6>
-								<h6>import requests</h6>
-								<h6>from bs4 import BeautifulSoup</h6>
-								<br>
-								<h6># language dictionary</h6>
-								<h6>r = requests.get('https://arch-bip.ms.gov.pl/pl/rejestry-i-ewidencje/tlumacze-przysiegli/lista-tlumaczy-przysieglych/search.html')</h6>
-								<h6>soup = BeautifulSoup(r.text, 'html.parser')</h6>
-								<br>
-								<h6>lang_dict = {}</h6>
-								<h6>for i in soup.find_all('select', attrs = {'name':'Language'}):</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    for option in i.find_all('option'):</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        lang_dict[option['value']] = option.text</h6>
-								<h6>lang_dict.pop('') # empty record removed</h6>
-								<h6>lang_dict.pop('64') # czarnogórski removed</h6>
-								<br>
-								<h6>results = []</h6>
-								<h6>for language in lang_dict:</h6>
-								<br>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    # number of pages</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    r = requests.get(f'https://arch-bip.ms.gov.pl/pl/rejestry-i-ewidencje/tlumacze-przysiegli/lista-tlumaczy-przysieglych/search.html?Language={language}')</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    soup = BeautifulSoup(r.text, 'html.parser')</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    page_list = []</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    tags = soup.find_all('a', href = True)</h6>
-								<br>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    try:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        for tag in tags:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            page_list.append(tag.get_text())</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        extracted_list = [s for s in page_list if s.isdigit()]</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        extracted_list = [int(s) for s in extracted_list]</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        extracted_list.sort()</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        max_page = extracted_list[-1]</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        page_list = list(range(1, max_page + 1))</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        pages = [',' + str(s) for s in page_list]</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    except:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        pages = ['']</h6>
-								<br>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    # collect data</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    for page in pages:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        r = requests.get(f'https://arch-bip.ms.gov.pl/pl/rejestry-i-ewidencje/tlumacze-przysiegli/lista-tlumaczy-przysieglych/search{page}.html?Language={language}')</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        soup = BeautifulSoup(r.text, 'html.parser')</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        html_table = soup.find_all('table')[0]</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        temp_table = []</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        for row in html_table.find_all('tr'):</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            my_row_td = [element.get_text(strip = True) for element in row.find_all('td')]</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            if my_row_td:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                temp_table.append(my_row_td)</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            my_row_th = [element.get_text(strip = True) for element in row.find_all('th')]</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            if my_row_th:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                temp_table.append(my_row_th)</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        translators = pd.DataFrame(temp_table[1:], columns = temp_table[0])</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        translators['Język'] = lang_dict[language] # adding 'Language' column</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        results.append(translators)</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        df = pd.concat(results, ignore_index = True, sort = False)    </h6>
-								<h6>df = df.reset_index(drop=True)</h6>
-								<h6>file_name = r'C:\your_path_here\translators_raw.csv'</h6>
-								<h6>df.to_csv(file_name, sep = '\t', encoding = 'utf-8', index = False)</h6>
-								<br>
-								<h6>print(df.shape)</h6>
-								<h6>df.head()</h6>
-							</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/6ffef232f3a4e26fe78a35192d95205b.js"></script>
 						<h2>Montenegrin has no results. It was excluded from the web scraping.</h2>
 						<img src="img/python/sworn2.png" class="img-responsive" alt="">
 						<h2>The dictionary of the langueages and sample results:</h2>
@@ -571,103 +392,7 @@
 						<img src="img/python/sworn4.png" class="img-responsive" alt="">
 						<br>
 						<h2>Dataframe shaping:</h2>
-							<div class="macroinner">
-								<h6>import datetime</h6>
-								<br>
-								<h6>file_name = r'C:\your_path_here\translators_raw.csv'</h6>
-								<h6>df = pd.read_csv(file_name, sep = '\t', encoding = 'utf-8')</h6>
-								<br>
-								<h6># column "Imię"</h6>
-								<h6>df['Imię'] = df['Imię'].str.replace('\n\t\t\t', ' ', case = False)</h6>
-								<br>
-								<h6># column "Język"</h6>
-								<h6>max_lang = df['Języki'].str.count(',').max()</h6>
-								<h6>df['Języki'] = df['Języki'].str.replace('(', '').str.replace(')', '')</h6>
-								<h6>new = df['Języki'].str.split(',', expand = True) </h6>
-								<h6>for i in range(0,max_lang + 1):</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    df['Lan' + str(i)] = new[i]</h6>
-								<h6>df.insert(loc = 3, column = 'Data', value = None)</h6>
-								<h6>for i in range(0,5):</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    for index, row in df.iterrows():</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        if df.loc[index,'Język'] in str(row['Lan' + str(i)]):</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            df.loc[index,'Data'] = str(row['Lan' + str(i)])</h6>
-								<h6>df = df[df.columns.drop(list(df.filter(regex='Lan')))]</h6>
-								<br>
-								<h6># column "Data"</h6>
-								<h6># Nowak-Błaszczak Agnieszka and Zielnik-Kołodzińska Róża have nulls in "Data" column</h6>
-								<h6>df['Data'] = df['Data'].str.strip()</h6>
-								<h6>df['Data'] = df['Data'].str.split(' ').str[-1]</h6>
-								<h6>df['Data']=df['Data'].str.replace("[^0-9]",'')</h6>
-								<h6>df["Data"] = pd.to_datetime(df["Data"]).dt.strftime('%Y-%m-%d')</h6>
-								<br>
-								<h6># column "Miasto"</h6>
-								<h6>df['Adres do korespondencji'] = df['Adres do korespondencji'].str.split('\n\t\t\t').str[-1]</h6>
-								<h6>df['Adres do korespondencji'] = df['Adres do korespondencji'].str.split('Tel.').str[0]</h6>
-								<h6>df['Adres do korespondencji'] = df['Adres do korespondencji'].str.split('Email:').str[0]</h6>
-								<h6># replace Gorzów Wklp. with full name Gorzów Wielkopolski </h6>
-								<h6>df['Adres do korespondencji'] = df['Adres do korespondencji'].replace('Gorzów Wklp.', 'Gorzów Wielkopolski')</h6>
-								<h6># list of the main polish cities</h6>
-								<h6>cities = ['Warszawa',</h6>
-								<h6>'Kraków',</h6>
-								<h6>'Łódź',</h6>
-								<h6>'Wrocław',</h6>
-								<h6>'Poznań',</h6>
-								<h6>'Gdańsk',</h6>
-								<h6>'Szczecin',</h6>
-								<h6>'Bydgoszcz',</h6>
-								<h6>'Lublin',</h6>
-								<h6>'Białystok',</h6>
-								<h6>'Katowice',</h6>
-								<h6>'Gdynia',</h6>
-								<h6>'Częstochowa',</h6>
-								<h6>'Radom',</h6>
-								<h6>'Toruń',</h6>
-								<h6>'Sosnowiec',</h6>
-								<h6>'Kielce',</h6>
-								<h6>'Rzeszów',</h6>
-								<h6>'Gliwice',</h6>
-								<h6>'Zabrze',</h6>
-								<h6>'Olsztyn',</h6>
-								<h6>'Bielsko-Biała',</h6>
-								<h6>'Bytom',</h6>
-								<h6>'Zielona Góra',</h6>
-								<h6>'Rybnik',</h6>
-								<h6>'Ruda Śląska',</h6>
-								<h6>'Opole',</h6>
-								<h6>'Tychy',</h6>
-								<h6>'Gorzów Wielkopolski',</h6>
-								<h6>'Dąbrowa Górnicza',</h6>
-								<h6>'Elbląg',</h6>
-								<h6>'Płock',</h6>
-								<h6>'Wałbrzych',</h6>
-								<h6>'Włocławek',</h6>
-								<h6>'Tarnów',</h6>
-								<h6>'Chorzów',</h6>
-								<h6>'Koszalin',</h6>
-								<h6>'Kalisz',</h6>
-								<h6>'Legnica',</h6>
-								<h6>'Grudziądz',</h6>
-								<h6>'Jaworzno',</h6>
-								<h6>'Słupsk',</h6>
-								<h6>'Jastrzębie-Zdrój',</h6>
-								<h6>'Nowy Sącz',</h6>
-								<h6>'Jelenia Góra',</h6>
-								<h6>'Siedlce',</h6>
-								<h6>'Mysłowice',</h6>
-								<h6>'Konin',</h6>
-								<h6>'Piotrków Trybunalski',</h6>
-								<h6>'Piła']</h6>
-								<br>
-								<h6>for city in cities:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    df.loc[df['Adres do korespondencji'].str.contains(city), 'Miasto'] = city</h6>
-								<h6>df_final = df[['Imię','Język','Miasto','Województwo','Data']].copy()</h6>
-								<h6>df_final.head()   </h6>
-								<h6>file_name = r'C:\your_path_here\translators_cleaned.csv'</h6>
-								<h6>df_final.to_csv(file_name, sep = '\t', encoding = 'utf-8', index = False)</h6>
-								<br>
-								<h6>print(df_final.shape)</h6>
-								<h6>df_final.head()</h6>				
-							</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/f5611bb66df360f232a8f512979f1452.js"></script>
 						<h2>Dataframe:</h2>
 						<img src="img/python/sworn5.png" class="img-responsive" alt="">
 						<h2>Tableau viz (mobile version):</h2>			
@@ -735,57 +460,11 @@
 						
 						<h2><b>Visualization in Python using geopandas and matplotlib:</b><br>
 						Step 1. Import the Polish voivodeship shapefile, the sworn translators data and get the centroids of the polygons.</h2>
-						<div class="macroinner">
-							<h6>import pandas as pd</h6>
-							<h6>pd.set_option('display.max_columns', 500)</h6>
-							<h6>import geopandas as gpd</h6>
-							<h6>import matplotlib.pyplot as plt</h6>
-							<h6>%matplotlib inline</h6>
-							<br>
-							<h6># load shapefile</h6>
-							<h6>map_shp = r'C:\your_path_here\województwa.shp'</h6>
-							<h6>map_df = gpd.read_file(map_shp, encoding = 'utf-8')</h6>
-							<br>
-							<h6># load translators DataFrame</h6>
-							<h6>file_name = r'C:\your_path_here\translators_cleaned.csv'</h6>
-							<h6>df = pd.read_csv(file_name, sep = '\t', encoding = 'utf-8')</h6>
-							<h6>df.head()</h6>
-							<br>
-							<h6>df_woj = df.groupby('Województwo').count()[['Język']]</h6>
-							<h6>df_woj = df_woj.reset_index()</h6>
-							<br>
-							<h6>df_merged = map_df.merge(df_woj, left_on = 'jpt_nazwa_', right_on = 'Województwo')</h6>
-							<br>
-							<h6>df_merged["centroid x"] = df_merged.centroid.x</h6>
-							<h6>df_merged["centroid y"] = df_merged.centroid.y</h6>
-							<br>
-							<h6>df_merged</h6>					
-						</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/2a27f6e462a97119a2967918da55da65.js"></script>
 						<br>
 						<img src="img/python/sworn6.png" class="img-responsive" alt="">	
 						<h2>Step 2. Plot the map:</h2>				
-						<div class="macroinner">
-							<h6>colors = 9</h6>
-							<h6>cmap = 'Blues'</h6>
-							<h6>fig, ax = plt.subplots(figsize=(14, 10))</h6>
-							<h6>df_merged.plot(column = 'Język', cmap=cmap, scheme='equal_interval', k=colors, ax=ax, legend=False, linewidth=0.8, edgecolor='0.8')</h6>
-							<br>
-							<h6>ax.set_title("Sworn translators in Poland - November 2019")</h6>
-							<h6>ax.axis('off')</h6>
-							<br>
-							<h6>sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=150, vmax=2100))</h6>
-							<br>
-							<h6>sm.set_array([])</h6>
-							<br>
-							<h6>fig.colorbar(sm, ax = ax)</h6>
-							<br>
-							<h6>count_row = df_merged.shape[0]</h6>
-							<h6>for i in range(0,count_row):</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    plt.text(df_merged.iloc[i,32] - 30000, df_merged.iloc[i,33], df_merged.iloc[i,30])</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    plt.text(df_merged.iloc[i,32] - 10000, df_merged.iloc[i,33] - 20000, df_merged.iloc[i,31])</h6>
-							<br>
-							<h6>plt.show()</h6>
-						</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/aee5a57e0df3485f66b741d853daae7d.js"></script>
 						<br>
 						<img src="img/python/sworn7.png" class="img-responsive" alt="">										
 						<br>
@@ -797,41 +476,15 @@
 					<div id="postgresql">
 						<h1>PostgreSQL database</h1>
 						<h3>24.10.2019 | psycopg2, pandas, SQL queries</h3>
-						<h2>The purpose of the excersise is to connect and query a postgreSQL database.</h2>
-						<h2>First, install PostgreSQL on your local system. 
+						<h2><p>The purpose of the excersise is to connect and query a postgreSQL database.</p>
+						<p>First, install PostgreSQL on your local system. 
 						Next, download and connect to the DVD rental database, which is a common sample database for PostgreSQL used for practice. 
 						Follow the instructions on the <a href="http://www.postgresqltutorial.com/postgresql-sample-database/">POSTGRESQL TUTORIAL</a> website to complete the above steps. 
-						Finally, install <a href="https://pypi.org/project/psycopg2/">psycopg2</a> package, e.g. in your Anaconda Prompt terminal.</h2>
+						Finally, install <a href="https://pypi.org/project/psycopg2/">psycopg2</a> package, e.g. in your Anaconda Prompt terminal.</p></h2>
 						<h2><b>DVD Rental ER Model</b></h2>
 						<img src="img/python/printable-postgresql-sample-database-diagram.png" class="img-responsive" alt="">
 						<h2>Once all set up, use the following code to connect to the database:</h2>
-							<div class="macroinner">
-								<h6>import pandas as pd</h6>
-								<h6>import psycopg2</h6>
-								<h6>from IPython.core.display import HTML</h6>
-								<br>
-								<h6>conn = psycopg2.connect(user = "postgres",</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  password = "yourpassword",</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  host = "localhost",</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  port = "5432",</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	database = "dvdrental")</h6>
-								<h6>sql = """</h6>
-								<h6>SELECT * </h6>
-								<h6>FROM customer</h6>
-								<h6>LIMIT 10</h6>
-								<h6>;</h6>
-								<h6>"""</h6>
-								<br>
-								<h6>df = pd.read_sql(sql, conn)</h6>
-								<h6>print("Nº of rows: " + str(len(df)))</h6>
-								<h6>print("Nº of columns: " + str(len(df.columns)))</h6>
-								<h6>display(HTML("&lt;style&gt;.container {width:100% !important; }&lt;/style&gt;"))</h6>
-								<h6>display(HTML(df.to_html()))</h6>
-								<br>
-								<h6>conn = None</h6>
-								<br>
-								<h6># df.to_excel("your_path\output.xlsx", index=False)</h6>
-							</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/2ca105868cc9fe854b3bf02bf81da71a.js"></script>
 						<h2>The code returns the result of the query in a dataframe structure.
 						Apart from that it returns the number of columns and rows of the table.
 						The HTML display part extends the view in the notebook to 100%.
@@ -841,95 +494,29 @@
 		
 						<h2><b>Useful queries:</b><br>
 						List all the tables and views from the dvdrental.</h2>
-							<div class="macroinner">
-								<h6>"""</h6>
-								<h6>SELECT table_catalog, table_schema, table_name, table_type</h6>
-								<h6>FROM information_schema.tables</h6>
-								<h6>WHERE table_schema = 'public'</h6>
-								<h6>ORDER BY table_type, table_name</h6>
-								<h6>;</h6>
-								<h6>"""</h6>
-							</div>
-
+						<script src="https://gist.github.com/NeverTooLateToAutomate/8f37fd2f195c5dc4c81cdd58866403f7.js"></script>
 						<h2>Find all the columns that contain a specific word.</h2>
-							<div class="macroinner">
-								<h6>"""</h6>
-								<h6>SELECT table_catalog, table_schema, table_name</h6>
-								<h6>FROM information_schema.columns</h6>
-								<h6>WHERE column_name LIKE 'film_id'</h6>
-								<h6>ORDER BY table_name</h6>
-								<h6>;</h6>
-								<h6>"""</h6>
-							</div>
-
+						<script src="https://gist.github.com/NeverTooLateToAutomate/5ac71f354019395b0a0fe4107f8ba0bd.js"></script>
 						<h2>Get the types of the data in the table.</h2>
-							<div class="macroinner">
-								<h6>"""</h6>
-								<h6>SELECT column_name, data_type</h6>
-								<h6>FROM information_schema.columns</h6>
-								<h6>WHERE table_name = 'payment'</h6>
-								<h6>;</h6>
-								<h6>"""</h6>
-							</div>
-
+						<script src="https://gist.github.com/NeverTooLateToAutomate/6e14d17e6c1d98c91f4d7ef1a16a04af.js"></script>
+						<br>
 						<h2><b>Excercises to practice:</b><br>
 						Excercise 1<br>
 						Find the title of the film starring Penelope Guiness, Warren Nolte and Rock Dukakis.<br>
 						Possible solution:</h2>					
-							<div class="macroinner">
-								<h6>"""</h6>
-								<h6>SELECT title</h6>
-								<h6>FROM film</h6>
-								<h6>WHERE film_id = (SELECT film_id</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	FROM (SELECT film_id, COUNT(actor_id) As actor_count</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	FROM film_actor</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	WHERE actor_id IN (SELECT actor_id</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	FROM actor</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	WHERE (first_name = 'Penelope' AND last_name = 'Guiness')</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	OR (first_name = 'Warren' AND last_name = 'Nolte')</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	OR (first_name = 'Rock' AND last_name = 'Dukakis'))</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	GROUP BY film_id) As a</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	WHERE actor_count = 3)</h6>				
-								<h6>;</h6>
-								<h6>"""</h6>
-							</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/0af7e472f67b2f4e871e3286c7cbcacc.js"></script>
 						<img src="img/python/query2.png" class="img-responsive" alt="">
 						
 						<h2>Excercise 2<br>
 						Find the first name and the last name of the most profitable customer in April 2007.<br>
 						Possible solution:</h2>	
-							<div class="macroinner">
-								<h6>"""</h6>
-								<h6>SELECT first_name, last_name</h6>
-								<h6>FROM customer As a</h6>
-								<h6>RIGHT JOIN (SELECT customer_id, SUM(amount) AS sum_amount</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	FROM payment</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	WHERE EXTRACT(MONTH FROM payment_date) = 2</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	GROUP BY customer_id</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	ORDER BY sum_amount DESC</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	LIMIT 1) As b</h6>
-								<h6>ON a.customer_id = b.customer_id</h6>
-								<h6>;</h6>
-								<h6>"""</h6>
-							</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/ae6c456c66877f928a79ffdeb340decd.js"></script>
 						<img src="img/python/query3.png" class="img-responsive" alt="">
 
 						<h2>Excercise 3<br>
 						Find the film categories where the average rental rate is above the average rental rate for all the films.<br>
 						Possible solution:</h2>	
-							<div class="macroinner">
-								<h6>	"""</h6>
-								<h6>	SELECT c.name As "Film category", AVG(a.rental_rate) As "Avg rate"</h6>
-								<h6>	FROM film As a</h6>
-								<h6>	INNER JOIN film_category As b</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;	    ON a.film_id = b.film_id</h6>
-								<h6>	INNER JOIN category As c</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;	    ON b.category_id = c.category_id</h6>
-								<h6>GROUP BY c.name</h6>
-								<h6>HAVING AVG(a.rental_rate) > (SELECT AVG(rental_rate) FROM film)</h6>
-								<h6>;</h6>
-								<h6>"""</h6>						
-							</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/ab6292612a2c4b316afe21f4b501ed5a.js"></script>
 						<img src="img/python/query4.png" class="img-responsive" alt="">
 						<br>
 						<br>
