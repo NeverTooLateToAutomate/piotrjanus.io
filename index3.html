@@ -5405,7 +5405,7 @@
 					<p>The example shows top 10 products by quantity ordered.</p></h2>
 					<div class="macroinnersql">
 						<h4><b>CREATE VIEW</b> Qty_per_Comp_Prod_vw</h4>
-						<h4>AS</h4>
+						<h4><b>AS</b></h4>
 						<h4>&emsp;&emsp;	<b>SELECT</b> TOP 10 </h4>
 						<h4>&emsp;&emsp;&emsp;&emsp;	CompanyName, </h4>
 						<h4>&emsp;&emsp;&emsp;&emsp;	ProductName, </h4>
@@ -7584,7 +7584,7 @@
 						  <tr>
 							<td class="tg-yw4l">2</td>
 							<td class="tg-yw4l">Delete</td>
-							<td class="tg-yw4l">44078,7475810185</td>
+							<td class="tg-yw4l">2020-09-04 17:53:22.112</td>
 							<td class="tg-yw4l">WAWAC</td>
 							<td class="tg-yw4l">Piotrex Import Eksport</td>
 							<td class="tg-yw4l">Piotr Janus</td>
@@ -7600,10 +7600,353 @@
 						</table>
 						<h6>2 rows in total</h6>
 					</div>
-					<h2>The INSTEAD OF trigger fires before SQL Server starts the execution of the action that fired it.</h2>
-
-
-					
+					<h2><p>The INSTEAD OF trigger fires before SQL Server starts the execution of the action that fired it.</p>
+					<p>Let's create a trigger that will make it unable to delete a client originating from Poland. 
+					In case of such attempt there should be a message that such action is not allowed and there should be a row added in the CustomersAuditLog table containing Reject message in the ActionTaken column.
+					If client is from other country thatn Poland, it can be deleted, but this should be reflected in the CustomersAuditLog table.</p>
+					<p>Let's create the trigger.</p></h2>
+					<div class="macroinnersql">					
+						<h4><b>CREATE TRIGGER</b> trg_cannot_delete_customer_audit_log</h4>
+						<h4>&emsp;&emsp;	ON Customers</h4>
+						<h4><b>INSTEAD OF</b></h4>
+						<h4>&emsp;&emsp;	DELETE</h4>
+						<h4><b>AS</b></h4>
+						<h4><b>BEGIN</b></h4>
+						<h4><b>SET</b></h4>
+						<h4>&emsp;&emsp;	NOCOUNT ON;</h4>
+						<h4><b>DECLARE</b></h4>
+						<h4>&emsp;&emsp;	@Country NVARCHAR(15)</h4>
+						<h4><b>SELECT</b></h4>
+						<h4>&emsp;&emsp;	@Country = deleted.Country</h4>
+						<h4><b>FROM</b></h4>
+						<h4>&emsp;&emsp;	deleted</h4>
+						<h4><b>IF</b> @Country = 'Poland'</h4>
+						<h4>&emsp;&emsp;	<b>BEGIN</b></h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	RAISERROR('Customers from Poland cannot be deleted',16 ,1)</h4>
+						<h4>&emsp;&emsp;	<b>INSERT INTO</b> CustomersAuditLog(</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	ActionTaken,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	Updated,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	CustomerID,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	CompanyName,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	ContactName,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	ContactTitle,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	Address,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	City,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	Region,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	PostalCode,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	Country,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	hone,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	Fax</h4>
+						<h4>&emsp;&emsp;	)</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	<b>SELECT</b></h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	'Reject',</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	GETDATE(),</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	CustomerID,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	CompanyName,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	ContactName,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	ContactTitle,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	Address,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	City,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	Region,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	PostalCode,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	Country,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	Phone,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	Fax</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	<b>FROM</b></h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	deleted d;</h4>
+						<h4>&emsp;&emsp;	<b>END</b></h4>
+						<h4><b>ELSE</b></h4>
+						<h4>&emsp;&emsp;	<b>BEGIN</b></h4>
+						<h4>&emsp;&emsp;	<b>INSERT INTO</b> CustomersAuditLog(</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	ActionTaken,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	Updated,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	CustomerID,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	CompanyName,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	ContactName,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	ContactTitle,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	Address,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	City,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	Region,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	PostalCode,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	Country,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	Phone,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	Fax</h4>
+						<h4>&emsp;&emsp;	)</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	<b>SELECT</b></h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	'Delete',</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	GETDATE(),</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	CustomerID,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	CompanyName,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	ContactName,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	ContactTitle,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	Address,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	City,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	Region,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	PostalCode,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	Country,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	Phone,</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	Fax</h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;	<b>FROM</b></h4>
+						<h4>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;	deleted;</h4>
+						<h4>&emsp;&emsp;	<b>END</b></h4>
+						<h4><b>END</b></h4>
+					</div>						
+					<h2>Let's again insert a new customer to the Customers table. The same as previosuly.</h2>
+					<div class="macroinnersql">
+						<h4><b>INSERT INTO</b> Customers(</h4>
+						<h4>&emsp;&emsp;	CustomerID,</h4>
+						<h4>&emsp;&emsp;	CompanyName,</h4>
+						<h4>&emsp;&emsp;	ContactName,</h4>
+						<h4>&emsp;&emsp;	ContactTitle,</h4>
+						<h4>&emsp;&emsp;	Address,</h4>
+						<h4>&emsp;&emsp;	City,</h4>
+						<h4>&emsp;&emsp;	Region,</h4>
+						<h4>&emsp;&emsp;	PostalCode,</h4>
+						<h4>&emsp;&emsp;	Country,</h4>
+						<h4>&emsp;&emsp;	Phone,</h4>
+						<h4>&emsp;&emsp;	Fax</h4>
+						<h4>)</h4>
+						<h4><b>VALUES</b> (</h4>
+						<h4>&emsp;&emsp;	'WAWAC',</h4>
+						<h4>&emsp;&emsp;	'Piotrex Import Eksport',</h4>
+						<h4>&emsp;&emsp;	'Piotr Janus',</h4>
+						<h4>&emsp;&emsp;	'Owner',</h4>
+						<h4>&emsp;&emsp;	'ul. Spokojna 44',</h4>
+						<h4>&emsp;&emsp;	'Warszawa',</h4>
+						<h4>&emsp;&emsp;	NULL,</h4>
+						<h4>&emsp;&emsp;	'01-105',</h4>
+						<h4>&emsp;&emsp;	'Poland',</h4>
+						<h4>&emsp;&emsp;	'(48) 505 112 434',</h4>
+						<h4>&emsp;&emsp;	NULL</h4>
+						<h4>);</h4>
+					</div>
+					<h2>The action of inserting data run again the trg_customer_audit_log trigger. The record was automatically added by the trigger to the CustomersAuditLog table.</h2>
+					<div class="macroinnersql">
+						<h4><b>SELECT</b></h4>
+						<h4>&emsp;&emsp;	*</h4>
+						<h4><b>FROM</b></h4>
+						<h4>&emsp;&emsp;	CustomersAuditLog;</h4>
+					</div>	
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">ChangeID</th>
+							<th class="tg-yw4l">ActionTaken</th>
+							<th class="tg-yw4l">Updated</th>
+							<th class="tg-yw4l">CustomerID</th>
+							<th class="tg-yw4l">CompanyName</th>
+							<th class="tg-yw4l">ContactName</th>
+							<th class="tg-yw4l">ContactTitle</th>
+							<th class="tg-yw4l">Address</th>
+							<th class="tg-yw4l">City</th>
+							<th class="tg-yw4l">Region</th>
+							<th class="tg-yw4l">PostalCode</th>
+							<th class="tg-yw4l">Country</th>
+							<th class="tg-yw4l">Phone</th>
+							<th class="tg-yw4l">Fax</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Insert</td>
+							<td class="tg-yw4l">2020-09-04 17:45:53.773</td>
+							<td class="tg-yw4l">WAWAC</td>
+							<td class="tg-yw4l">Piotrex Import Eksport</td>
+							<td class="tg-yw4l">Piotr Janus</td>
+							<td class="tg-yw4l">Owner</td>
+							<td class="tg-yw4l">ul. Spokojna 44</td>
+							<td class="tg-yw4l">Warszawa</td>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">01-105</td>
+							<td class="tg-yw4l">Poland</td>
+							<td class="tg-yw4l">(48) 505 112 434</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Delete</td>
+							<td class="tg-yw4l">2020-09-04 17:53:22.112</td>
+							<td class="tg-yw4l">WAWAC</td>
+							<td class="tg-yw4l">Piotrex Import Eksport</td>
+							<td class="tg-yw4l">Piotr Janus</td>
+							<td class="tg-yw4l">Owner</td>
+							<td class="tg-yw4l">ul. Spokojna 44</td>
+							<td class="tg-yw4l">Warszawa</td>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">01-105</td>
+							<td class="tg-yw4l">Poland</td>
+							<td class="tg-yw4l">(48) 505 112 434</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">3</td>
+							<td class="tg-yw4l">Insert</td>
+							<td class="tg-yw4l">2020-09-07 13:35:01.992</td>
+							<td class="tg-yw4l">WAWAC</td>
+							<td class="tg-yw4l">Piotrex Import Eksport</td>
+							<td class="tg-yw4l">Piotr Janus</td>
+							<td class="tg-yw4l">Owner</td>
+							<td class="tg-yw4l">ul. Spokojna 44</td>
+							<td class="tg-yw4l">Warszawa</td>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">01-105</td>
+							<td class="tg-yw4l">Poland</td>
+							<td class="tg-yw4l">(48) 505 112 434</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						</table>
+						<h6>3 rows in total</h6>
+					</div>
+					<h2>Next, let's try to delete the recently inserted client.</h2>
+					<div class="macroinnersql">
+						<h4><b>DELETE FROM</b></h4>
+						<h4>&emsp;&emsp;	Customers</h4>
+						<h4><b>WHERE</b></h4>
+						<h4>&emsp;&emsp;	CustomerID = 'WAWAC';</h4>
+					</div>
+					<h2>In the Messages tab the error will be comunicated.</h2>
+					<h6 style="color: #ff0000;"><b>Customers from Poland cannot be deleted</b></h6>
+					<h2>Let's check the CustomersAuditLog table. Instead of delete we received Reject in the ActionTaken column.</h2>					
+					<div class="macroinnersql">
+						<h4><b>SELECT</b></h4>
+						<h4>&emsp;&emsp;	*</h4>
+						<h4><b>FROM</b></h4>
+						<h4>&emsp;&emsp;	CustomersAuditLog;</h4>
+					</div>					
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">ChangeID</th>
+							<th class="tg-yw4l">ActionTaken</th>
+							<th class="tg-yw4l">Updated</th>
+							<th class="tg-yw4l">CustomerID</th>
+							<th class="tg-yw4l">CompanyName</th>
+							<th class="tg-yw4l">ContactName</th>
+							<th class="tg-yw4l">ContactTitle</th>
+							<th class="tg-yw4l">Address</th>
+							<th class="tg-yw4l">City</th>
+							<th class="tg-yw4l">Region</th>
+							<th class="tg-yw4l">PostalCode</th>
+							<th class="tg-yw4l">Country</th>
+							<th class="tg-yw4l">Phone</th>
+							<th class="tg-yw4l">Fax</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">1</td>
+							<td class="tg-yw4l">Insert</td>
+							<td class="tg-yw4l">2020-09-04 17:45:53.773</td>
+							<td class="tg-yw4l">WAWAC</td>
+							<td class="tg-yw4l">Piotrex Import Eksport</td>
+							<td class="tg-yw4l">Piotr Janus</td>
+							<td class="tg-yw4l">Owner</td>
+							<td class="tg-yw4l">ul. Spokojna 44</td>
+							<td class="tg-yw4l">Warszawa</td>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">01-105</td>
+							<td class="tg-yw4l">Poland</td>
+							<td class="tg-yw4l">(48) 505 112 434</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">2</td>
+							<td class="tg-yw4l">Delete</td>
+							<td class="tg-yw4l">2020-09-04 17:53:22.112</td>
+							<td class="tg-yw4l">WAWAC</td>
+							<td class="tg-yw4l">Piotrex Import Eksport</td>
+							<td class="tg-yw4l">Piotr Janus</td>
+							<td class="tg-yw4l">Owner</td>
+							<td class="tg-yw4l">ul. Spokojna 44</td>
+							<td class="tg-yw4l">Warszawa</td>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">01-105</td>
+							<td class="tg-yw4l">Poland</td>
+							<td class="tg-yw4l">(48) 505 112 434</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">3</td>
+							<td class="tg-yw4l">Insert</td>
+							<td class="tg-yw4l">2020-09-07 13:35:01.992</td>
+							<td class="tg-yw4l">WAWAC</td>
+							<td class="tg-yw4l">Piotrex Import Eksport</td>
+							<td class="tg-yw4l">Piotr Janus</td>
+							<td class="tg-yw4l">Owner</td>
+							<td class="tg-yw4l">ul. Spokojna 44</td>
+							<td class="tg-yw4l">Warszawa</td>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">01-105</td>
+							<td class="tg-yw4l">Poland</td>
+							<td class="tg-yw4l">(48) 505 112 434</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">4</td>
+							<td class="tg-yw4l">Reject</td>
+							<td class="tg-yw4l">2020-09-07 13:41:35.800</td>
+							<td class="tg-yw4l">WAWAC</td>
+							<td class="tg-yw4l">Piotrex Import Eksport</td>
+							<td class="tg-yw4l">Piotr Janus</td>
+							<td class="tg-yw4l">Owner</td>
+							<td class="tg-yw4l">ul. Spokojna 44</td>
+							<td class="tg-yw4l">Warszawa</td>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">01-105</td>
+							<td class="tg-yw4l">Poland</td>
+							<td class="tg-yw4l">(48) 505 112 434</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						</table>
+						<h6>4 rows in total</h6>
+					</div>
+					<h2><p>Notice that the trg_cannot_delete_customer_audit_log trigger had priority over the trg_customer_audit_log trigger. This is because if there are AFTER triggers on the table, they will fire after constraint processing. If the constraints are violated, the INSTEAD OF trigger actions are rolled back and the AFTER trigger is not executed.</p>
+					<p>Eventually, let's double check if the 'WAWAC' CustomerID was not removed from the customers table.</p></h2>
+					<div class="macroinnersql">
+						<h4><b>SELECT</b></h4>
+						<h4>&emsp;&emsp;	*</h4>
+						<h4><b>FROM</b></h4>
+						<h4>&emsp;&emsp;	Customers</h4>
+						<h4><b>WHERE</b></h4>
+						<h4>&emsp;&emsp;	CustomerID = 'WAWAC';</h4>
+					</div>					
+					<div class="tbl">
+						<table class="tg">
+						  <tr>
+							<th class="tg-yw4l">CustomerID</th>
+							<th class="tg-yw4l">CompanyName</th>
+							<th class="tg-yw4l">ContactName</th>
+							<th class="tg-yw4l">ContactTitle</th>
+							<th class="tg-yw4l">Address</th>
+							<th class="tg-yw4l">City</th>
+							<th class="tg-yw4l">Region</th>
+							<th class="tg-yw4l">PostalCode</th>
+							<th class="tg-yw4l">Country</th>
+							<th class="tg-yw4l">Phone</th>
+							<th class="tg-yw4l">Fax</th>
+						  </tr>
+						  <tr>
+							<td class="tg-yw4l">WAWAC</td>
+							<td class="tg-yw4l">Piotrex Import Eksport</td>
+							<td class="tg-yw4l">Piotr Janus</td>
+							<td class="tg-yw4l">Owner</td>
+							<td class="tg-yw4l">ul. Spokojna 44</td>
+							<td class="tg-yw4l">Warszawa</td>
+							<td class="tg-yw4l">NULL</td>
+							<td class="tg-yw4l">01-105</td>
+							<td class="tg-yw4l">Poland</td>
+							<td class="tg-yw4l">(48) 505 112 434</td>
+							<td class="tg-yw4l">NULL</td>
+						  </tr>
+						</table>
+						<h6>1 row in total</h6>
+					</div>
+					<h2>If you would like to remove a client from Poland you have to either disable or drop the trigger.</h2>
+					<div class="macroinnersql">					
+						<h4><b>DISABLE TRIGGER</b> trg_cannot_delete_customer_audit_log</h4>
+						<h4>ON Customers;</h4>
+					</div>
+					<br>
+					<div class="macroinnersql">					
+						<h4><b>DROP TRIGGER</b> trg_cannot_delete_customer_audit_log</h4>
+					</div>
 				</div>				
 				<br>
 			</div><!--Intro class md-->
@@ -7693,6 +8036,8 @@
 						<h4><a href="#WHILE">WHILE</a></h4>
 						<h4><a href="#DROP">DROP KEY, COLUMN, TABLE</a></h4>
 						<h4><a href="#TRIGGER">TRIGGER</a></h4>
+						<br>
+						<br>
 					<br>
 				</div>
 			</div>
