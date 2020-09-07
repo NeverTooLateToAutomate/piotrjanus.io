@@ -60,105 +60,27 @@
 					<div id="climatechangepl">
 						<h1>Climate change in Poland</h1>
 						<h3>31.01.2020 | urllib.request, BeautifulSoup, pandas, zipfile, io, matplotlib, numpy</h3>
-						<h2>Winter 2020 in Warsaw has never been warmer. No snow and temperatures above 10°C are common. Looks like the global warming has become a fact.</h2>
-						<h2>Climate changes inspired me to track the average yearly temperatures in different places in Poland. The timespan is the early 50s of the 20th century till 2018. The yearly temperatures are calculated as an average of daily average temperatures.</h2>
-						<h2>The source of the data is the Polish Institute of Meteorology and Water Management - National Research Institute which is an official body collecting climate data in Poland.</h2>
-						<h2>At first, let's parse a list of years:</h2>
-						<div class="macroinner">
-							<h6>from urllib.request import urlopen</h6>
-							<h6>from bs4 import BeautifulSoup</h6>
-							<br>
-							<h6>yr_list = []</h6>
-							<br>
-							<h6>imgw_page = 'https://dane.imgw.pl/data/dane_pomiarowo_obserwacyjne/dane_meteorologiczne/dobowe/klimat/'</h6>
-							<h6>page = urlopen(imgw_page)</h6>
-							<h6>soup = BeautifulSoup(page, 'html.parser')</h6>
-							<br>
-							<h6>for link in soup.find_all('a', href=True):</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    if str(link.string)[0].isdigit():</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        yr_list.append(str(link.string)[:-1])</h6>
-							<h6>print(yr_list)</h6>
-						</div>
+						<h2>Winter 2020 in Warsaw has never been warmer. No snow and temperatures above 10°C are common. Looks like the global warming has become a fact.</p>
+						<p>Climate changes inspired me to track the average yearly temperatures in different places in Poland. The timespan is the early 50s of the 20th century till 2018. The yearly temperatures are calculated as an average of daily average temperatures.</p>
+						<p>The source of the data is the Polish Institute of Meteorology and Water Management - National Research Institute which is an official body collecting climate data in Poland.</p>
+						<p>At first, let's parse a list of years:</p></h2>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/06040d6ca54e10e8a5ed078f96b8e8d9.js"></script>
 						<img src="img/python/imgw1.png" class="img-responsive" alt="">
 						<h2>Get the column names:</h2>
-						<div class="macroinner">
-							<h6>import pandas as pd</h6>
-							<br>
-							<h6>file_name = r'https://dane.imgw.pl/data/dane_pomiarowo_obserwacyjne/dane_meteorologiczne/dobowe/klimat/k_d_t_format.txt'</h6>
-							<br>
-							<h6>df = pd.read_fwf(file_name, header=None, encoding='windows-1250')</h6>
-							<h6>head_list = df[0].values.tolist()</h6>
-							<br>
-							<h6>del head_list[-1]</h6>
-							<br>
-							<h6>for x in range(len(head_list)):</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    head_list[x] = head_list[x].split("  ")[0]</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    head_list[x] = head_list[x].split(" 6")[0]</h6>
-							<h6>print(head_list)</h6>
-						</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/5fe4ad2a0341400b4860ea54794b3817.js"></script>
 						<img src="img/python/imgw2.png" class="img-responsive" alt="">
 						<h2>Get the climate data:</h2>
-						<div class="macroinner">
-							<h6>from zipfile import ZipFile</h6>
-							<h6>from io import BytesIO</h6>
-							<h6>from urllib.request import urlopen</h6>
-							<br>
-							<h6>df = pd.DataFrame()</h6>
-							<br>
-							<h6>mth_list = ['01','02','03','04','05','06','07','08','09','10','11','12']</h6>
-							<br>
-							<h6>for obs_year in yr_list:</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    if len(obs_year) > 4:</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        temp_list = obs_year.split('_')</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        min_temp_list = int(min(temp_list))</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        max_temp_list = int(max(temp_list)) + 1</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        for det_year in range(min_temp_list, max_temp_list):</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            url = urlopen('https://dane.imgw.pl/data/dane_pomiarowo_obserwacyjne/dane_meteorologiczne/dobowe/klimat/' + obs_year + '/' + str(det_year) + '_k.zip')</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            file = ZipFile(BytesIO(url.read()))</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            climate_csv = file.open('k_d_t_' + str(det_year) + '.csv')</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            temp_yr_df = pd.read_csv(climate_csv, header=None, encoding='windows-1250', names=head_list)</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            df = pd.concat([df, temp_yr_df], ignore_index=True)</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    else:</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        try:</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            for obs_month in mth_list:</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                url = urlopen('https://dane.imgw.pl/data/dane_pomiarowo_obserwacyjne/dane_meteorologiczne/dobowe/klimat/' + obs_year + '/' + obs_year + '_' + obs_month + '_k.zip')</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                file = ZipFile(BytesIO(url.read()))</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                climate_csv = file.open('k_d_t_' + obs_month + '_' + obs_year + '.csv')</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                temp_yr_df = pd.read_csv(climate_csv, header=None, encoding='windows-1250', names=head_list)</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                df = pd.concat([df, temp_yr_df], ignore_index=True)</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        except:</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            break</h6>
-							<h6>print(df.shape)</h6>
-							<h6>df.head()</h6>
-						</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/31eb58e7d2ee90eed4a51dcdb5b2a7f5.js"></script>
 						<img src="img/python/imgw3.png" class="img-responsive" alt="">
 						<h2>Save the data in the csv file compressed in the gzip.</h2>
-						<div class="macroinner">
-							<h6>file_name = r'C:\Users\admin\Documents\Nauka\Projects\Python\IMGW\imgw_temp_raw.csv.gz'</h6>
-							<h6>df.to_csv(file_name, sep='\t', encoding='windows-1250', index=False, compression='gzip')</h6>
-						</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/802441c21c8abae79f175c2d94e32c74.js"></script>
 						<h2>Load the data from the csv file compressed in the gzip.</h2>
-						<div class="macroinner">
-							<h6>file_name = r'C:\Users\admin\Documents\Nauka\Projects\Python\IMGW\imgw_temp_raw.csv.gz'</h6>
-							<h6>df = pd.read_csv(file_name, sep='\t', encoding='windows-1250')</h6>
-							<h6>print(df.shape)</h6>
-							<h6>df.head()</h6>
-						</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/46b1bbbd30ac058b542c8477d85356ab.js"></script>
 						<h2>Sort the data by year, station, month and day. Next, group it by station and year.</h2>				
-						<div class="macroinner">
-							<h6>df = df.sort_values(['Rok', 'Nazwa stacji', 'Miesiąc', 'Dzień'])</h6>
-							<h6>df = df.reset_index(drop=True)</h6>
-							<h6>df = df.dropna(how='all', axis=1)</h6>
-							<h6>df_grouped = df.groupby(['Nazwa stacji', 'Rok'], as_index=False)['Średnia dobowa temperatura','Średnia dobowa wilgotność względna [%]','Średnia dobowa prędkość wiatru [m/s]','Średnie dobowe zachmurzenie ogólne [oktanty]'].mean().round(1)</h6>
-							<h6>print(df_grouped.shape)</h6>
-							<h6>df_grouped.head()</h6>
-						</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/e62ec7cec3f57dd188ebfe09b8df43c5.js"></script>
 						<img src="img/python/imgw4.png" class="img-responsive" alt="">
 						<h2>Save the file in the xlsx format that will be used for visualizations.</h2>					
-						<div class="macroinner">
-							<h6>file_name = r'C:\your_path_here\imgw_grouped.xlsx'</h6>
-							<h6>df_grouped.to_excel(file_name, encoding='utf-8', index=False)</h6>
-						</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/55961eb43e7b5f0139306f981fdd12e9.js"></script>
 						<h2>Tableau viz (mobile version):</h2>			
 						<div class='tableauPlaceholder' id='viz1580683630843' style='position: relative'>
 						<noscript>
@@ -193,59 +115,17 @@
 												
 						<h2>Visualization in Python using matplotlib:<br>
 						Load the xlsx file and limit the data to Dynów. In this city, located in Subcarpathian Voivodeship, the temperature has been measured since 1951.</h2>
-						<div class="macroinner">
-							<h6>file_name = r'C:\your_path_here\imgw_grouped.xlsx'</h6>
-							<h6>df_grouped = pd.read_excel(file_name, encoding='utf-8')</h6>
-							<h6>df_dynow = df_grouped[df_grouped['Nazwa stacji'] == 'DYNÓW']</h6>
-							<h6>df_dynow = df_dynow.reset_index(drop=True)</h6>
-							<h6>print(df_dynow.shape)</h6>
-							<h6>df_dynow.head()</h6>
-						</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/15498789f16e066c790aaa98c7995b3f.js"></script>
 						<img src="img/python/imgw5.png" class="img-responsive" alt="">
 						<h2>Create the list of yearly averge temperatures for Dynów. 2019 hasn't been included because at the time the code was exectuded the data for December 2019 wasn't available:</h2>
-						<div class="macroinner">
-							<h6>temp_year = df_dynow['Średnia dobowa temperatura'].tolist()</h6>
-							<h6>temp_year = temp_year[:-1] # no 2019 cause no Dec data for 2019</h6>
-							<h6>print(temp_year)</h6>
-						</div>
-						<img src="img/python/imgw.png6" class="img-responsive" alt="">						
+						<script src="https://gist.github.com/NeverTooLateToAutomate/85c38898e856428a63c92ef4a0cab053.js"></script>
+						<img src="img/python/imgw6.png" class="img-responsive" alt="">						
 						<h2>The same for years:</h2>
-						<div class="macroinner">
-							<h6>single_yr_list = df_dynow["Rok"].drop_duplicates().tolist()</h6>
-							<h6>single_yr_list = single_yr_list[:-1]</h6>
-							<h6>print(single_yr_list)</h6>
-						</div>						
-						<img src="img/python/imgw.png7" class="img-responsive" alt="">
+						<script src="https://gist.github.com/NeverTooLateToAutomate/099152ef42ef610a739798798344d8c1.js"></script>						
+						<img src="img/python/imgw7.png" class="img-responsive" alt="">
 						<h2>Plot the map:</h2>
-						<div class="macroinner">
-							<h6>import matplotlib.pyplot as plt</h6>
-							<h6>import matplotlib.patches as mpatches</h6>
-							<h6>import numpy as np</h6>
-							<br>
-							<h6>x_labels = single_yr_list</h6>
-							<h6>y_temp_year = temp_year</h6>
-							<br>
-							<h6>plt.plot(x_labels, y_temp_year, color = 'crimson')</h6>
-							<h6>for a,b in zip(x_labels, y_temp_year): </h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    plt.text(a, b, str(b))</h6>
-							<br>
-							<h6>z = np.polyfit(x_labels, y_temp_year, 1)</h6>
-							<h6>p = np.poly1d(z)</h6>
-							<h6>plt.plot(x_labels,p(x_labels),"r--") </h6>
-							<h6>    </h6>
-							<h6>plt.title('Average yearly temperaures in Dynów between 1951 - 2018')</h6>
-							<br>
-							<h6>plt.xlabel('years')</h6>
-							<h6>plt.ylabel('temperature')</h6>
-							<h6>plt.xticks(x_labels, rotation = 'vertical')</h6>
-							<br>
-							<h6>blue_patch = mpatches.Patch(color = 'crimson', label = 'average temp')</h6>
-							<h6>plt.legend(handles = [blue_patch], loc=2, fontsize = 'x-large')</h6>
-							<br>
-							<h6>plt.rcParams["figure.figsize"] = (20,10)</h6>
-							<h6>plt.show()</h6>
-						</div>							
-						<img src="img/python/imgw8.png" class="img-responsive" alt="">						
+						<script src="https://gist.github.com/NeverTooLateToAutomate/67692af0ca38a9a5128661e85a77fda1.js"></script>
+						<img src="img/python/imgw8.png" class="img-responsive" alt="">
 						<br>
 						<br>
 					</div>
@@ -255,14 +135,15 @@
 					<div id="xmlelementtree">
 						<h1>Tableau calculations and parameters export</h1>
 						<h3>5.12.2019 | Tableau, xml.etree.ElementTree, re, pandas</h3>			
-						<h2>Sometimes it is required to export a list of parameters and calculations along with their respective values and formulas. As a developer, I was asked for that as a part of a data governance process.
-						Unfortunately, such action is not supported in Tableau. That is why I created the following piece of code.</h2>
-						<h2>As an example I've used the Sworn Translators Tableau dashboard which was the result of one of my earlier projects:</h2>
+						<h2><p>Sometimes it is required to export a list of parameters and calculations along with their respective values and formulas. As a developer, I was asked for that as a part of a data governance process.
+						Unfortunately, such action is not supported in Tableau. That is why I created the following piece of code.</p>
+						<p>As an example I've used the Sworn Translators Tableau dashboard which was the result of one of my earlier projects:</p></h2>
 						<script src="https://gist.github.com/NeverTooLateToAutomate/9aebc14c90fde5b604c8c04cbbd2ae13.js"></script>
 						<h2>Dataframe:</h2>
 						<img src="img/python/xml_df.png" class="img-responsive" alt="">
 						<h2>Excel file:</h2>
 						<img src="img/python/xml_excel.png" class="img-responsive" alt="">
+						<br>
 						<br>
 					</div>
 					
@@ -272,95 +153,21 @@
 						<h1>Scrabble assistant</h1>
 						<h3>16.11.2019 | pandas, zipfile, urllib.request, pickle, datetime, gzip, itertools, string</h3>	
 						<h2>Scrabble is my favourite word game. I have always wondered how many bingos, bonus 50 points for using all the 7 letters in the rack, I was able to achieve during one game. 
-						My personal best was 2 bingos until I realized I could get a little help. Thanks to Python I managed to get 5 bingos. However, I wasn't familiar with any of the bingo words!</h2>
-						<h2>The aim of the project is to help gain advantage in Scrabble. The code allows you to check the Polish words you can create out of the letters in your hand.</h2> 
-						<h2>The source file is the official wordlist available for word games and published by Słownik Języka Polskiego PWN (Polish Language Dictionary). The name of the source file changes periodically so visit the site and make sure you type in the correct one.</h2>
-						<h2>The process of executing the code may last a while since the list contains 3 million words.</h2>					
-						<h2>The first step of the project is to import the list of available words and sort the letters of every word alphabetically. Next, save the file in a compressed gzip format.</h2>
+						My personal best was 2 bingos until I realized I could get a little help. Thanks to Python I managed to get 5 bingos. However, I wasn't familiar with any of the bingo words!</p>
+						<p>The aim of the project is to help gain advantage in Scrabble. The code allows you to check the Polish words you can create out of the letters in your hand.</p> 
+						<p>The source file is the official wordlist available for word games and published by Słownik Języka Polskiego PWN (Polish Language Dictionary). The name of the source file changes periodically so visit the site and make sure you type in the correct one.<p>
+						<p>The process of executing the code may last a while since the list contains 3 million words.</p>					
+						<p>The first step of the project is to import the list of available words and sort the letters of every word alphabetically. Next, save the file in a compressed gzip format.</p></h2>
 						<script src="https://gist.github.com/NeverTooLateToAutomate/58687c8c16871a239a37f0e2084d9cb7.js"></script>
 						<img src="img/python/scrabble1.png" class="img-responsive" alt="">
-						<h2></h2>
-							<div class="macroinner">
-								<h6>import pickle</h6>
-								<h6>import gzip</h6>
-								<br>
-								<h6>df_sort = pd.read_csv(r'C:\your_path_here\slowa_sort.txt.gz')</h6>
-								<h6>merged = pd.merge(df_sort, df, left_index=True, right_index=True)</h6>
-								<h6>grouped = merged.groupby('sorted').agg(list)</h6>
-								<h6>grouped = grouped.reset_index()</h6>
-								<h6>word_dict = grouped.set_index('sorted')['words'].to_dict()</h6>
-								<br>
-								<h6>with gzip.open(r'C:\your_path_here\slowa_dict.pickle', 'wb') as f:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    pickle.dump(word_dict, f, protocol=pickle.HIGHEST_PROTOCOL)</h6>
-								<h6>    </h6>
-								<h6>word_dict</h6>
-							</div>
-							<br>
+						<h2>The next step is to create a dictionary where keys are sorted words and value or values are words that can be made up of the letters in a key.</h2>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/982a64e5c98da25949433df5e60faf55.js"></script>
+						<br>
 						<img src="img/python/scrabble2.png" class="img-responsive" alt="">							
-						<h2></h2>
-							<div class="macroinner">
-								<h6>from datetime import datetime</h6>
-								<h6>import pickle</h6>
-								<br>
-								<h6># load pickle</h6>
-								<h6>start_time = datetime.now()</h6>
-								<br>
-								<h6>with gzip.open(r'C:\your_path_here\slowa_dict.pickle', 'rb') as f:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    word_dict = pickle.load(f)</h6>
-								<br>
-								<h6>time_elapsed = datetime.now() - start_time </h6>
-								<h6>print('Time elapsed (hh:mm:ss.ms) {}'.format(time_elapsed))</h6>
-							</div>
-							<br>
-							<div class="macroinner">
-								<h6>from datetime import datetime</h6>
-								<h6>start_time = datetime.now()</h6>
-								<br>
-								<h6>from itertools import combinations</h6>
-								<br>
-								<h6>input_txt = 'aabchit'</h6>
-								<h6># input_sort = ''.join(sorted(input_txt))</h6>
-								<br>
-								<h6>import string</h6>
-								<h6>alphabet = list('aąbcćdeęfghijklłmnńoóprsśtuwyzźż')</h6>
-								<h6>blank = False</h6>
-								<h6>word_min = 7</h6>
-								<h6>word_max = 7</h6>
-								<br>
-								<h6>perm_list = set()</h6>
-								<br>
-								<h6>if blank:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    pass</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    for char_len in range(word_min, word_max + 1): # len(input_txt) + 2</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        for x in alphabet:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            char_list = list(input_txt + x)</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            perm = combinations(char_list, char_len)</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            for i in list(perm): </h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                join_char = ''.join(i)</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                join_sort = ''.join(sorted(join_char))</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                perm_list.add(join_sort)  </h6>
-								<h6>    </h6>
-								<h6>else:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    for char_len in range(word_min, word_max + 1): # len(input_txt) + 1</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        char_list = list(input_txt)</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        perm = combinations(char_list, char_len)</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        for i in list(perm): </h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            join_char = ''.join(i)</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            join_sort = ''.join(sorted(join_char))</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            perm_list.add(join_sort)</h6>
-								<br>
-								<h6>results = []</h6>
-								<br>
-								<h6>for i in perm_list:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    if i in word_dict:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        word = word_dict[i]</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        results.append(word)</h6>
-								<h6>        </h6>
-								<h6>print(results)</h6>
-								<h6>       </h6>
-								<h6>time_elapsed = datetime.now() - start_time</h6>
-								<h6>print('Time elapsed (hh:mm:ss.ms) {}'.format(time_elapsed))</h6>
-							</div>
+						<h2>Load the dictionary.</h2>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/af6d89132746b1638057050a45487499.js"></script>
+						<h2>Use the following code to type letters and generate desired Scrabble words.</h2>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/d215c1746db3286b77f3f7d3ff87bca8.js"></script>
 						<h2>Examples:<br>
 						'aabchit' - 7-letter words:</h2>
 						<img src="img/python/scrabble3.png" class="img-responsive" alt="">
@@ -390,7 +197,6 @@
 						<img src="img/python/sworn3.png" class="img-responsive" alt="">
 						<br>
 						<img src="img/python/sworn4.png" class="img-responsive" alt="">
-						<br>
 						<h2>Dataframe shaping:</h2>
 						<script src="https://gist.github.com/NeverTooLateToAutomate/f5611bb66df360f232a8f512979f1452.js"></script>
 						<h2>Dataframe:</h2>
@@ -480,18 +286,17 @@
 						<p>First, install PostgreSQL on your local system. 
 						Next, download and connect to the DVD rental database, which is a common sample database for PostgreSQL used for practice. 
 						Follow the instructions on the <a href="http://www.postgresqltutorial.com/postgresql-sample-database/">POSTGRESQL TUTORIAL</a> website to complete the above steps. 
-						Finally, install <a href="https://pypi.org/project/psycopg2/">psycopg2</a> package, e.g. in your Anaconda Prompt terminal.</p></h2>
-						<h2><b>DVD Rental ER Model</b></h2>
+						Finally, install <a href="https://pypi.org/project/psycopg2/">psycopg2</a> package, e.g. in your Anaconda Prompt terminal.</p>
+						<p><b>DVD Rental ER Model</b></p></h2>
 						<img src="img/python/printable-postgresql-sample-database-diagram.png" class="img-responsive" alt="">
 						<h2>Once all set up, use the following code to connect to the database:</h2>
 						<script src="https://gist.github.com/NeverTooLateToAutomate/2ca105868cc9fe854b3bf02bf81da71a.js"></script>
-						<h2>The code returns the result of the query in a dataframe structure.
+						<h2><p>The code returns the result of the query in a dataframe structure.
 						Apart from that it returns the number of columns and rows of the table.
 						The HTML display part extends the view in the notebook to 100%.
-						Uncomment the last line to save your query's results in the Excel file.</h2>	
-						<h2>The result of the query:</h2>					
+						Uncomment the last line to save your query's results in the Excel file.</p>	
+						<p>The result of the query:</p></h2>					
 						<img src="img/python/query1.png" class="img-responsive" alt="">
-		
 						<h2><b>Useful queries:</b><br>
 						List all the tables and views from the dvdrental.</h2>
 						<script src="https://gist.github.com/NeverTooLateToAutomate/8f37fd2f195c5dc4c81cdd58866403f7.js"></script>
@@ -499,7 +304,6 @@
 						<script src="https://gist.github.com/NeverTooLateToAutomate/5ac71f354019395b0a0fe4107f8ba0bd.js"></script>
 						<h2>Get the types of the data in the table.</h2>
 						<script src="https://gist.github.com/NeverTooLateToAutomate/6e14d17e6c1d98c91f4d7ef1a16a04af.js"></script>
-						<br>
 						<h2><b>Excercises to practice:</b><br>
 						Excercise 1<br>
 						Find the title of the film starring Penelope Guiness, Warren Nolte and Rock Dukakis.<br>
@@ -529,55 +333,16 @@
 						<h3>13.09.2019 | geopy, pandas</h3>	
 						<h2>The purpose of the excersise is to identify geographical coordinates for the list of Polish cities.<br>
 						Get the list of the cities:</h2>
-							<div class="macroinner">
-								<h6>from geopy.geocoders import Nominatim</h6>
-								<h6>geolocator = Nominatim(user_agent="yourmail@mail.com")</h6>
-								<h6>import pandas as pd</h6>
-								<br>
-								<h6>url="https://pkgstore.datahub.io/core/world-cities/world-cities_csv/data/6cc66692f0e82b18216a48443b6b95da/world-cities_csv.csv"</h6>
-								<h6>df=pd.read_csv(url)</h6>
-								<h6>df=df[['name', 'country']]</h6>
-								<br>
-								<h6>df = df.loc[df['country'] == 'Poland']</h6>
-								<h6>df = df.rename(columns = {'name':'city'})</h6>
-								<h6>df = df.sort_values(by=['city'])</h6>
-								<h6>df = df.reset_index(drop=True)</h6>
-								<br>
-								<h6>print(df.shape)</h6>
-								<h6>df.head()</h6>
-							</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/0d551bdfeacedb1d1d3a2c98096985ca.js"></script>
 						<img src="img/python/geo1.png" class="img-responsive" alt="">
 						<h2>Use geopy to locate the coordinates of the cities. 
 						Bear in mind that geopy allows a limited amount of results to return from the service. 
 						Too many queries will result in time out error. Luckily, the limit is high enough to get the list of the cities of our interest for the exercise.</h2>
-							<div class="macroinner">
-								<h6>city_list = df.values.tolist()</h6>
-								<br>
-								<h6>geo_list = []</h6>
-								<h6>lat_list = []</h6>
-								<h6>lon_list = []</h6>
-								<br>
-								<h6>for i in city_list:</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    location = geolocator.geocode(i[0], i[1])</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    lat_list.append(location.latitude)</h6>
-								<h6>&nbsp;&nbsp;&nbsp;&nbsp;    lon_list.append(location.longitude)  </h6>
-								<h6>    </h6>
-								<h6>df['latitude'] = lat_list</h6>
-								<h6>df['longitude'] = lon_list</h6>
-								<br>
-								<h6>df.to_excel (r'C:\your_path_here\poland_coordinates_raw.xlsx', index = None, header=True)</h6>
-							</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/a95bac32fc71accd2ef0082b01fce7d1.js"></script>
 						<h2>First 12 rows:</h2>
 						<img src="img/python/geo2.png" class="img-responsive" alt="">
 						<h2>The results that we have are not perfect. The final stage of the task is to remove the results that don't interest us, e.g. non-Polish cities or districts of Warsaw.</h2>					
-							<div class="macroinner">
-								<h6>df = pd.read_excel(r'C:\your_path_here\poland_coordinates_raw.xlsx')</h6>
-								<h6>df = df.loc[(df['latitude'] < 49) | (df['latitude'] > 55)]</h6>
-								<h6>df = df.drop(df.index[[4,8,10,87,102,125,133,158,187,188,251,263,264,277,312]])</h6>
-								<h6>df["city"].replace("Warsaw", value="Warszawa", inplace=True)</h6>
-								<h6>df = df.reset_index(drop=True)</h6>
-								<h6>df.to_excel (r'C:\your_path_here\poland_coordinates.xlsx', index = None, header=True)</h6>
-							</div>	
+						<script src="https://gist.github.com/NeverTooLateToAutomate/67a68adfa9403eb809e233bb43f37cdd.js"></script>
 						<h2>Removed rows:</h2>
 						<img src="img/python/geo3.png" class="img-responsive" alt="">
 						<br>
@@ -597,68 +362,22 @@
 					<div id="bitoolsjob">
 						<h1>Business intelligence tools in job offers</h1>
 						<h3>17.08.2019 | requests, BeautifulSoup, pandas, time, regular expression operations (re), Tableau</h3>	
-						<h2>Before you invest your time in learning a new skill you would often like to know if it is demanded on the market. For example, which business intelligence tool is the most commonly used?
-						To find the answer you need to analyse the job market.</h2>
-						<h2>Pracuj.pl is the biggest and the most popular job offer portal in Poland. The old job advertisements are stored in the archives and are publically available.</h2>
+						<h2><p>Before you invest your time in learning a new skill you would often like to know if it is demanded on the market. For example, which business intelligence tool is the most commonly used?
+						To find the answer you need to analyse the job market.</p>
+						<p>Pracuj.pl is the biggest and the most popular job offer portal in Poland. The old job advertisements are stored in the archives and are publically available.</p></h2>
 						<img src="img/python/pracujpl1.png" class="img-responsive" alt="">
-						<h2>The purpose of the excercise is to webscrap the archive of Pracuj.pl and compare the popularity of the selected business intelligence tools. The key words that were used were: 'Tableau', 'Power Bi" and 'Qlik'. The data collection period was January - April 2019.</h2>
-						<h2>There are around 1000 pages each month including 50 job offers per page. That is why the webscarping process is time-consuming.</h2>
-						<div class="macroinner">
-							<h6>import pandas as pd</h6>
-							<h6>import requests</h6>
-							<h6>import re</h6>
-							<h6>import time</h6>
-							<h6>from bs4 import BeautifulSoup</h6>
-							<br>
-							<h6>tableau_list = []</h6>
-							<h6>powerbi_list = []</h6>
-							<h6>qlik_list = []</h6>
-						</div>
+						<h2><p>The purpose of the excercise is to webscrap the archive of Pracuj.pl and compare the popularity of the selected business intelligence tools. The key words that were used were: 'Tableau', 'Power Bi" and 'Qlik'. The data collection period was January - April 2019.</p>
+						<p>There are around 1000 pages each month including 50 job offers per page. That is why the webscarping process is time-consuming.</p></h2>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/68e0fd542255e6f71590eba3e4ca585c.js"></script>
 						<br>
-						<div class="macroinner">
-							<h6>for num in range(1, 1054):</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    r = requests.get('https://archiwum.pracuj.pl/archive/offers?Year=2018&Month=1&PageNumber=' + str(num))</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    if 'Brak ofert do wyświetlenia' in r.text:</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        break</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;    else:</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        soup = BeautifulSoup(r.text, 'html.parser')</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        for a in soup.find_all('a', href=re.compile("oferta")):</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            try:</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                r2 = requests.get(a['href'])</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                if 'Tableau' in r2.text:</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                    tableau_list.append(a['href'])</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                elif 'Power BI' in r2.text:</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                    powerbi_list.append(a['href'])</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                elif 'Qlik'in r2.text:</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                    qlik_list.append(a['href'])</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            except:</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                print("Connection refused by the server..")</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                print("Let me sleep for 45 seconds")</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                print("ZZzzzz...")</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                time.sleep(45)</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                print("Was a nice sleep, now let me continue...")</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                continue</h6>
-							<h6>                </h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        print(num)</h6>
-							<h6>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        num += 1</h6>
-						</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/90fca49b74f4147ce719b8d4e434f021.js"></script>
 						<br>
 						<img src="img/python/pracujpl2.png" class="img-responsive" alt="">						
 						<h2>During scraping you shall get multiple timeout errors. The exception in the code aims to omit server rejects. However, in some cases you will have to run the code again. That is why it is advised to use counter in the code to know where to continue and save and load the results ocassionally.<br>
 						Save the results:</h2>
-						<div class="macroinner">
-							<h6>df_tableau = pd.DataFrame(tableau_list, columns = ['Link'])</h6>
-							<h6>df_tableau['BI tool'] = 'Tableau'</h6>
-							<h6>df_tableau['Data'] = '20180101'</h6>
-							<h6>df_tableau['Data'] = pd.to_datetime(df_tableau['Data'])</h6>
-							<h6>df_tableau</h6>
-							<h6>df_tableau.to_excel(r'C:\your_path_here\tableau_201909.xlsx', index=False)</h6>
-						</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/188f9089f21c7e052a27d864942398cd.js"></script>
 						<h2>Load the results:</h2>
-						<div class="macroinner">
-							<h6>df_tableau = pd.read_excel(r'C:\your_path_here\powerbi_201801.xlsx')</h6>
-							<h6>tableau_list = df_tableau['Link'].tolist()</h6>
-						</div>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/02ef1d38fc08371524820b888596cad4.js"></script>
 						<h2>According to the collected data, Tableau was by far more popular than PowerBi and Qlik in the Jan-Apr 2018 period. However, let's bear in mind that the results may be inaccurate, e.g. scraping may not have included such phrases as 'PowerBi' or 'Qlick' (spelling mistakes do occur in some offers). The excercise should also be expanded to wider timespan and include more popular BI tools like MicroStrategy or SAP.</h2>
 						<div class='tableauPlaceholder' id='viz1579473016853' style='position: relative'>
 							<noscript>
@@ -689,6 +408,7 @@
 							scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    
 							vizElement.parentNode.insertBefore(scriptElement, vizElement);                
 						</script>	
+						<br>
 						<br>
 					</div>
 					
