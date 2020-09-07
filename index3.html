@@ -5402,7 +5402,7 @@
 				<div id="VIEW" class="macrooutersql">
 					<h1>VIEW</h1>
 					<h2><p>A view is a virtual table that is based on the result-set of an SQL statement. It is stored in the database catalog that allows you to refer to it later.</p>
-					<p>The example shows top 10 products by quantity ordered.</p></h2>
+					<p>The example shows creation of a view that includes top 10 products by the ordered quantity.</p></h2>
 					<div class="macroinnersql">
 						<h4><b>CREATE VIEW</b> Qty_per_Comp_Prod_vw</h4>
 						<h4><b>AS</b></h4>
@@ -5422,7 +5422,7 @@
 						<h4>&emsp;&emsp;	<b>ORDER BY</b></h4>
 						<h4>&emsp;&emsp;&emsp;&emsp;	TotalQuantity DESC;</h4>
 					</div>				
-					<h2>You can query against a view like against a regular table.</h2>
+					<h2>It is possible to query against a view like against a regular table.</h2>
 					<div class="macroinnersql">
 						<h4><b>SELECT</b></h4>
 						<h4>&emsp;&emsp;	*</h4>
@@ -5467,8 +5467,8 @@
 				<div id="SUBQUERY1" class="macrooutersql">
 					<h1>SUBQUERIES SELECT, FROM, WHERE</h1>
 					<h2><p>Subqueries are nested queries that provide data to the enclosing query. A subquery is often called inner query while the statement containing the subquery - outer query.
-					Let's see a number of examples of subqueries after SELECT, FROM, WHERE statements.</p>
-					<p>Example of a subquery after SELECT that returns average freight values for all orders.</p></h2>
+					Let's go through a number of examples of subqueries after SELECT, FROM, WHERE statements.</p>
+					<p>Example of a subquery after SELECT that returns average freight values for all the orders.</p></h2>
 					<div class="macroinnersql">
 						<h4><b>SELECT</b></h4>
 						<h4>&emsp;&emsp;	*,</h4>
@@ -6757,7 +6757,7 @@
 					<p><i>"The only time the data rows in a table are stored in sorted order is when the table contains a clustered index. When a table has a clustered index, the table is called a clustered table. If a table has no clustered index, its data rows are stored in an unordered structure called a heap."</i></p>
 					<p><i>"Nonclustered indexes have a structure separate from the data rows. A nonclustered index contains the nonclustered index key values and each key value entry has a pointer to the data row that contains the key value."</i></p>
 					<p><i>"The pointer from an index row in a nonclustered index to a data row is called a row locator. The structure of the row locator depends on whether the data pages are stored in a heap or a clustered table. For a heap, a row locator is a pointer to the row. For a clustered table, the row locator is the clustered index key."</i></p>
-					<p>To see the benefits from applying a nonclustered index we need a big dataset. Let's download a movie rating dataset that contains over 20 million rows. <a href="#https://www.kaggle.com/grouplens/movielens-20m-dataset?select=rating.csv">Link</a> to the dataset on Kaggle.</p>
+					<p>To see the benefits from applying a nonclustered index we need a big dataset. Let's download a movie rating dataset that contains over 20 million rows. <a href="#https://www.kaggle.com/grouplens/movielens-20m-dataset?select=rating.csv"><b>Link</b></a> to the dataset on Kaggle.</p>
 					<p>Next, let's create a database and a table, and let's upload the data using BULK INSERT.</p></h2>
 					<div class="macroinnersql">
 						<h4><b>CREATE DATABASE</b> Rating_DB;</h4>
@@ -6992,7 +6992,7 @@
 					<h6><p>SQL Server Execution Times:</p>
 					<p>CPU time = 0 ms,  elapsed time = 0 ms.</p></h6>
 					<img src="img/sql/execplannonclustered.png" class="img-responsive" alt="">	
-					<h2>The differences may not be very significant but imagine the time savings if there are hundreds of millions of rows. Just rememeber that the indexes are memory consuming so use them for queries that occur frequently.</h2>					
+					<h2>The differences may not seem significant but imagine the time savings if there are hundreds of millions of rows. Just rememeber that the indexes are memory consuming so use them for queries that occur frequently.</h2>					
 				</div>
 				<br>
 				
@@ -7285,12 +7285,10 @@
 						<h4>&emsp;&emsp;&emsp;&emsp;	Print 'Target not achieved'</h4>
 						<h4>&emsp;&emsp;	<b>END</b></h4>
 					</div>
-					<div class="tbl">
-						<h6>Target not achieved</h6>
-					</div>
+					<h6>Target not achieved</h6>
 				</div>
-				
 				<br>
+				
 				<div id="CREATETABLE" class="macrooutersql">
 					<h1>CREATE TABLE</h1>
 					<h2><p>For most shipping carriers, payment options include credit cards, debit cards, electronic funds transfer, letters of credit or cash (accepted in limited circumstances).</p>
@@ -7301,7 +7299,7 @@
 						<h4>&emsp;&emsp;	PaymentName nvarchar(30)</h4>
 						<h4>);</h4>
 					</div>
-					<h2>Next, let's insert the values</h2>					
+					<h2>Next, let's insert the values.</h2>					
 					<div class="macroinnersql">
 						<h4><b>INSERT INTO</b> [Payment Method] (PaymentName)</h4>
 						<h4><b>VALUES</b></h4>
@@ -7489,7 +7487,7 @@
 						<h4>&emsp;&emsp;	NULL</h4>
 						<h4>);</h4>
 					</div>
-					<h2>Action of inserting data runs the trigger. The record was automatically added by the trigger to the CustomersAuditLog table. Let's try.</h2>
+					<h2>Action of inserting data runs the trigger. The record was automatically added by the trigger to the CustomersAuditLog table.</h2>
 					<div class="macroinnersql">
 						<h4><b>SELECT</b></h4>
 						<h4>&emsp;&emsp;	*</h4>
@@ -7533,7 +7531,7 @@
 						</table>
 						<h6>1 row in total</h6>
 					</div>
-					<h2>Let's remove the new customer from the Customers table. The change will be recorded in the CustomersAuditLog table. Let's try.</h2>
+					<h2>Let's remove the new customer from the Customers table. The change will be recorded in the CustomersAuditLog table.</h2>
 					<div class="macroinnersql">
 						<h4><b>DELETE FROM</b></h4>
 						<h4>&emsp;&emsp;	Customers</h4>
@@ -7601,10 +7599,10 @@
 						<h6>2 rows in total</h6>
 					</div>
 					<h2><p>The INSTEAD OF trigger fires before SQL Server starts the execution of the action that fired it.</p>
-					<p>Let's create a trigger that will make it unable to delete a client originating from Poland. 
+					<p>Let's create a trigger that will block the possibility to delete a client originating from Poland. 
 					In case of such attempt there should be a message that such action is not allowed and there should be a row added in the CustomersAuditLog table containing Reject message in the ActionTaken column.
-					If client is from other country thatn Poland, it can be deleted, but this should be reflected in the CustomersAuditLog table.</p>
-					<p>Let's create the trigger.</p></h2>
+					If client is from other country than Poland, it can be deleted, but this should be reflected in the CustomersAuditLog table.</p>
+					<p>The trigger creation.</p></h2>
 					<div class="macroinnersql">					
 						<h4><b>CREATE TRIGGER</b> trg_cannot_delete_customer_audit_log</h4>
 						<h4>&emsp;&emsp;	ON Customers</h4>
@@ -7805,7 +7803,7 @@
 					</div>
 					<h2>In the Messages tab the error will be comunicated.</h2>
 					<h6 style="color: #ff0000;"><b>Customers from Poland cannot be deleted</b></h6>
-					<h2>Let's check the CustomersAuditLog table. Instead of delete we received Reject in the ActionTaken column.</h2>					
+					<h2>Let's check the CustomersAuditLog table. Instead of Delete we received Reject in the ActionTaken column.</h2>					
 					<div class="macroinnersql">
 						<h4><b>SELECT</b></h4>
 						<h4>&emsp;&emsp;	*</h4>
