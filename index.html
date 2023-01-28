@@ -58,6 +58,52 @@
 				<br>
 				<div id="top" class="">
 
+					<div id="tableauserver">
+						<h1>Manage Tableau Server</h1>
+						<h3>28.1.2023 | Tableau Server, Tableau Server Client, Tableau Hyper Api</h3>			
+						<h2><p>Tableau Server Client (TSC) library increases your productivity as you interact with the Tableau Server REST API.
+						With the TSC library you can do almost everything that you can do with the REST API, including: publish workbooks and data sources, create users and groups, query projects, sites, and more.</p>
+						<p>The Hyper API contains a set of functions you can use to automate your interactions with Tableau extract (.hyper) files.
+						You can use the API to create new extract files, or to open existing files, and then insert, delete, update, or read data from those files.</p>
+						<p>The purpose of the excercise was to connect to Tableau Server, publish csv file converted to hyper file and dowload a workbook.</p>
+						<p>Project structure:</p>
+						<img src="img/tableau/tableau_server_1.png" class="img-responsive" alt="">
+						<br>
+						<p>In the sub-project My data sources there is one data source: Northwind. I will add one more called cars.</p>
+						<img src="img/tableau/tableau_server_2.png" class="img-responsive" alt="">
+						<br>
+						<p>In the sub-project My workbooks there are three workbooks. I will download gven_names_2000_2018_pl</p></h2>
+						<img src="img/tableau/tableau_server_3.png" class="img-responsive" alt="">
+						<br>
+						<h2>Connection to Tableau Server using a token:</h2>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/fb275025426e21da99e471fa0853e96d.js"></script>
+						<img src="img/tableau/tableau_server_client_1.png" class="img-responsive" alt="">
+						<h2>See projects with their ids:</h2>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/4489ce3d6d7cdbe31c2f790ed274f5fd.js"></script>
+						<img src="img/tableau/tableau_server_client_2.png" class="img-responsive" alt="">
+						<h2>See data sources:</h2>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/3eaf58534476db458c6ec66fee9bb802.js"></script>
+						<img src="img/tableau/tableau_server_client_3.png" class="img-responsive" alt="">
+						<h2>Convert csv to hyper file:</h2>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/d9ade0d88b0773c4dca8b62c6b13c083.js"></script>
+						<img src="img/tableau/tableau_hyper_api_1.png" class="img-responsive" alt="">
+						<h2>Publish hyper file:</h2>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/3e5fd303e8f81c36149d809445556b30.js"></script>
+						<img src="img/tableau/tableau_server_4.png" class="img-responsive" alt="">
+						<h2>See workbooks with their ids:</h2>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/a576132801781f0dba764bd05534a214.js"></script>
+						<img src="img/tableau/tableau_server_client_4.png" class="img-responsive" alt="">
+						<h2>Download workbook:</h2>
+						<script src="https://gist.github.com/NeverTooLateToAutomate/ff175ab3a96cfd76699b0c0410736bd0.js"></script>
+						<img src="img/tableau/tableau_server_client_5.png" class="img-responsive" alt="">
+						<br>						
+						<img src="img/tableau/tableau_server_client_6.png" class="img-responsive" alt="">							
+						<br>
+						<br>
+					</div>
+					
+					
+					
 					<div id="gitversioncontrol">
 						<h1>Updating my website on GitHub using Git</h1>
 						<h3>1.1.2023 | Git, GitHub, Command Prompt</h3>			
@@ -512,8 +558,8 @@
 			<div class="col-md-3 hidden-xs hidden-sm">
 				<br>
 				<div id="" class="list">
-					<h1>Projects</h1>
-						<h4><a href="#gitversioncontrol">Website update by Git</a></h4>
+					<h1>Projects</h1>			
+						<h4><a href="#tableauserver">Manage Tableau Server</a></h4>					
 						<h4><a href="#prepinsas">Superstore flow in SAS</a></h4>
 						<h4><a href="#vbana102">Book: VBA na 102</a></h4>
 						<h4><a href="#dasheconomicfreedom">Index of Economic Freedom</a></h4>
